@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Feed</string>
+    <string name="titleTopics">Topics</string>
+    <string name="titleQuestionsList">Questions</string>
+
+    <!-- Menu -->
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
+    <string name="Settings">Settings</string>
+    <string name="Topics">Topics</string>
+
+    <string name="username">Username</string>
+    <string name="Password">Password</string>
+    <string name="register">Register</string>
+
+    <string-array name="topics_array">
+        <item>General culture</item>
+        <item>Fruits</item>
+        <item>Vegetables</item>
+        <item>Proteins</item>
+        <item>Starchy food</item>
+        <item>Drinks</item>
+        <item>Desserts</item>
+    </string-array>
+
+    <string-array name="questionsList_array">
+        <item>q1</item>
+        <item>q2</item>
+        <item>q3</item>
+        <item>q4</item>
+        <item>q5</item>
+    </string-array>
+
+    <!-- Add Question List-->
+</resources>
