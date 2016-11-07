@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -58,4 +60,40 @@ public class Settings extends AppCompatActivity {
                 .setNegativeButton("No", null)
                 .show();
     }
+
+/*Addid the actionbar*/
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings, menu);
+        return true;
+    }
+
+    /*Actionbar's actions*/
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                Intent goHome = new Intent(this, Home.class);
+                startActivity(goHome);
+                return true;
+
+            case R.id.action_profile:
+                Intent goProfile = new Intent(this, Profile.class);
+                startActivity(goProfile);
+                return true;
+
+            case R.id.action_topics:
+                Intent goTopics = new Intent(this, TopicsList.class);
+                startActivity(goTopics);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 }
+
+
+

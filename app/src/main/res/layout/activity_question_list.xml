@@ -20,13 +20,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:srcCompat="@android:drawable/ic_input_add"
-            android:id="@+id/ibAddQuestion" />
-
         <ListView
             android:id="@+id/listview_questionList"
             android:layout_width="match_parent"

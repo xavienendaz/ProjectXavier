@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_home"
@@ -11,6 +11,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.xavier.projectxavier.Home">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"
+        android:id="@+id/tvQuestionCount"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tvQuestionCountInfo"
+        android:layout_toEndOf="@+id/tvQuestionCountInfo" />
 
     <TextView
         android:text="Questions"
@@ -21,68 +30,67 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <ImageButton
-        android:id="@+id/imbAddquestion"
+    <TableLayout
+        android:id="@+id/my_table_layout"
+        android:layout_marginLeft="35px"
+        android:layout_marginRight="35px"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/homenewquestion"
-        android:onClick="goAddquestion"
-        android:layout_above="@+id/imbSettings"
-        android:layout_toRightOf="@+id/imbProfile"
-        android:layout_toEndOf="@+id/imbProfile" />
+        android:layout_height="wrap_content">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/hometopics"
-        android:id="@+id/imbTopics"
-        android:onClick="goTopics"
-        android:layout_alignTop="@+id/imbAddquestion"
-        style="@android:style/Widget.ImageButton" />
+        <TableRow
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="15px"
+            android:layout_marginTop="15px"
+            android:layout_marginBottom="15px">
 
-    <ImageButton
-        android:id="@+id/imageButton5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/homenewquestion"
-        android:onClick="goAddquestion"
-        android:layout_above="@+id/imbSettings"
-        android:layout_toRightOf="@+id/imbProfile"
-        android:layout_toEndOf="@+id/imbProfile" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/home_topics"
+                android:layout_centerVertical="true"
+                android:id="@+id/imbTopics"
+                android:onClick="goTopics"/>
 
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/homenewquestion"
-        android:onClick="goAddquestion"
-        android:layout_above="@+id/imbSettings"
-        android:layout_toEndOf="@+id/imbProfile" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/home_add"
+                android:layout_centerVertical="true"
+                android:id="@+id/imbAddQuestion"
+                android:onClick="goAddquestion"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/homeprofile"
-        android:id="@+id/imbProfile"
-        android:onClick="goProfile"
-        android:layout_alignParentBottom="true" />
+        </TableRow>
 
-    <ImageButton
-        android:id="@+id/imbSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/homesettings"
-        android:onClick="goSettings"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/imbProfile" />
+        <TableRow
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="15px"
+            android:layout_marginTop="15px"
+            android:layout_marginBottom="15px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp"
-        android:id="@+id/tvQuestionCount"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/tvQuestionCountInfo"
-        android:layout_toEndOf="@+id/tvQuestionCountInfo" />
-</RelativeLayout>
+
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/home_profile"
+                android:layout_centerVertical="true"
+                android:id="@+id/imbProfile"
+                android:onClick="goProfile"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/home_settings"
+                android:layout_centerVertical="true"
+                android:id="@+id/imbSettings"
+                android:onClick="goSettings"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</TableLayout>

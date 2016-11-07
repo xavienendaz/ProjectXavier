@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -17,26 +19,31 @@ public class QuestionList extends AppCompatActivity {
     DbHelper dbHelper;
     Cursor cursor;
     ListDataAdapterQuestion listDataAdapterQuestion;
+    String myValueTopicSelected;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_list);
-        setTitle("Questions list");
+
+      /* Recover Object Question from activity_question_list */
+        myValueTopicSelected = getIntent().getExtras().getString("topicSelected");
 
 
-        listView = (ListView)findViewById(R.id.listview_questionList);
-        listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(),R.id.question_list_layout);
+        setTitle(myValueTopicSelected);
+
+
+        listView = (ListView) findViewById(R.id.listview_questionList);
+        listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.question_list_layout);
         listView.setAdapter(listDataAdapterQuestion);
-        dbHelper =  new DbHelper(getApplicationContext());
+        dbHelper = new DbHelper(getApplicationContext());
         sqLiteDatabase = dbHelper.getReadableDatabase();
 
         /* get info from databse */
-        cursor =  dbHelper.getQuestionInfo(sqLiteDatabase);
-        if(cursor.moveToFirst())
-        {
-            do{
+        cursor = dbHelper.getQuestionInfo(sqLiteDatabase);
+        if (cursor.moveToFirst()) {
+            do {
                 String topic, title, content, username;
                 topic = cursor.getString(0);
                 title = cursor.getString(1);
@@ -45,7 +52,7 @@ public class QuestionList extends AppCompatActivity {
                 Question c = new Question(topic, title, content, username);
                 listDataAdapterQuestion.add(c);
 
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         /* ListeView handler */
@@ -61,31 +68,65 @@ public class QuestionList extends AppCompatActivity {
                 /* put an Extra in the intent to use Title on the question activity */
                 i.putExtra("myValueKeyTitle", item.getTitle());
                 i.putExtra("myValueKeyContent", item.getContent());
+                i.putExtra("topicSelected", myValueTopicSelected);
                 QuestionList.this.startActivity(i);
-
-
 
 
             }
         });
+    }
 
 
 
 
-        /* button adding question */
-        final ImageButton ib = (ImageButton) findViewById(R.id.ibAddQuestion);
-        ib.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+  /*Addid the actionbar*/
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.question_list, menu);
+        return true;
+    }
+
+    /*Actionbar's actions*/
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                Intent goHome = new Intent(this, Home.class);
+                startActivity(goHome);
+                return true;
+
+            case R.id.action_settings:
+                Intent goSettings = new Intent(this, Settings.class);
+                startActivity(goSettings);
+                return true;
+
+            case R.id.action_profile:
+                Intent goProfile = new Intent(this, Profile.class);
+                startActivity(goProfile);
+                return true;
+
+            case R.id.action_topics:
+                Intent goTopics = new Intent(this, TopicsList.class);
+                startActivity(goTopics);
+                return true;
+
+            case R.id.action_add:
 
                 Intent i = new Intent(QuestionList.this, AddingQuestion.class);
                 QuestionList.this.startActivity(i);
+                return true;
 
 
+            default:
+                return super.onOptionsItemSelected(item);
 
-
-
-            }
-        });
-
+        }
     }
+
+
+
+
+
+
+
 }

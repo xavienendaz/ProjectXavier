@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -111,9 +113,49 @@ public class AddingQuestion extends AppCompatActivity {
 
             //redirect to questionList
             Intent i = new Intent(AddingQuestion.this, QuestionList.class);
+            i.putExtra("topicSelected", topic);
             AddingQuestion.this.startActivity(i);
+
+        }
+    }
+/*Addid the actionbar*/
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_question, menu);
+        return true;
+    }
+
+    /*Actionbar's actions*/
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                Intent goHome = new Intent(this, Home.class);
+                startActivity(goHome);
+                return true;
+
+            case R.id.action_settings:
+                Intent goSettings = new Intent(this, Settings.class);
+                startActivity(goSettings);
+                return true;
+
+            case R.id.action_profile:
+                Intent goProfile = new Intent(this, Profile.class);
+                startActivity(goProfile);
+                return true;
+
+            case R.id.action_topics:
+                Intent goTopics = new Intent(this, TopicsList.class);
+                startActivity(goTopics);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
 
         }
     }
 
 }
+
+
+

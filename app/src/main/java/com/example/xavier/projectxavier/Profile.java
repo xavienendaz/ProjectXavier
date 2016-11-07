@@ -12,7 +12,7 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        setTitle("Profile");
+        setTitle("profile");
     }
 
 
@@ -24,7 +24,7 @@ public class Profile extends AppCompatActivity {
     /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.profile, menu);
         return true;
     }
 
