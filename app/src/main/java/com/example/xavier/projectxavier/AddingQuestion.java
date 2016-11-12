@@ -2,9 +2,15 @@ package com.example.xavier.projectxavier;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +18,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddingQuestion extends AppCompatActivity {
@@ -22,7 +30,8 @@ public class AddingQuestion extends AppCompatActivity {
     SQLiteDatabase sqLiteDatabase;
     EditText etTitle, etContent;
     Spinner spinner;
-
+    int SELECTED_IMAGE;
+    ImageView chooseImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +42,26 @@ public class AddingQuestion extends AppCompatActivity {
 
         etTitle = (EditText) findViewById(R.id.etTitle);
         etContent = (EditText) findViewById(R.id.etContent);
+        chooseImage = (ImageView) findViewById(R.id.imChoose);
+
+
+
+        //gimage gallery
+        final ImageView im = (ImageView) findViewById(R.id.imChoose);
+        im.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galleryIntent, SELECTED_IMAGE);
+
+
+            }
+        });
+
+
+
+
 
 
 
@@ -67,6 +96,39 @@ public class AddingQuestion extends AppCompatActivity {
     }
 
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECTED_IMAGE) {
+                // Get the url from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // Get the path from the Uri
+                    String path = getPathFromURI(selectedImageUri);
+                    //Log.i(TAG, "Image Path : " + path);
+                    // Set the image in ImageView
+                    chooseImage.setImageURI(selectedImageUri);
+                }
+            }
+        }
+    }
+
+    /* Get the real path from the URI */
+    public String getPathFromURI(Uri contentUri) {
+        String res = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        if (cursor.moveToFirst()) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res = cursor.getString(column_index);
+        }
+        cursor.close();
+        return res;
+    }
+
+
+
     //redirect on questionlist and saving data
     public void saveQuestion(View view) {
         String verifyTitle = etTitle.getText().toString();
@@ -92,7 +154,7 @@ public class AddingQuestion extends AppCompatActivity {
             }
         } else {
 
-            //il y a encore des erreurs pour ajouter une question
+
 
             //insert question into database
             String topic = spinner.getSelectedItem().toString();
@@ -111,7 +173,7 @@ public class AddingQuestion extends AppCompatActivity {
 
 
 
-            //redirect to questionList
+            /* redirect to questionlist with selected topic */
             Intent i = new Intent(AddingQuestion.this, QuestionList.class);
             i.putExtra("topicSelected", topic);
             AddingQuestion.this.startActivity(i);

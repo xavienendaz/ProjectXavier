@@ -5,7 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
+
+import java.io.ByteArrayOutputStream;
+
+import static android.provider.MediaStore.Images.Thumbnails.IMAGE_ID;
 
 /**
  * Created by Xavier on 05.11.2016.
@@ -25,7 +32,8 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
             + DB_Contract.NewQuestion.TABLE_NAME + "(" + DB_Contract.NewQuestion.TOPIC + " TEXT,"
             + DB_Contract.NewQuestion.TITLE + " TEXT," + DB_Contract.NewQuestion.CONTENT + " TEXT,"
-            + DB_Contract.NewQuestion.USERNAME + " TEXT" + ")";
+            + DB_Contract.NewQuestion.USERNAME + " TEXT," + DB_Contract.NewQuestion.IMAGE+ " TEXT" + ")";
+
 
 
     public DbHelper(Context context){
@@ -200,6 +208,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
+    /* For desplaying all questions */
     public Cursor getQuestionInfo(SQLiteDatabase db) {
         Cursor  cursor;
         String[] projectionsQuestion = {DB_Contract.NewQuestion.TOPIC, DB_Contract.NewQuestion.TITLE,
@@ -207,5 +216,46 @@ public class DbHelper extends SQLiteOpenHelper {
         cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,null,null,null,null,null);
         return cursor;
     }
+
+
+    public Cursor getQuestionInfoFromTopic(String topicSelected, SQLiteDatabase db) {
+        Cursor  cursor;
+        String[] projectionsQuestion = {DB_Contract.NewQuestion.TOPIC, DB_Contract.NewQuestion.TITLE,
+                DB_Contract.NewQuestion.CONTENT, DB_Contract.NewQuestion.USERNAME};
+        String selection =  DB_Contract.NewQuestion.TOPIC+" LIKE ? ";
+        String [] topics = {topicSelected};
+        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,null,null,null,null,null);
+        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null);
+        return cursor;
+
+    }
+
+    /*
+     String[] projections = {DB_Contract.NewUserInfo.USER_NAME, DB_Contract.NewUserInfo.USER_PASSWORD};
+        String selection =  DB_Contract.NewUserInfo.USER_NAME+" LIKE ? ";
+        String [] selectionArg = {username};
+        Cursor cursor = sqLiteDatabase.query(DB_Contract.NewUserInfo.TABLE_NAME,projections,selection,selectionArg,null,null,null);
+        return cursor;
+
+
+    */
+
+
+    /**************** IMAGE PART ****************/
+
+    public void insetImage(Drawable dbDrawable, String imageId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(IMAGE_ID, imageId);
+        Bitmap bitmap = ((BitmapDrawable)dbDrawable).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        values.put(DB_Contract.NewQuestion.IMAGE, stream.toByteArray());
+        db.insert(DB_Contract.NewQuestion.TITLE, null, values);
+        db.close();
+    }
+
+
+
 
 }

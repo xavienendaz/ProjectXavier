@@ -15,11 +15,13 @@
 
     <string-array name="topics_array">
         <item>General culture</item>
-        <item>Fruits &amp; Vegetables</item>
+        <item>Fruits</item>
         <item>Proteins</item>
         <item>Starchy food</item>
         <item>Drinks</item>
         <item>Desserts</item>
+        <item>Vegetables</item>
+        <item>Vegan</item>
     </string-array>
 
     <string-array name="questionsList_array">

@@ -1,6 +1,7 @@
 package com.example.xavier.projectxavier;
 
 import android.provider.BaseColumns;
+import android.widget.ImageView;
 
 /**
  * Created by Xavier on 05.11.2016.
@@ -23,5 +24,6 @@ public class DB_Contract {
         public static final String TITLE = "title";
         public static final String CONTENT = "content";
         public static final String USERNAME = "username";
+        public static final String IMAGE = "image";
     }
 }

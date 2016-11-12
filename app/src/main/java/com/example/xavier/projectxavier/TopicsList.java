@@ -21,6 +21,8 @@ public class TopicsList extends AppCompatActivity {
             R.drawable.topic_protein,
             R.drawable.topic_bred,
             R.drawable.topic_drink,
+            R.drawable.topic_bred,
+            R.drawable.topic_drink,
             R.drawable.topic_dessert
 
     };

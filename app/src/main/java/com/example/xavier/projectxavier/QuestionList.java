@@ -41,7 +41,7 @@ public class QuestionList extends AppCompatActivity {
         sqLiteDatabase = dbHelper.getReadableDatabase();
 
         /* get info from databse */
-        cursor = dbHelper.getQuestionInfo(sqLiteDatabase);
+        cursor = dbHelper.getQuestionInfoFromTopic(myValueTopicSelected, sqLiteDatabase);
         if (cursor.moveToFirst()) {
             do {
                 String topic, title, content, username;
