@@ -14,17 +14,17 @@ public class TopicsList extends AppCompatActivity {
     ListView list;
     String [] topics;
     TopicsCustomList adapter;
+    String myValueKeyUsername;
 
     Integer[] imgTopicsId = {
             R.drawable.topic_general,
             R.drawable.topic_fruit,
+            R.drawable.topic_vegetable,
             R.drawable.topic_protein,
             R.drawable.topic_bred,
-            R.drawable.topic_drink,
-            R.drawable.topic_bred,
+            R.drawable.topic_vegan,
             R.drawable.topic_drink,
             R.drawable.topic_dessert
-
     };
 
     @Override
@@ -32,6 +32,9 @@ public class TopicsList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topic_layout);
         setTitle("Topics");
+
+        //myValueKeyUsername = getIntent().getExtras().getString("myValueKeyUsername");
+
         topics = getResources().getStringArray(R.array.topics_array);
        adapter = new TopicsCustomList(TopicsList.this, topics, imgTopicsId);
                 list=(ListView)findViewById(R.id.listviewTopics);
@@ -66,12 +69,14 @@ public class TopicsList extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_topics:
-                Intent goHome = new Intent(this, TopicsList.class);
-                startActivity(goHome);
+                Intent goTopics = new Intent(this, TopicsList.class);
+                goTopics.putExtra("myValueKeyUsername", myValueKeyUsername);
+                startActivity(goTopics);
                 return true;
 
             case R.id.action_favorite:
                 Intent goFavorite = new Intent(this, Favorite.class);
+               // goFavorite.putExtra("myValueKeyUsername", myValueKeyUsername);
                 startActivity(goFavorite);
                 return true;
 

@@ -30,7 +30,6 @@
         </activity>
         <activity android:name=".Registration" />
         <activity android:name=".AddingQuestion" />
-        <activity android:name=".Home" />
         <activity android:name=".QuestionDisplay" />
         <activity android:name=".QuestionList" />
         <activity android:name=".Settings" />

@@ -21,13 +21,17 @@ public class Favorite extends AppCompatActivity {
     Cursor cursor;
     ListDataAdapterQuestion listDataAdapterQuestion;
     String myValueTopicSelected;
+    String myValueKeyUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+        setTitle("Favorite");
      /* Recover Object Question from activity_question_list */
-       // myValueTopicSelected = getIntent().getExtras().getString("topicSelected");
+
+     //   myValueKeyUsername = getIntent().getExtras().getString("username");
+
         setTitle(myValueTopicSelected);
 
 
@@ -38,7 +42,7 @@ public class Favorite extends AppCompatActivity {
         sqLiteDatabase = dbHelper.getReadableDatabase();
 
         /* get info from databse */
-        cursor = dbHelper.getFavoriteQuestions("xavier", 1, sqLiteDatabase);
+        cursor = dbHelper.getQuestionInfo(sqLiteDatabase);
         if (cursor.moveToFirst()) {
             do {
                 String topic, title, content, username;
@@ -65,6 +69,7 @@ public class Favorite extends AppCompatActivity {
                 /* put an Extra in the intent to use Title on the question activity */
                 i.putExtra("myValueKeyTitle", item.getTitle());
                 i.putExtra("myValueKeyContent", item.getContent());
+                i.putExtra("myValueKeyIdQuestion", item.getId());
                 i.putExtra("topicSelected", myValueTopicSelected);
                 Favorite.this.startActivity(i);
 
@@ -72,7 +77,6 @@ public class Favorite extends AppCompatActivity {
             }
         });
     }
-
 
 
  /*Addid the actionbar*/

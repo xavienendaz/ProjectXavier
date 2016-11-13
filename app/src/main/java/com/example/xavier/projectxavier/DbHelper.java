@@ -247,7 +247,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
-    /* For desplaying all questions */
+    /* Displaying all questions */
     public Cursor getQuestionInfo(SQLiteDatabase db) {
         Cursor  cursor;
         String[] projectionsQuestion = {DB_Contract.NewQuestion.TOPIC, DB_Contract.NewQuestion.TITLE,
@@ -256,7 +256,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-
+    /* Return all questions from selected topic */
     public Cursor getQuestionInfoFromTopic(String topicSelected, SQLiteDatabase db) {
         Cursor  cursor;
         String[] projectionsQuestion = {DB_Contract.NewQuestion.TOPIC, DB_Contract.NewQuestion.TITLE,
@@ -265,7 +265,6 @@ public class DbHelper extends SQLiteOpenHelper {
         String [] topics = {topicSelected};
         cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null);
         return cursor;
-
     }
 
 
