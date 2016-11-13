@@ -1,18 +1,26 @@
 package com.example.xavier.projectxavier;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QuestionDisplay extends AppCompatActivity {
 
     TextView textViewQuestionTitle, textViewQuestionContent;
     String myValueTopicSelected;
+
+    Context context = this;
+    DbHelper dbHelper;
+    SQLiteDatabase sqLiteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +45,23 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
 
+
+    }
+
+
+    public void addToFavorite(View view){
+        dbHelper = new DbHelper(context);
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        int myValueKeyIdQuestion = getIntent().getExtras().getInt("myValueKeyIdQuestion");
+        dbHelper.addFavorite("xavier", 1, sqLiteDatabase);
+        Toast.makeText(getBaseContext(), "Favorite created", Toast.LENGTH_SHORT).show();
+        dbHelper.close();
     }
 
 
 
 
-
-    /*Addid the actionbar*/
+  /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.question_display, menu);
@@ -54,14 +72,19 @@ public class QuestionDisplay extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_home:
-                Intent goHome = new Intent(this, Home.class);
+            case R.id.action_topics:
+                Intent goHome = new Intent(this, TopicsList.class);
                 startActivity(goHome);
                 return true;
 
-            case R.id.action_settings:
-                Intent goSettings = new Intent(this, Settings.class);
-                startActivity(goSettings);
+            case R.id.action_favorite:
+                Intent goFavorite = new Intent(this, Favorite.class);
+                startActivity(goFavorite);
+                return true;
+
+            case R.id.action_add_question:
+                Intent goAdd = new Intent(this, AddingQuestion.class);
+                startActivity(goAdd);
                 return true;
 
             case R.id.action_profile:
@@ -69,9 +92,9 @@ public class QuestionDisplay extends AppCompatActivity {
                 startActivity(goProfile);
                 return true;
 
-            case R.id.action_topics:
-                Intent goTopics = new Intent(this, TopicsList.class);
-                startActivity(goTopics);
+            case R.id.action_settings:
+                Intent goSettings = new Intent(this, Settings.class);
+                startActivity(goSettings);
                 return true;
 
             case R.id.action_share:
@@ -85,17 +108,11 @@ public class QuestionDisplay extends AppCompatActivity {
                 startActivity(sendIntent);
                 return true;
 
-
             default:
                 return super.onOptionsItemSelected(item);
 
         }
     }
 
-
-
-
-
-
-
 }
+

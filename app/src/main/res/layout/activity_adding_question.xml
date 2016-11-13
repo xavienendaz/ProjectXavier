@@ -125,7 +125,4 @@
         android:onClick="saveQuestion"/>
 
 
-
-
-
 </LinearLayout>

@@ -55,6 +55,7 @@ public class login extends AppCompatActivity {
             public void onClick(View v){
                 //open the registerActivity when user click on registerLink
                 Intent i = new Intent(login.this, Home.class);
+                i.putExtra("myValueKeyUsername", etUsername.getText().toString());
                 login.this.startActivity(i);
             }
         });
@@ -76,6 +77,7 @@ public class login extends AppCompatActivity {
         if(dbHelper.verifyUserLogin(verifyUsername, verifyPassword) == true){
             Intent i = new Intent(login.this, Home.class);
             login.this.startActivity(i);
+            i.putExtra("myValueKeyUsername", etUsername.getText().toString());
             Toast.makeText(login.this, "Login Successfull", Toast.LENGTH_SHORT).show();
         }
         else{

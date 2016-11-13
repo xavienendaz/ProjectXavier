@@ -3,32 +3,52 @@
     xmlns:ProjectXavier="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_profile"
-        android:orderInCategory="100"
-        android:title="@string/profile"
-        ProjectXavier:showAsAction="never"/>
-    <item
-        android:id="@+id/action_home"
-        android:orderInCategory="100"
-        android:title="@string/home"
-        ProjectXavier:showAsAction="never"/>
+        android:id="@+id/mainMenu"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_dehaze"
+        ProjectXavier:showAsAction="always"
+        android:title="menu">
+        <menu>
+
+            <item
+                android:id="@+id/action_topics"
+                android:title="@string/Topics"
+                android:icon="@drawable/ic_action_home"/>
+
+            <item
+                android:id="@+id/action_favorite"
+                android:title="@string/favorite"
+                android:icon="@drawable/ic_action_heart"/>
+
+            <item
+                android:id="@+id/action_add_question"
+                android:icon="@drawable/ic_action_add"
+                android:title="@string/addQuestion"/>
+
+            <item
+                android:id="@+id/action_profile"
+                android:icon="@drawable/ic_action_user"
+                android:title="@string/profile"/>
+
+            <item
+                android:id="@+id/action_settings"
+                android:icon="@drawable/ic_action_gear"
+                android:title="@string/Settings"/>
+
+        </menu>
+    </item>
+
+
 
     <item
         android:id="@+id/action_add"
         android:icon="@android:drawable/ic_input_add"
-        android:orderInCategory="100"
-        android:title="@string/home"
-        ProjectXavier:showAsAction="always"/>
+        android:title=""
+        ProjectXavier:showAsAction="always"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="12dp"/>
 
-    <item
-        android:id="@+id/action_topics"
-        android:orderInCategory="100"
-        android:title="@string/Topics"
-        ProjectXavier:showAsAction="never"/>
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/Settings"
-        ProjectXavier:showAsAction="never"/>
+
+
 </menu>

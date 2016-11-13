@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.provider.MediaStore.Images.Thumbnails.IMAGE_ID;
 
 public class AddingQuestion extends AppCompatActivity {
 
@@ -167,7 +170,10 @@ public class AddingQuestion extends AppCompatActivity {
 
             dbHelper = new DbHelper(context);
             sqLiteDatabase = dbHelper.getWritableDatabase();
-            dbHelper.addQuestion(topic, title, content, username, sqLiteDatabase);
+
+
+
+           dbHelper.addQuestion(topic, title, content, username, sqLiteDatabase);
             Toast.makeText(getBaseContext(), "Question created", Toast.LENGTH_LONG).show();
             dbHelper.close();
 
@@ -183,7 +189,7 @@ public class AddingQuestion extends AppCompatActivity {
 /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_question, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -191,14 +197,20 @@ public class AddingQuestion extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_home:
-                Intent goHome = new Intent(this, Home.class);
+            case R.id.action_topics:
+                Intent goHome = new Intent(this, TopicsList.class);
                 startActivity(goHome);
                 return true;
 
-            case R.id.action_settings:
-                Intent goSettings = new Intent(this, Settings.class);
-                startActivity(goSettings);
+
+            case R.id.action_favorite:
+                Intent goFavorite = new Intent(this, Favorite.class);
+                startActivity(goFavorite);
+                return true;
+
+            case R.id.action_add_question:
+                Intent goAdd = new Intent(this, AddingQuestion.class);
+                startActivity(goAdd);
                 return true;
 
             case R.id.action_profile:
@@ -206,9 +218,9 @@ public class AddingQuestion extends AppCompatActivity {
                 startActivity(goProfile);
                 return true;
 
-            case R.id.action_topics:
-                Intent goTopics = new Intent(this, TopicsList.class);
-                startActivity(goTopics);
+            case R.id.action_settings:
+                Intent goSettings = new Intent(this, Settings.class);
+                startActivity(goSettings);
                 return true;
 
             default:
@@ -218,6 +230,8 @@ public class AddingQuestion extends AppCompatActivity {
     }
 
 }
+
+
 
 
 

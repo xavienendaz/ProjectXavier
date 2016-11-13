@@ -9,7 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.xavier.projectxavier.QuestionDisplay"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:ProjectXavier="http://schemas.android.com/apk/res-auto">
 
 
     <TextView
@@ -36,6 +37,12 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"/>
 
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButtonFavorite"
+        android:onClick="addToFavorite"/>
 
     <LinearLayout
         android:id="@+id/layoutComment"
@@ -67,19 +74,6 @@
 
 
     </LinearLayout>
-
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
-        style="@style/Widget.AppCompat.RatingBar.Indicator"
-        android:layout_above="@+id/layoutComment"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="17dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="15dp" />
-
 
 
 </LinearLayout>

@@ -1,5 +1,7 @@
 package com.example.xavier.projectxavier;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Xavier on 05.11.2016.
  */
@@ -21,7 +23,16 @@ public class Question {
         this.title=title;
         this.content=content;
         this.username=username;
+     }
+
+    public Question(int id, String topic, String title, String content, String username){
+       this.id=id;
+        this.topic=topic;
+        this.title=title;
+        this.content=content;
+        this.username=username;
     }
+
 
     public Question(String title){
         this.title=title;

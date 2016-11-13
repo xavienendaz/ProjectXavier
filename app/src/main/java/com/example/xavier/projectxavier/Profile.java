@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,12 +19,10 @@ public class Profile extends AppCompatActivity {
 
 
 
-
-
-    /*Addid the actionbar*/
+  /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.profile, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -32,14 +30,19 @@ public class Profile extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_home:
-                Intent goHome = new Intent(this, Home.class);
+            case R.id.action_topics:
+                Intent goHome = new Intent(this, TopicsList.class);
                 startActivity(goHome);
                 return true;
 
-            case R.id.action_settings:
-                Intent goSettings = new Intent(this, Settings.class);
-                startActivity(goSettings);
+            case R.id.action_favorite:
+                Intent goFavorite = new Intent(this, Favorite.class);
+                startActivity(goFavorite);
+                return true;
+
+            case R.id.action_add_question:
+                Intent goAdd = new Intent(this, AddingQuestion.class);
+                startActivity(goAdd);
                 return true;
 
             case R.id.action_profile:
@@ -47,9 +50,9 @@ public class Profile extends AppCompatActivity {
                 startActivity(goProfile);
                 return true;
 
-            case R.id.action_topics:
-                Intent goTopics = new Intent(this, TopicsList.class);
-                startActivity(goTopics);
+            case R.id.action_settings:
+                Intent goSettings = new Intent(this, Settings.class);
+                startActivity(goSettings);
                 return true;
 
             default:
@@ -59,14 +62,6 @@ public class Profile extends AppCompatActivity {
     }
 
 }
-
-
-
-
-
-
-
-
 
 
 

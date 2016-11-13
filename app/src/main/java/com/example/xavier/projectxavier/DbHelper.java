@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 import static android.provider.MediaStore.Images.Thumbnails.IMAGE_ID;
 
@@ -22,18 +23,38 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "PROJECT.DB";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
 
     private static final String CREATE_QUERY_TBL_USER =
             "CREATE TABLE "+ DB_Contract.NewUserInfo.TABLE_NAME+"("+ DB_Contract.NewUserInfo.USER_NAME+" TEXT,"
                     + DB_Contract.NewUserInfo.USER_PASSWORD+" TEXT);";
 
+/* private static final String CREATE_TABLE_TODO = "CREATE TABLE "
+            + TABLE_TODO + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_TODO
+            + " TEXT," + KEY_STATUS + " INTEGER," + KEY_CREATED_AT
+            + " DATETIME" + ")";
+*/
 
     private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
+            + DB_Contract.NewQuestion.TABLE_NAME + "("
+            + DB_Contract.NewQuestion.KEY_ID + " INTEGER PRIMARY KEY,"
+            + DB_Contract.NewQuestion.TOPIC + " TEXT,"
+            + DB_Contract.NewQuestion.TITLE + " TEXT,"
+            + DB_Contract.NewQuestion.CONTENT + " TEXT,"
+            + DB_Contract.NewQuestion.USERNAME + " TEXT" + ")";
+
+    private static final String CREATE_QUERY_TBL_FAVORITE = "CREATE TABLE "
+            + DB_Contract.NewFavorite.TABLE_NAME + "("
+            + DB_Contract.NewFavorite.KEY_ID + " INTEGER PRIMARY KEY,"
+            + DB_Contract.NewFavorite.USER_NAME + " TEXT,"
+            + DB_Contract.NewFavorite.KEY_QUESTION_ID+ " INTEGER" + ")";
+
+   /* private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
             + DB_Contract.NewQuestion.TABLE_NAME + "(" + DB_Contract.NewQuestion.TOPIC + " TEXT,"
             + DB_Contract.NewQuestion.TITLE + " TEXT," + DB_Contract.NewQuestion.CONTENT + " TEXT,"
-            + DB_Contract.NewQuestion.USERNAME + " TEXT," + DB_Contract.NewQuestion.IMAGE+ " TEXT" + ")";
-
+            + DB_Contract.NewQuestion.USERNAME + " TEXT" + ")";
+*/
 
 
     public DbHelper(Context context){
@@ -45,6 +66,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_QUERY_TBL_USER);
         db.execSQL(CREATE_QUERY_TBL_QUESTIONS);
+        db.execSQL(CREATE_QUERY_TBL_FAVORITE);
         Log.e("DATABASE OPERATIONS","Tables created.");
     }
 
@@ -53,6 +75,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.NewUserInfo.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.NewQuestion.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.NewFavorite.TABLE_NAME);
         // Create tables again
         onCreate(db);
 
@@ -186,6 +209,21 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     //add question
+   /* public void addQuestion(String topic, String title, String content, String username, Byte[]image, SQLiteDatabase db){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DB_Contract.NewQuestion.TOPIC,topic);
+        contentValues.put(DB_Contract.NewQuestion.TITLE,title);
+        contentValues.put(DB_Contract.NewQuestion.CONTENT,content);
+        contentValues.put(DB_Contract.NewQuestion.USERNAME,username);
+        db.insert(DB_Contract.NewQuestion.TABLE_NAME,null,contentValues);
+        Log.e("DATABASE OPERATIONS", "One Question inserted");
+    }
+
+
+*/
+
+
+
     public void addQuestion(String topic, String title, String content, String username, SQLiteDatabase db){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DB_Contract.NewQuestion.TOPIC,topic);
@@ -195,6 +233,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.insert(DB_Contract.NewQuestion.TABLE_NAME,null,contentValues);
         Log.e("DATABASE OPERATIONS", "One Question inserted");
     }
+
 
     // Getting Question Count
     public int getQuestionCount() {
@@ -224,11 +263,13 @@ public class DbHelper extends SQLiteOpenHelper {
                 DB_Contract.NewQuestion.CONTENT, DB_Contract.NewQuestion.USERNAME};
         String selection =  DB_Contract.NewQuestion.TOPIC+" LIKE ? ";
         String [] topics = {topicSelected};
-        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,null,null,null,null,null);
         cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null);
         return cursor;
 
     }
+
+
+
 
     /*
      String[] projections = {DB_Contract.NewUserInfo.USER_NAME, DB_Contract.NewUserInfo.USER_PASSWORD};
@@ -241,21 +282,71 @@ public class DbHelper extends SQLiteOpenHelper {
     */
 
 
-    /**************** IMAGE PART ****************/
+    /**************** Favorite PART ****************/
 
-    public void insetImage(Drawable dbDrawable, String imageId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(IMAGE_ID, imageId);
-        Bitmap bitmap = ((BitmapDrawable)dbDrawable).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        values.put(DB_Contract.NewQuestion.IMAGE, stream.toByteArray());
-        db.insert(DB_Contract.NewQuestion.TITLE, null, values);
-        db.close();
+    //add favorite
+    public void addFavorite(String username, int question_id, SQLiteDatabase db){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DB_Contract.NewFavorite.USER_NAME,username);
+        contentValues.put(DB_Contract.NewFavorite.KEY_QUESTION_ID,question_id);
+        db.insert(DB_Contract.NewFavorite.TABLE_NAME,null,contentValues);
+        Log.e("DATABASE OPERATIONS", "One Favorite inserted");
     }
 
 
+    public Cursor getFavoriteQuestions(String username, int id_question, SQLiteDatabase db) {
+        Cursor  cursor;
+        String[] projectionsQuestion = {DB_Contract.NewQuestion.TOPIC, DB_Contract.NewQuestion.TITLE,
+                DB_Contract.NewQuestion.CONTENT, DB_Contract.NewQuestion.USERNAME};
+        String selection =  DB_Contract.NewFavorite.USER_NAME+" LIKE ? ";
+        String [] topics = {username};
+        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null);
+        return cursor;
+
+    }
+/*
+*    public Cursor getQuestionInfoFromTopic(String topicSelected, SQLiteDatabase db) {
+        Cursor  cursor;
+        String[] projectionsQuestion = {DB_Contract.NewQuestion.TOPIC, DB_Contract.NewQuestion.TITLE,
+                DB_Contract.NewQuestion.CONTENT, DB_Contract.NewQuestion.USERNAME};
+        String selection =  DB_Contract.NewQuestion.TOPIC+" LIKE ? ";
+        String [] topics = {topicSelected};
+        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null);
+        return cursor;
+
+    }*/
+
+
+  /*  public List<Question> getAllToDosByTag(String tag_name) {
+        List<Question> todos = new ArrayList<Question>();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_TODO + " td, "
+                + TABLE_TAG + " tg, " + TABLE_TODO_TAG + " tt WHERE tg."
+                + KEY_TAG_NAME + " = '" + tag_name + "'" + " AND tg." + KEY_ID
+                + " = " + "tt." + KEY_TAG_ID + " AND td." + KEY_ID + " = "
+                + "tt." + KEY_TODO_ID;
+
+        //Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Question q = new Question();
+                q.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+                q.setNote((c.getString(c.getColumnIndex(KEY_TODO))));
+                q.setCreatedAt(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+
+                // adding to todo list
+                todos.add(td);
+            } while (c.moveToNext());
+        }
+
+        return todos;
+    }
+*/
 
 
 }
