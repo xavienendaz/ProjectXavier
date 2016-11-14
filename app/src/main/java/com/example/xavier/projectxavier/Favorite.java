@@ -1,131 +1,49 @@
 package com.example.xavier.projectxavier;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+/**
+ * Created by Xavier on 14.11.2016.
+ */
 
-public class Favorite extends AppCompatActivity {
+public class Favorite {
 
+    int id;
+    String username;
+    String id_question;
 
-
-    ListView listView;
-    SQLiteDatabase sqLiteDatabase;
-    DbHelper dbHelper;
-    Cursor cursor;
-    ListDataAdapterQuestion listDataAdapterQuestion;
-    String myValueTopicSelected;
-    String myValueKeyUsername;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorite);
-        setTitle("Favorite");
-     /* Recover Object Question from activity_question_list */
-
-     //   myValueKeyUsername = getIntent().getExtras().getString("username");
-
-        setTitle(myValueTopicSelected);
-
-
-        listView = (ListView) findViewById(R.id.listview_questionList);
-        listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.question_list_layout);
-        listView.setAdapter(listDataAdapterQuestion);
-        dbHelper = new DbHelper(getApplicationContext());
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-
-        /* get info from databse */
-        cursor = dbHelper.getQuestionInfo(sqLiteDatabase);
-        if (cursor.moveToFirst()) {
-            do {
-                String topic, title, content, username;
-                topic = cursor.getString(0);
-                title = cursor.getString(1);
-                content = cursor.getString(2);
-                username = cursor.getString(3);
-                Question c = new Question(topic, title, content, username);
-                listDataAdapterQuestion.add(c);
-
-            } while (cursor.moveToNext());
-        }
-
-        /* ListeView handler: Display the selected question */
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                Question item = (Question) listDataAdapterQuestion.getItem(position);
-
-                Intent i = new Intent(Favorite.this, QuestionDisplay.class);
-                /* put an Extra in the intent to use Title on the question activity */
-                i.putExtra("myValueKeyTitle", item.getTitle());
-                i.putExtra("myValueKeyContent", item.getContent());
-                i.putExtra("myValueKeyIdQuestion", item.getId());
-                i.putExtra("topicSelected", myValueTopicSelected);
-                Favorite.this.startActivity(i);
-
-
-            }
-        });
+    public Favorite() {
     }
 
-
- /*Addid the actionbar*/
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+    public Favorite(int id, String username, String id_question) {
+        this.id = id;
+        this.username = username;
+        this.id_question = id_question;
     }
 
-    /*Actionbar's actions*/
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.action_topics:
-                Intent goHome = new Intent(this, TopicsList.class);
-                startActivity(goHome);
-                return true;
-
-
-            case R.id.action_favorite:
-                Intent goFavorite = new Intent(this, Favorite.class);
-                startActivity(goFavorite);
-                return true;
-
-            case R.id.action_add_question:
-                Intent goAdd = new Intent(this, AddingQuestion.class);
-                startActivity(goAdd);
-                return true;
-
-            case R.id.action_profile:
-                Intent goProfile = new Intent(this, Profile.class);
-                startActivity(goProfile);
-                return true;
-
-            case R.id.action_settings:
-                Intent goSettings = new Intent(this, Settings.class);
-                startActivity(goSettings);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
+    public int getId() {
+        return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getId_question() {
+        return id_question;
+    }
+
+    public void setId_question(String id_question) {
+        this.id_question = id_question;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String toString() {
+        return "Question [id=" + id + ", username=" + username + ", id_question=" + id_question + "]";
+    }
 }
-
-
-
-
-
-

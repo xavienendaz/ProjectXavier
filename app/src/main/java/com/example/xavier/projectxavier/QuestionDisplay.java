@@ -2,14 +2,16 @@ package com.example.xavier.projectxavier;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,11 @@ public class QuestionDisplay extends AppCompatActivity {
     Context context = this;
     DbHelper dbHelper;
     SQLiteDatabase sqLiteDatabase;
+    FloatingActionButton fab;
+    int myValueKeyIdQuestion;
+
+    String usernameSharedPref;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +49,64 @@ public class QuestionDisplay extends AppCompatActivity {
         textViewQuestionContent.setText(myValueContent);
 
 
+        myValueKeyIdQuestion = getIntent().getExtras().getInt("myValueKeyIdQuestion");
+        fab = (FloatingActionButton) findViewById(R.id.fabFavorite);
+        dbHelper = new DbHelper(context);
+
+
+        setFabImage();
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        usernameSharedPref = sharedPref.getString("username", "");
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+ /* Read username from sharedPreferences */
+
+                //myValueKeyIdQuestion = getIntent().getExtras().getInt("myValueKeyIdQuestion");
+
+                if(dbHelper.verifyFavorite(usernameSharedPref, myValueKeyIdQuestion) == true){
+
+                    /* If the question is in favorites, we delete the row from table */
+                    dbHelper.deleteFavorite(usernameSharedPref, myValueKeyIdQuestion, sqLiteDatabase);
+                    Toast.makeText(getBaseContext(), "Favorite delete", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    /* If the question is not in favorites */
+
+
+                    sqLiteDatabase = dbHelper.getWritableDatabase();
+                    dbHelper.addFavorite(usernameSharedPref, myValueKeyIdQuestion, sqLiteDatabase);
+                    Toast.makeText(getBaseContext(), "Favorite added", Toast.LENGTH_SHORT).show();
+                    dbHelper.close();
+
+
+                }
+                setFabImage();
+
+            }
+        });
 
 
 
 
     }
 
+    public void setFabImage(){
+        dbHelper = new DbHelper(getApplicationContext());
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+              /* verify database if the current has this question on his favorites */
+        if(dbHelper.verifyFavorite(usernameSharedPref, myValueKeyIdQuestion) == true){
 
-    public void addToFavorite(View view){
-        dbHelper = new DbHelper(context);
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        int myValueKeyIdQuestion = getIntent().getExtras().getInt("myValueKeyIdQuestion");
-        dbHelper.addFavorite("xavier", 1, sqLiteDatabase);
-        Toast.makeText(getBaseContext(), "Favorite created", Toast.LENGTH_SHORT).show();
-        dbHelper.close();
+            /* in favorite*/
+            fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite));
+        }
+        else{
+            /* not in favorite*/
+            fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border));
+        }
+
     }
 
 
@@ -78,7 +129,7 @@ public class QuestionDisplay extends AppCompatActivity {
                 return true;
 
             case R.id.action_favorite:
-                Intent goFavorite = new Intent(this, Favorite.class);
+                Intent goFavorite = new Intent(this, ListFavorite.class);
                 startActivity(goFavorite);
                 return true;
 

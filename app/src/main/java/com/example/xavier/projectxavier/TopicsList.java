@@ -14,7 +14,6 @@ public class TopicsList extends AppCompatActivity {
     ListView list;
     String [] topics;
     TopicsCustomList adapter;
-    String myValueKeyUsername;
 
     Integer[] imgTopicsId = {
             R.drawable.topic_general,
@@ -31,7 +30,7 @@ public class TopicsList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topic_layout);
-        setTitle("Topics");
+        setTitle(R.string.titleTopics);
 
         //myValueKeyUsername = getIntent().getExtras().getString("myValueKeyUsername");
 
@@ -70,12 +69,11 @@ public class TopicsList extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_topics:
                 Intent goTopics = new Intent(this, TopicsList.class);
-                goTopics.putExtra("myValueKeyUsername", myValueKeyUsername);
                 startActivity(goTopics);
                 return true;
 
             case R.id.action_favorite:
-                Intent goFavorite = new Intent(this, Favorite.class);
+                Intent goFavorite = new Intent(this, ListFavorite.class);
                // goFavorite.putExtra("myValueKeyUsername", myValueKeyUsername);
                 startActivity(goFavorite);
                 return true;

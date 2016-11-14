@@ -5,15 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
-
-import java.io.ByteArrayOutputStream;
-import java.util.List;
-
-import static android.provider.MediaStore.Images.Thumbnails.IMAGE_ID;
 
 /**
  * Created by Xavier on 05.11.2016.
@@ -26,7 +19,8 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     private static final String CREATE_QUERY_TBL_USER =
-            "CREATE TABLE "+ DB_Contract.NewUserInfo.TABLE_NAME+"("+ DB_Contract.NewUserInfo.USER_NAME+" TEXT,"
+            "CREATE TABLE "+ DB_Contract.NewUserInfo.TABLE_NAME+"("
+                    + DB_Contract.NewUserInfo.USER_NAME+" TEXT,"
                     + DB_Contract.NewUserInfo.USER_PASSWORD+" TEXT);";
 
 /* private static final String CREATE_TABLE_TODO = "CREATE TABLE "
@@ -38,7 +32,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
             + DB_Contract.NewQuestion.TABLE_NAME + "("
-            + DB_Contract.NewQuestion.KEY_ID + " INTEGER PRIMARY KEY,"
+            + DB_Contract.NewQuestion.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + DB_Contract.NewQuestion.TOPIC + " TEXT,"
             + DB_Contract.NewQuestion.TITLE + " TEXT,"
             + DB_Contract.NewQuestion.CONTENT + " TEXT,"
@@ -46,7 +40,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_QUERY_TBL_FAVORITE = "CREATE TABLE "
             + DB_Contract.NewFavorite.TABLE_NAME + "("
-            + DB_Contract.NewFavorite.KEY_ID + " INTEGER PRIMARY KEY,"
+            + DB_Contract.NewFavorite.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + DB_Contract.NewFavorite.USER_NAME + " TEXT,"
             + DB_Contract.NewFavorite.KEY_QUESTION_ID+ " INTEGER" + ")";
 
@@ -110,7 +104,9 @@ public class DbHelper extends SQLiteOpenHelper {
     public Cursor getInfo(SQLiteDatabase db)
     {
         Cursor  cursor;
-        String[] projections = {DB_Contract.NewUserInfo.USER_NAME, DB_Contract.NewUserInfo.USER_PASSWORD};
+        String[] projections = {
+                DB_Contract.NewUserInfo.USER_NAME,
+                DB_Contract.NewUserInfo.USER_PASSWORD};
         cursor = db.query(DB_Contract.NewUserInfo.TABLE_NAME,projections,null,null,null,null,null);
         return cursor;
     }
@@ -120,8 +116,9 @@ public class DbHelper extends SQLiteOpenHelper {
     /* verify if the user write username and password correctly */
     public boolean verifyUserLogin(String username, String password) {
 
-        String query = "Select * FROM " + DB_Contract.NewUserInfo.TABLE_NAME + " WHERE "
-                + DB_Contract.NewUserInfo.USER_NAME + " =  \"" + username + "\""
+        String query = "Select * FROM "
+                + DB_Contract.NewUserInfo.TABLE_NAME
+                + " WHERE " + DB_Contract.NewUserInfo.USER_NAME + " =  \"" + username + "\""
                 + " AND " + DB_Contract.NewUserInfo.USER_PASSWORD + " =  \"" + password + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -146,8 +143,9 @@ public class DbHelper extends SQLiteOpenHelper {
     /* When a user register, verify that the username is not in database */
     public boolean verifyRegisterUsername(String username) {
 
-        String query = "Select * FROM " + DB_Contract.NewUserInfo.TABLE_NAME + " WHERE "
-                + DB_Contract.NewUserInfo.USER_NAME + " =  '" + username + "'";
+        String query = "Select * FROM "
+                + DB_Contract.NewUserInfo.TABLE_NAME
+                + " WHERE " + DB_Contract.NewUserInfo.USER_NAME + " =  '" + username + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -172,7 +170,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //get user from database
     public Cursor getUser(String username, SQLiteDatabase sqLiteDatabase){
-        String[] projections = {DB_Contract.NewUserInfo.USER_NAME, DB_Contract.NewUserInfo.USER_PASSWORD};
+        String[] projections = {
+                DB_Contract.NewUserInfo.USER_NAME,
+                DB_Contract.NewUserInfo.USER_PASSWORD};
         String selection =  DB_Contract.NewUserInfo.USER_NAME+" LIKE ? ";
         String [] selectionArg = {username};
         Cursor cursor = sqLiteDatabase.query(DB_Contract.NewUserInfo.TABLE_NAME,projections,selection,selectionArg,null,null,null);
@@ -182,8 +182,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //find one User
     public User findOneUser(String username) {
-        String query = "Select * FROM " + DB_Contract.NewUserInfo.TABLE_NAME + " WHERE "
-                + DB_Contract.NewUserInfo.USER_NAME + " =  \"" + username + "\"";
+        String query = "Select * FROM "
+                + DB_Contract.NewUserInfo.TABLE_NAME
+                + " WHERE " + DB_Contract.NewUserInfo.USER_NAME + " =  \"" + username + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -250,20 +251,28 @@ public class DbHelper extends SQLiteOpenHelper {
     /* Displaying all questions */
     public Cursor getQuestionInfo(SQLiteDatabase db) {
         Cursor  cursor;
-        String[] projectionsQuestion = {DB_Contract.NewQuestion.TOPIC, DB_Contract.NewQuestion.TITLE,
-                DB_Contract.NewQuestion.CONTENT, DB_Contract.NewQuestion.USERNAME};
-        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,null,null,null,null,null);
+        String[] projectionsQuestion = {
+                DB_Contract.NewQuestion.KEY_ID,
+                DB_Contract.NewQuestion.TOPIC,
+                DB_Contract.NewQuestion.TITLE,
+                DB_Contract.NewQuestion.CONTENT,
+                DB_Contract.NewQuestion.USERNAME};
+        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,null,null,null,null,null,null);
         return cursor;
     }
 
     /* Return all questions from selected topic */
     public Cursor getQuestionInfoFromTopic(String topicSelected, SQLiteDatabase db) {
         Cursor  cursor;
-        String[] projectionsQuestion = {DB_Contract.NewQuestion.TOPIC, DB_Contract.NewQuestion.TITLE,
-                DB_Contract.NewQuestion.CONTENT, DB_Contract.NewQuestion.USERNAME};
+        String[] projectionsQuestion = {
+                DB_Contract.NewQuestion.KEY_ID,
+                DB_Contract.NewQuestion.TOPIC,
+                DB_Contract.NewQuestion.TITLE,
+                DB_Contract.NewQuestion.CONTENT,
+                DB_Contract.NewQuestion.USERNAME};
         String selection =  DB_Contract.NewQuestion.TOPIC+" LIKE ? ";
         String [] topics = {topicSelected};
-        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null);
+        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null,null);
         return cursor;
     }
 
@@ -281,7 +290,7 @@ public class DbHelper extends SQLiteOpenHelper {
     */
 
 
-    /**************** Favorite PART ****************/
+    /**************** ListFavorite PART ****************/
 
     //add favorite
     public void addFavorite(String username, int question_id, SQLiteDatabase db){
@@ -289,20 +298,81 @@ public class DbHelper extends SQLiteOpenHelper {
         contentValues.put(DB_Contract.NewFavorite.USER_NAME,username);
         contentValues.put(DB_Contract.NewFavorite.KEY_QUESTION_ID,question_id);
         db.insert(DB_Contract.NewFavorite.TABLE_NAME,null,contentValues);
-        Log.e("DATABASE OPERATIONS", "One Favorite inserted");
+        Log.e("DATABASE OPERATIONS", "One Favorite created");
     }
 
 
     public Cursor getFavoriteQuestions(String username, int id_question, SQLiteDatabase db) {
         Cursor  cursor;
-        String[] projectionsQuestion = {DB_Contract.NewQuestion.TOPIC, DB_Contract.NewQuestion.TITLE,
-                DB_Contract.NewQuestion.CONTENT, DB_Contract.NewQuestion.USERNAME};
+        String[] projectionsQuestion = {
+                DB_Contract.NewQuestion.TOPIC,
+                DB_Contract.NewQuestion.TITLE,
+                DB_Contract.NewQuestion.CONTENT,
+                DB_Contract.NewQuestion.USERNAME};
         String selection =  DB_Contract.NewFavorite.USER_NAME+" LIKE ? ";
         String [] topics = {username};
         cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null);
         return cursor;
 
     }
+
+    /*  This method verify if the user has one question on the favorite table */
+
+    public boolean verifyFavorite(String username, int id_question) {
+            String query = "Select * FROM "
+                    + DB_Contract.NewFavorite.TABLE_NAME
+                    + " WHERE " + DB_Contract.NewFavorite.USER_NAME + " =  \"" + username + "\""
+                    + " AND " + DB_Contract.NewFavorite.KEY_QUESTION_ID + " =  \"" + id_question + "\"";
+
+            SQLiteDatabase db = this.getWritableDatabase();
+            Cursor cursor = db.rawQuery(query, null);
+            Favorite f = new Favorite();
+            f.toString();
+
+            if (cursor.moveToFirst()) {
+                cursor.moveToFirst();
+                f.setUsername(cursor.getString(0));
+                f.setId_question(cursor.getString(1));
+                cursor.close();
+            } else {
+                return false;
+            }
+            db.close();
+            return true;
+        }
+
+    public void deleteFavorite(String username, int id_question, SQLiteDatabase sqLiteDatabase) {
+        String query = "Delete FROM "
+                + DB_Contract.NewFavorite.TABLE_NAME
+                + " WHERE " + DB_Contract.NewFavorite.USER_NAME + " =  \"" + username + "\""
+                + " AND " + DB_Contract.NewFavorite.KEY_QUESTION_ID + " =  \"" + id_question + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            cursor.close();
+        }
+        db.close();
+
+     /*   String selection =  DB_Contract.NewFavorite.USER_NAME+" LIKE ? ";
+        String [] selectionArg = {username};
+
+
+        sqLiteDatabase.delete(DB_Contract.NewFavorite.TABLE_NAME,selection,selectionArg);
+*/
+
+
+    }
+
+
+
+
+    /*
+    *
+    *
+    * */
 /*
 *    public Cursor getQuestionInfoFromTopic(String topicSelected, SQLiteDatabase db) {
         Cursor  cursor;

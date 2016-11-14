@@ -22,7 +22,7 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        setTitle("Settings");
+        setTitle(R.string.action_settings);
 
 
 
@@ -78,7 +78,7 @@ public class Settings extends AppCompatActivity {
                 return true;
 
             case R.id.action_favorite:
-                Intent goFavorite = new Intent(this, Favorite.class);
+                Intent goFavorite = new Intent(this, ListFavorite.class);
                 startActivity(goFavorite);
                 return true;
 

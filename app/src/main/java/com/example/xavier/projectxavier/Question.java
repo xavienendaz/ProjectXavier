@@ -26,7 +26,7 @@ public class Question {
      }
 
     public Question(int id, String topic, String title, String content, String username){
-       this.id=id;
+        this.id=id;
         this.topic=topic;
         this.title=title;
         this.content=content;
@@ -77,4 +77,11 @@ public class Question {
     public void setUsername(String username) {
         this.username = username;
     }
+
+
+    public String toString() {
+        return "Question [id=" + id + ", topic=" + topic + ", title=" + title + ", content="+content+", uname="+ username
+                + "]";
+    }
+
 }

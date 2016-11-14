@@ -5,14 +5,12 @@
 
 
     <string name="action_settings">Settings</string>
-    <string name="topics">Topics</string>
     <string name="favorite">Favorite</string>
     <string name="addQuestion">Add a question</string>
 
 
     <!-- Menu -->
     <string name="profile">Profile</string>
-    <string name="home">Home</string>
     <string name="Settings">Settings</string>
     <string name="Topics">Topics</string>
 
@@ -38,10 +36,17 @@
         <item>q4</item>
         <item>q5</item>
     </string-array>
+
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="Favorite">Favorites</string>
+    <string name="registration">Registration</string>
+    <string name="newQuestion">New question</string>
+    <string name="saved_high_score_default">1</string>
+    <string name="emptyList">Empty list</string>
 
 
     <!-- Add Question List-->

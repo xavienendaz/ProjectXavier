@@ -2,7 +2,9 @@ package com.example.xavier.projectxavier;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -75,8 +77,32 @@ public class login extends AppCompatActivity {
 
         /* the method verifyUserLogin verify if the user write username and password correctly */
         if(dbHelper.verifyUserLogin(verifyUsername, verifyPassword) == true){
+
+
+
+
+
+
+
+
+            /* Write username in sharedPreferences */
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("username", verifyUsername);
+            editor.commit();
+
+
+
+
+
+
+
+
+
+
+
+
             Intent i = new Intent(login.this, TopicsList.class);
-            i.putExtra("myValueKeyUsername", verifyUsername);
             login.this.startActivity(i);
             Toast.makeText(login.this, "Login Successfull", Toast.LENGTH_SHORT).show();
         }

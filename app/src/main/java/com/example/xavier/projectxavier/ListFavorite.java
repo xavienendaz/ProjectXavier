@@ -1,8 +1,10 @@
 package com.example.xavier.projectxavier;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,25 +12,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-public class QuestionList extends AppCompatActivity {
+public class ListFavorite extends AppCompatActivity {
 
+
+
+
+    TextView textView;
     ListView listView;
     SQLiteDatabase sqLiteDatabase;
     DbHelper dbHelper;
     Cursor cursor;
     ListDataAdapterQuestion listDataAdapterQuestion;
     String myValueTopicSelected;
-
+    int cpt=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question_list);
+        setContentView(R.layout.activity_favorite_list);
+        setTitle(R.string.Favorite);
+     /* Recover Object Question from activity_question_list */
 
-      /* Recover Object Question from activity_question_list */
-        myValueTopicSelected = getIntent().getExtras().getString("topicSelected");
-        setTitle(myValueTopicSelected);
+
+        textView = (TextView) findViewById(R.id.tvEmptyFavList);
 
 
         listView = (ListView) findViewById(R.id.listview_questionList);
@@ -37,19 +45,42 @@ public class QuestionList extends AppCompatActivity {
         dbHelper = new DbHelper(getApplicationContext());
         sqLiteDatabase = dbHelper.getReadableDatabase();
 
+
+
+         /* Read username from sharedPreferences */
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String usernameSharedPref = sharedPref.getString("username", "");
+
+
+
+
         /* get info from databse */
-        cursor = dbHelper.getQuestionInfoFromTopic(myValueTopicSelected, sqLiteDatabase);
+        cursor = dbHelper.getQuestionInfo(sqLiteDatabase);
         if (cursor.moveToFirst()) {
             do {
-                int id;
                 String topic, title, content, username;
+                int id;
+
                 id = cursor.getInt(0);
                 topic = cursor.getString(1);
                 title = cursor.getString(2);
                 content = cursor.getString(3);
                 username = cursor.getString(4);
                 Question c = new Question(id, topic, title, content, username);
-                listDataAdapterQuestion.add(c);
+                c.toString();
+
+
+
+                /*  Here we need to verify if the user has put the question, c, in his favorites */
+                if(dbHelper.verifyFavorite(usernameSharedPref, c.getId()) == true){
+                    listDataAdapterQuestion.add(c);
+                    cpt++;
+                }
+
+                /* Display message when list is empty*/
+                if(cpt==0){
+                    textView.setText(R.string.emptyList);
+                }
 
             } while (cursor.moveToNext());
         }
@@ -63,26 +94,24 @@ public class QuestionList extends AppCompatActivity {
 
                 Question item = (Question) listDataAdapterQuestion.getItem(position);
 
-                Intent i = new Intent(QuestionList.this, QuestionDisplay.class);
+                Intent i = new Intent(ListFavorite.this, QuestionDisplay.class);
                 /* put an Extra in the intent to use Title on the question activity */
                 i.putExtra("myValueKeyTitle", item.getTitle());
                 i.putExtra("myValueKeyContent", item.getContent());
                 i.putExtra("myValueKeyIdQuestion", item.getId());
                 i.putExtra("topicSelected", myValueTopicSelected);
-                QuestionList.this.startActivity(i);
+                ListFavorite.this.startActivity(i);
+
+
             }
         });
     }
 
 
-
-
-
-
-  /*Addid the actionbar*/
+ /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.question_list, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -94,6 +123,7 @@ public class QuestionList extends AppCompatActivity {
                 Intent goHome = new Intent(this, TopicsList.class);
                 startActivity(goHome);
                 return true;
+
 
             case R.id.action_favorite:
                 Intent goFavorite = new Intent(this, ListFavorite.class);
@@ -115,11 +145,6 @@ public class QuestionList extends AppCompatActivity {
                 startActivity(goSettings);
                 return true;
 
-            case R.id.action_add:
-                Intent i = new Intent(QuestionList.this, AddingQuestion.class);
-                QuestionList.this.startActivity(i);
-                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -127,4 +152,9 @@ public class QuestionList extends AppCompatActivity {
     }
 
 }
+
+
+
+
+
 

@@ -2,16 +2,14 @@ package com.example.xavier.projectxavier;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,10 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import static android.provider.MediaStore.Images.Thumbnails.IMAGE_ID;
 
 public class AddingQuestion extends AppCompatActivity {
 
@@ -40,7 +35,7 @@ public class AddingQuestion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_question);
-        setTitle("New question");
+        setTitle(R.string.newQuestion);
 
 
         etTitle = (EditText) findViewById(R.id.etTitle);
@@ -165,7 +160,11 @@ public class AddingQuestion extends AppCompatActivity {
             //String topic = "SWD";
             String title = etTitle.getText().toString();
             String content = etContent.getText().toString();
-            String username = "test"; //trouver le moyen de savoir le username depuis login
+
+
+              /* Read username from sharedPreferences */
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            String usernameSharedPref = sharedPref.getString("username", "");
 
 
             dbHelper = new DbHelper(context);
@@ -173,7 +172,7 @@ public class AddingQuestion extends AppCompatActivity {
 
 
 
-           dbHelper.addQuestion(topic, title, content, username, sqLiteDatabase);
+            dbHelper.addQuestion(topic, title, content, usernameSharedPref, sqLiteDatabase);
             Toast.makeText(getBaseContext(), "Question created", Toast.LENGTH_LONG).show();
             dbHelper.close();
 
@@ -204,7 +203,7 @@ public class AddingQuestion extends AppCompatActivity {
 
 
             case R.id.action_favorite:
-                Intent goFavorite = new Intent(this, Favorite.class);
+                Intent goFavorite = new Intent(this, ListFavorite.class);
                 startActivity(goFavorite);
                 return true;
 

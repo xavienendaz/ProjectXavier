@@ -1,18 +1,32 @@
 package com.example.xavier.projectxavier;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class Profile extends AppCompatActivity{
 
+    TextView textViewUsername;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        setTitle("profile");
+        setTitle(R.string.profile);
+
+
+        /* Read username from sharedPreferences */
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String usernameSharedPref = sharedPref.getString("username", "");
+        textViewUsername = (TextView) findViewById(R.id.tvUsername);
+        textViewUsername.setText(usernameSharedPref);
+
+
     }
 
 
@@ -36,7 +50,7 @@ public class Profile extends AppCompatActivity{
                 return true;
 
             case R.id.action_favorite:
-                Intent goFavorite = new Intent(this, Favorite.class);
+                Intent goFavorite = new Intent(this, ListFavorite.class);
                 startActivity(goFavorite);
                 return true;
 

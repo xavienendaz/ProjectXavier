@@ -24,7 +24,7 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        setTitle("Registration");
+        setTitle(R.string.registration);
 
         etPassword = (EditText) findViewById(R.id.etPassword);
         etUsername = (EditText) findViewById(R.id.etUsername);
@@ -72,7 +72,7 @@ public class Registration extends AppCompatActivity {
                 return;
             } else {
 
-                 /* the method verifyRegisterUsername verify if the user is already used in database */
+                 /* verifyRegisterUsername verify if the user already exist in database */
                 if(dbHelper.verifyRegisterUsername(verifyUsername) == false){
 
                     String username = etUsername.getText().toString();
