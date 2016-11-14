@@ -127,17 +127,14 @@ public class AddingQuestion extends AppCompatActivity {
 
 
 
-    //redirect on questionlist and saving data
+    /* redirect to questionList and save question */
     public void saveQuestion(View view) {
+
         String verifyTitle = etTitle.getText().toString();
         String verifyContent = etContent.getText().toString();
 
-        /***************
-         * we need to verify if a topic is selected
-         *********************/
 
-
-        //set error if the user let one field empty
+        /* display an error if the user let one field empty */
         if (TextUtils.isEmpty(verifyTitle) || TextUtils.isEmpty(verifyContent)) {
             if (TextUtils.isEmpty(verifyTitle) && TextUtils.isEmpty(verifyContent)) {
                 etTitle.setError("Enter a title");
@@ -152,6 +149,15 @@ public class AddingQuestion extends AppCompatActivity {
             }
         } else {
 
+
+            if(etTitle.length()<5 || etTitle.length()>40){
+                etTitle.setError("characters: min 5, max 40");
+                return;
+            }
+            if(etContent.length()<100 || etContent.length() >500){
+                etContent.setError("characters: min 100, max 500");
+                return;
+            }
 
 
             //insert question into database
@@ -185,7 +191,8 @@ public class AddingQuestion extends AppCompatActivity {
 
         }
     }
-/*Addid the actionbar*/
+
+    /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);

@@ -3,6 +3,7 @@ package com.example.xavier.projectxavier;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,22 +13,38 @@ import android.widget.TextView;
 
 public class Profile extends AppCompatActivity{
 
+    Context context = this;
+    DbHelper dbHelper;
+    SQLiteDatabase sqLiteDatabase;
     TextView textViewUsername;
+    String usernameSharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         setTitle(R.string.profile);
 
-
         /* Read username from sharedPreferences */
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String usernameSharedPref = sharedPref.getString("username", "");
+        usernameSharedPref = sharedPref.getString("username", "");
         textViewUsername = (TextView) findViewById(R.id.tvUsername);
         textViewUsername.setText(usernameSharedPref);
 
 
+        countUserPosts();
+
+
+
     }
+
+    private void countUserPosts() {
+        dbHelper = new DbHelper(context);
+        TextView  textViewCount = (TextView) findViewById(R.id.tvNbQuestions);
+        int cpt = dbHelper.countUserQuestions(usernameSharedPref);
+        textViewCount.setText(""+cpt);
+    }
+
+
 
 
 

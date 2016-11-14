@@ -247,6 +247,38 @@ public class DbHelper extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
+    public int countUserQuestions(String username) {
+    /*    String countQuery = "SELECT  * FROM " + DB_Contract.NewQuestion.TABLE_NAME
+        + " WHERE " + DB_Contract.NewQuestion.USERNAME + " =  \"" + username + "\"";
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.close();
+
+        // return count
+        return cursor.getCount();
+
+        String countQuery = "SELECT  * FROM " + DB_Contract.NewQuestion.TABLE_NAME
+                + " WHERE " + DB_Contract.NewQuestion.USERNAME + " =  \"" + username + "\"";
+                */
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor= db.rawQuery("SELECT COUNT (*) FROM " + DB_Contract.NewQuestion.TABLE_NAME +
+                " WHERE " + DB_Contract.NewQuestion.USERNAME  + "=?",
+                new String[] { String.valueOf(username) });
+        int count = 0;
+        if(null != cursor)
+            if(cursor.getCount() > 0){
+                cursor.moveToFirst();
+                count = cursor.getInt(0);
+            }
+        cursor.close();
+
+    db.close();
+    return count;
+    }
+
 
     /* Displaying all questions */
     public Cursor getQuestionInfo(SQLiteDatabase db) {
@@ -319,8 +351,7 @@ public class DbHelper extends SQLiteOpenHelper {
     /*  This method verify if the user has one question on the favorite table */
 
     public boolean verifyFavorite(String username, int id_question) {
-            String query = "Select * FROM "
-                    + DB_Contract.NewFavorite.TABLE_NAME
+            String query = "Select * FROM " + DB_Contract.NewFavorite.TABLE_NAME
                     + " WHERE " + DB_Contract.NewFavorite.USER_NAME + " =  \"" + username + "\""
                     + " AND " + DB_Contract.NewFavorite.KEY_QUESTION_ID + " =  \"" + id_question + "\"";
 

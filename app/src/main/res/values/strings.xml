@@ -48,7 +48,10 @@
     <string name="saved_high_score_default">1</string>
     <string name="emptyList">Empty list</string>
 
-
+    <string name="enterTitle">Enter a title</string>
+    <string name="author">Author: </string>
+    <string name="nb_posts">Posts: </string>
+    <string name="save">save</string>
     <!-- Add Question List-->
 
 

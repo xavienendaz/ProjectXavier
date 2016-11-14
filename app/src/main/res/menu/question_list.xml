@@ -39,16 +39,13 @@
     </item>
 
 
-
     <item
         android:id="@+id/action_add"
-        android:icon="@android:drawable/ic_input_add"
+        android:icon="@drawable/ic_action_add_white"
         android:title=""
         ProjectXavier:showAsAction="always"
         android:layout_gravity="bottom|start"
         android:layout_margin="12dp"/>
-
-
 
 
 </menu>

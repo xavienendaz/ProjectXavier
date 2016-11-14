@@ -20,19 +20,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvChooseTopic"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#000000"/>
+        android:textColor="@color/darkGray"/>
+
     <Spinner
         android:id="@+id/spinnerTopics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/topics_array"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/tvChooseTopic"
-        android:layout_toEndOf="@+id/tvChooseTopic"></Spinner>
+        android:layout_marginTop="10dp"></Spinner>
 
     <TextView
         android:text="Edit title"
@@ -42,10 +38,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvEditTitle"
         android:layout_marginTop="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#000000"/>
+        android:textColor="@color/darkGray"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -54,12 +47,8 @@
         android:ems="10"
         android:id="@+id/etTitle"
         android:hint="Title"
-        android:layout_below="@+id/tvChooseTopic"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:background="@drawable/linear_border"/>
 
 
     <TextView
@@ -70,10 +59,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvSelectImage"
         android:layout_marginTop="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#000000"/>
+        android:textColor="@color/darkGray"/>
 
     <ImageView
         android:id="@+id/imChoose"
@@ -92,10 +78,7 @@
         android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:textSize="9pt"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#000000"/>
+        android:textColor="@color/darkGray"/>
 
 
     <EditText
@@ -105,23 +88,14 @@
         android:ems="10"
         android:id="@+id/etContent"
         android:hint="Content"
-        android:layout_below="@+id/etTitle"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:background="@drawable/linear_border"/>
 
     <Button
-        android:text="Save"
+        android:text="@string/save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btSave"
-        android:layout_alignParentBottom="true"
         android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:onClick="saveQuestion"/>
 
 

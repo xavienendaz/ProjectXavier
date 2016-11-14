@@ -14,7 +14,6 @@
         android:layout_weight="1"
         android:ellipsize="end"
         android:gravity="center_vertical"
-        android:singleLine="true"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_margin="2dp"/>

@@ -65,6 +65,17 @@ public class Registration extends AppCompatActivity {
             }
         }else {
 
+            /* verify characters size tu username and password*/
+            if(etUsername.length()<3 || verifyUsername.length()>15){
+                etUsername.setError("characters: min 3, max 15");
+                return;
+            }
+            if(etPassword.length()<3){
+                etPassword.setError("characters: min 3");
+                return;
+            }
+
+
              /*Verify if password and confirm password are equals*/
             if (!verifyPassword.equals(confirmPassword)) {
                 Toast.makeText(getApplicationContext(),

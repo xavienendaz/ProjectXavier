@@ -17,8 +17,8 @@ import android.widget.Toast;
 
 public class QuestionDisplay extends AppCompatActivity {
 
-    TextView textViewQuestionTitle, textViewQuestionContent;
-    String myValueTopicSelected;
+    TextView textViewQuestionTitle, textViewQuestionContent, textViewAuthor;
+    String myValueTopicSelected, myValueKeyAuthor;
 
     Context context = this;
     DbHelper dbHelper;
@@ -35,11 +35,13 @@ public class QuestionDisplay extends AppCompatActivity {
         setContentView(R.layout.activity_question_display);
          /* Recover Object Question from activity_question_list */
         myValueTopicSelected = getIntent().getExtras().getString("topicSelected");
-
-
         setTitle(myValueTopicSelected);
+
+
+
         textViewQuestionTitle = (TextView) findViewById(R.id.tvTitle);
         textViewQuestionContent = (TextView) findViewById(R.id.tvQuestionContent);
+        textViewAuthor= (TextView) findViewById(R.id.tvAuthor);
 
         /* Recover Object Question from activity_question_list */
         String myValueTitle = getIntent().getExtras().getString("myValueKeyTitle");
@@ -48,17 +50,18 @@ public class QuestionDisplay extends AppCompatActivity {
         String myValueContent = getIntent().getExtras().getString("myValueKeyContent");
         textViewQuestionContent.setText(myValueContent);
 
+        myValueKeyAuthor = getIntent().getExtras().getString("myValueKeyAuthor");
+        textViewAuthor.setText(myValueKeyAuthor);
 
         myValueKeyIdQuestion = getIntent().getExtras().getInt("myValueKeyIdQuestion");
         fab = (FloatingActionButton) findViewById(R.id.fabFavorite);
         dbHelper = new DbHelper(context);
 
-
-        setFabImage();
-
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         usernameSharedPref = sharedPref.getString("username", "");
 
+
+        setFabImage();
 
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -90,8 +93,19 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
 
+        countUserPosts();
+
 
     }
+
+
+    private void countUserPosts() {
+        dbHelper = new DbHelper(context);
+        TextView  textViewNbPost = (TextView) findViewById(R.id.nbPosts);
+        int cpt = dbHelper.countUserQuestions(myValueKeyAuthor);
+        textViewNbPost.setText(""+cpt);
+    }
+
 
     public void setFabImage(){
         dbHelper = new DbHelper(getApplicationContext());

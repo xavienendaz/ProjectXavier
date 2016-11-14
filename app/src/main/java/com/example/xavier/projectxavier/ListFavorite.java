@@ -74,7 +74,7 @@ public class ListFavorite extends AppCompatActivity {
                 /*  Here we need to verify if the user has put the question, c, in his favorites */
                 if(dbHelper.verifyFavorite(usernameSharedPref, c.getId()) == true){
                     listDataAdapterQuestion.add(c);
-                    cpt++;
+                    cpt=1;
                 }
 
                 /* Display message when list is empty*/
@@ -99,6 +99,7 @@ public class ListFavorite extends AppCompatActivity {
                 i.putExtra("myValueKeyTitle", item.getTitle());
                 i.putExtra("myValueKeyContent", item.getContent());
                 i.putExtra("myValueKeyIdQuestion", item.getId());
+                i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", myValueTopicSelected);
                 ListFavorite.this.startActivity(i);
 

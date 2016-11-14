@@ -68,6 +68,7 @@ public class QuestionList extends AppCompatActivity {
                 i.putExtra("myValueKeyTitle", item.getTitle());
                 i.putExtra("myValueKeyContent", item.getContent());
                 i.putExtra("myValueKeyIdQuestion", item.getId());
+                i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", myValueTopicSelected);
                 QuestionList.this.startActivity(i);
             }
