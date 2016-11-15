@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ListFavorite extends AppCompatActivity {
+/**
+ * Created by Xavier on 15.11.2016.
+ */
 
+public class ProfileList  extends AppCompatActivity
 
-
-
+    {
     TextView textView;
     ListView listView;
     SQLiteDatabase sqLiteDatabase;
@@ -31,7 +33,7 @@ public class ListFavorite extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorite_list);
+        setContentView(R.layout.activity_profile);
         setTitle(R.string.Favorite);
      /* Recover Object Question from activity_question_list */
 
@@ -40,7 +42,7 @@ public class ListFavorite extends AppCompatActivity {
 
 
         listView = (ListView) findViewById(R.id.listview_questionList);
-        listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.question_list_layout);
+        listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.profile_list_layout);
         listView.setAdapter(listDataAdapterQuestion);
         dbHelper = new DbHelper(getApplicationContext());
         sqLiteDatabase = dbHelper.getReadableDatabase();
@@ -71,17 +73,15 @@ public class ListFavorite extends AppCompatActivity {
 
 
 
-                /*  Here we need to verify if the user has put the question, c, in his favorites */
-                if(dbHelper.verifyFavorite(usernameSharedPref, c.getId()) == true){
-                    listDataAdapterQuestion.add(c);
-                    cpt=1;
-                }
+                listDataAdapterQuestion.add(c);
+                //cpt=1;
+
 
                 /* Display message when list is empty*/
-                if(cpt==0){
+           /*     if(cpt==0){
                     textView.setText(R.string.emptyList);
                 }
-
+            */
             } while (cursor.moveToNext());
         }
 
@@ -94,14 +94,14 @@ public class ListFavorite extends AppCompatActivity {
 
                 Question item = (Question) listDataAdapterQuestion.getItem(position);
 
-                Intent i = new Intent(ListFavorite.this, QuestionDisplay.class);
+                Intent i = new Intent(ProfileList.this, QuestionDisplay.class);
                 /* put an Extra in the intent to use Title on the question activity */
                 i.putExtra("myValueKeyTitle", item.getTitle());
                 i.putExtra("myValueKeyContent", item.getContent());
                 i.putExtra("myValueKeyIdQuestion", item.getId());
                 i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", myValueTopicSelected);
-                ListFavorite.this.startActivity(i);
+                ProfileList.this.startActivity(i);
 
 
             }
@@ -127,7 +127,7 @@ public class ListFavorite extends AppCompatActivity {
 
 
             case R.id.action_favorite:
-                Intent goFavorite = new Intent(this, ListFavorite.class);
+                Intent goFavorite = new Intent(this, FavoriteList.class);
                 startActivity(goFavorite);
                 return true;
 
@@ -153,6 +153,7 @@ public class ListFavorite extends AppCompatActivity {
     }
 
 }
+
 
 
 

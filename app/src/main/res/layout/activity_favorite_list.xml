@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.xavier.projectxavier.ListFavorite">
+    tools:context="com.example.xavier.projectxavier.FavoriteList">
 
     <TextView
         android:layout_width="match_parent"

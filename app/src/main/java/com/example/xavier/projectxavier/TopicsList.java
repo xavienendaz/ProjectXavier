@@ -32,7 +32,6 @@ public class TopicsList extends AppCompatActivity {
         setContentView(R.layout.topic_layout);
         setTitle(R.string.titleTopics);
 
-        //myValueKeyUsername = getIntent().getExtras().getString("myValueKeyUsername");
 
         topics = getResources().getStringArray(R.array.topics_array);
        adapter = new TopicsCustomList(TopicsList.this, topics, imgTopicsId);
@@ -73,7 +72,7 @@ public class TopicsList extends AppCompatActivity {
                 return true;
 
             case R.id.action_favorite:
-                Intent goFavorite = new Intent(this, ListFavorite.class);
+                Intent goFavorite = new Intent(this, FavoriteList.class);
                // goFavorite.putExtra("myValueKeyUsername", myValueKeyUsername);
                 startActivity(goFavorite);
                 return true;

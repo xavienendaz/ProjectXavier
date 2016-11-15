@@ -78,7 +78,7 @@ public class Settings extends AppCompatActivity {
                 return true;
 
             case R.id.action_favorite:
-                Intent goFavorite = new Intent(this, ListFavorite.class);
+                Intent goFavorite = new Intent(this, FavoriteList.class);
                 startActivity(goFavorite);
                 return true;
 

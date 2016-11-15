@@ -236,33 +236,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
-    // Getting Question Count
-    public int getQuestionCount() {
-        String countQuery = "SELECT  * FROM " + DB_Contract.NewQuestion.TABLE_NAME;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        cursor.close();
-
-        // return count
-        return cursor.getCount();
-    }
-
     public int countUserQuestions(String username) {
-    /*    String countQuery = "SELECT  * FROM " + DB_Contract.NewQuestion.TABLE_NAME
-        + " WHERE " + DB_Contract.NewQuestion.USERNAME + " =  \"" + username + "\"";
-
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        cursor.close();
-
-        // return count
-        return cursor.getCount();
-
-        String countQuery = "SELECT  * FROM " + DB_Contract.NewQuestion.TABLE_NAME
-                + " WHERE " + DB_Contract.NewQuestion.USERNAME + " =  \"" + username + "\"";
-                */
-
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor= db.rawQuery("SELECT COUNT (*) FROM " + DB_Contract.NewQuestion.TABLE_NAME +
                 " WHERE " + DB_Contract.NewQuestion.USERNAME  + "=?",
@@ -308,7 +282,20 @@ public class DbHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-
+    /* Return all questions from current user */
+    public Cursor getAllQuestionsFromCurrentUser(String username, SQLiteDatabase db) {
+        Cursor  cursor;
+        String[] projectionsQuestion = {
+                DB_Contract.NewQuestion.KEY_ID,
+                DB_Contract.NewQuestion.TOPIC,
+                DB_Contract.NewQuestion.TITLE,
+                DB_Contract.NewQuestion.CONTENT,
+                DB_Contract.NewQuestion.USERNAME};
+        String selection =  DB_Contract.NewQuestion.USERNAME+" LIKE ? ";
+        String [] topics = {username};
+        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null,null);
+        return cursor;
+    }
 
 
     /*
@@ -322,7 +309,7 @@ public class DbHelper extends SQLiteOpenHelper {
     */
 
 
-    /**************** ListFavorite PART ****************/
+    /**************** FavoriteList PART ****************/
 
     //add favorite
     public void addFavorite(String username, int question_id, SQLiteDatabase db){

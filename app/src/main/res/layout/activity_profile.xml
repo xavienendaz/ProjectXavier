@@ -66,4 +66,38 @@
     </LinearLayout>
 
 
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="25dp"
+        android:id="@+id/profile_list_layout"
+        android:background="@drawable/linear_border">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/yourPosts"
+            android:textStyle="bold"
+            android:textSize="10pt"
+            android:textColor="@color/fontColor"
+            android:id="@+id/tvEmptyUserCurrentList" />
+
+        <ListView
+            android:id="@+id/listview_questionList_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp" >
+        </ListView>
+
+
+    </LinearLayout>
+
+
+
 </LinearLayout>

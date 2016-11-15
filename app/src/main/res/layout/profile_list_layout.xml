@@ -3,17 +3,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/question_list_layout">
+    android:id="@+id/profile_list_layout">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="120px"
-        android:id="@+id/question_title"
-        android:text="Title"
+        android:id="@+id/profile_question_title"
         android:gravity="center_vertical"
         android:textSize="18sp"
-        android:textStyle="bold"
         android:textColor="@color/darkGray"/>
 
 </LinearLayout>
