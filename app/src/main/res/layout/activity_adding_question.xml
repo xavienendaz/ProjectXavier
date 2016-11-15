@@ -61,6 +61,13 @@
         android:layout_marginTop="20dp"
         android:textColor="@color/darkGray"/>
 
+    <TextView
+        android:text=""
+        android:textColor="@color/redError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvImgError" />
+
     <ImageView
         android:id="@+id/imChoose"
         android:layout_width="wrap_content"
@@ -71,7 +78,7 @@
 
 
     <TextView
-        android:text="Edit content"
+        android:text="@string/editContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvEditContent"

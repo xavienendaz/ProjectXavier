@@ -91,11 +91,13 @@ public class Registration extends AppCompatActivity {
 
                     dbHelper = new DbHelper(context);
                     sqLiteDatabase = dbHelper.getWritableDatabase();
-                    dbHelper.addInfo(username, password, sqLiteDatabase);
+                    dbHelper.addUser(username, password, sqLiteDatabase);
                     Toast.makeText(getBaseContext(), "User created", Toast.LENGTH_SHORT).show();
                     dbHelper.close();
 
-                    //open the loginActivity when user register
+                    /* Delete sharedpreference values */
+                    /******* ICI supprimer contenu du shared preference *****/
+
                     Intent i = new Intent(Registration.this, login.class);
                     Registration.this.startActivity(i);
                 }else{

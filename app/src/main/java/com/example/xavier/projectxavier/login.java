@@ -67,19 +67,25 @@ public class login extends AppCompatActivity {
     }
 
     private void verifyUserRememberLoginInSharePreference() {
-         /* Read username from sharedPreferences */
+         /* Read username and password from sharedPreferences */
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPrefUsername = sharedPref.getString("username", "");
         SharedPrefPassword = sharedPref.getString("password", "");
 
-        etUsername.setText(SharedPrefUsername);
-        etPassword.setText(SharedPrefPassword);
+        /* If the user had selected remember login */
+        if(SharedPrefPassword != "" ){
+            checkBox.setChecked(true);
+            etUsername.setText(SharedPrefUsername);
+            etPassword.setText(SharedPrefPassword);
+
+        }
+
+
+
+
     }
 
 
-    public void rememberLogin (View view){
-
-    }
 
     /* When the user click on Login button */
     public void buttonLogin(View view) {
@@ -103,6 +109,8 @@ public class login extends AppCompatActivity {
                 editor.putString("password", verifyPassword);
             }else{
                 editor.putString("username", verifyUsername);
+                /* set password for unchecked the checkbox and delete the values when the user reconnect */
+                editor.putString("password","");
             }
 
 

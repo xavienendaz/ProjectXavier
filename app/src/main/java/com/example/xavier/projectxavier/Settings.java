@@ -2,13 +2,16 @@ package com.example.xavier.projectxavier;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Settings extends AppCompatActivity {
@@ -16,7 +19,9 @@ public class Settings extends AppCompatActivity {
 
     DbHelper dbHelper;
     SQLiteDatabase sqLiteDatabase;
-    String currentUsername = "salut";
+    SharedPreferences sharedPref;
+    String usernameSharedPref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +31,15 @@ public class Settings extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
     }
 
     public void deleteUser(View view) {
-        //When the user click on delete_account, a confirmation alert is created
+
+        /* Read username from sharedPreferences */
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        usernameSharedPref = sharedPref.getString("username", "");
+
+        /* When the user click on delete_account, a confirmation alert is created */
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Delete account")
@@ -46,9 +50,14 @@ public class Settings extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dbHelper = new DbHelper(getApplicationContext());
                         sqLiteDatabase = dbHelper.getReadableDatabase();
-                        dbHelper.deleteUser(currentUsername, sqLiteDatabase);
+                        dbHelper.deleteUser(usernameSharedPref, sqLiteDatabase);
 
-                        //redirect the user on loginActivity when he deleted his account
+                        /* clear sharedpreference values */
+                        sharedPref.edit().remove("username");
+                        sharedPref.edit().remove("password");
+                        sharedPref.edit().clear();
+
+                        /******* ICI supprimer contenu du shared preference *****/
                         Intent i = new Intent(Settings.this, login.class);
                         Settings.this.startActivity(i);
 

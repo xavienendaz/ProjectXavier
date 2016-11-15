@@ -22,8 +22,10 @@ public class TopicsList extends AppCompatActivity {
             R.drawable.topic_protein,
             R.drawable.topic_bred,
             R.drawable.topic_vegan,
+            R.drawable.topic_fastfood,
             R.drawable.topic_drink,
-            R.drawable.topic_dessert
+            R.drawable.topic_dessert,
+            R.drawable.topic_candies
     };
 
     @Override

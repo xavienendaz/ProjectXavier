@@ -25,8 +25,10 @@
         <item>Proteins</item>
         <item>Starchy food</item>
         <item>Vegan</item>
+        <item>Fastfood</item>
         <item>Drinks</item>
         <item>Desserts</item>
+        <item>Candies</item>
     </string-array>
 
     <string-array name="questionsList_array">
@@ -54,6 +56,8 @@
     <string name="save">save</string>
     <string name="yourPosts">Your posts</string>
     <string name="rememberLogin">Remember login</string>
+    <string name="editContent">Edit content</string>
+    <string name="imgErro">Select an image</string>
     <!-- Add Question List-->
 
 

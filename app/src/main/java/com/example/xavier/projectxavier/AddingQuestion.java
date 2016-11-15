@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -36,6 +37,7 @@ public class AddingQuestion extends AppCompatActivity {
     int SELECTED_IMAGE;
     ImageView chooseImage;
     byte imageInByte[];
+    TextView tvImgError;
 
 
 
@@ -49,7 +51,7 @@ public class AddingQuestion extends AppCompatActivity {
         etTitle = (EditText) findViewById(R.id.etTitle);
         etContent = (EditText) findViewById(R.id.etContent);
         chooseImage = (ImageView) findViewById(R.id.imChoose);
-
+        tvImgError  = (TextView) findViewById(R.id.tvImgError);
 
 
         /* when the user click for add a photo */
@@ -139,7 +141,6 @@ public class AddingQuestion extends AppCompatActivity {
         String verifyTitle = etTitle.getText().toString();
         String verifyContent = etContent.getText().toString();
 
-
         /* display an error if the user let one field empty */
         if (TextUtils.isEmpty(verifyTitle) || TextUtils.isEmpty(verifyContent)) {
             if (TextUtils.isEmpty(verifyTitle) && TextUtils.isEmpty(verifyContent)) {
@@ -165,6 +166,10 @@ public class AddingQuestion extends AppCompatActivity {
                 return;
             }
 
+            /* Say to user that he needs to select an image*/
+            if(chooseImage.isSelected()==false){
+                tvImgError.setText(R.string.imgErro);
+            }
 
             //insert question into database
             String topic = spinner.getSelectedItem().toString();
@@ -183,22 +188,6 @@ public class AddingQuestion extends AppCompatActivity {
             sqLiteDatabase = dbHelper.getWritableDatabase();
 
 
-/* marche
-            dbHelper.addQuestion(topic, title, content, SharedPrefUsername, sqLiteDatabase);
-            Toast.makeText(getBaseContext(), "Question created", Toast.LENGTH_LONG).show();
-*/
-
-
-
-            /****** test */
-
-
-            /*******************/
-        //    Bitmap image = BitmapFactory.decodeResource(getResources(),R.drawable.flaggermany);
-           // Bitmap image = BitmapFactory.decodeResource(getPathFromURI(chooseImage));
-
-
-          //  chooseImage.setImageResource(R.drawable.abc_image);
             chooseImage.setDrawingCacheEnabled(true);
             Bitmap image = Bitmap.createBitmap(chooseImage.getDrawingCache());
 
@@ -213,24 +202,7 @@ public class AddingQuestion extends AppCompatActivity {
 
 
 
-            dbHelper.addQuestionImage(topic, title, content, usernameSharedPref, imageInByte, sqLiteDatabase);
-
-
-// display main List view bcard and contact name
-// Reading all contacts from database
-       /*     List<Contact> contacts = db.getAllContacts();
-            for (Contact cn : contacts) {
-                String log = "ID:" + cn.getID() + " Name: " + cn.getName()
-                        + " ,Image: " + cn.getImage();
-                */
-                /*******/
-
-
-
-
-
-
-
+            dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, sqLiteDatabase);
 
 
             Toast.makeText(getBaseContext(), "Question created", Toast.LENGTH_LONG).show();

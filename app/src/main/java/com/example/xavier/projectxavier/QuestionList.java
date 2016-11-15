@@ -86,7 +86,7 @@ public class QuestionList extends AppCompatActivity {
   /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.question_list, menu);
+        getMenuInflater().inflate(R.menu.menu_question_list, menu);
         return true;
     }
 
@@ -94,29 +94,10 @@ public class QuestionList extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_topics:
-                Intent goHome = new Intent(this, TopicsList.class);
-                startActivity(goHome);
-                return true;
 
-            case R.id.action_favorite:
-                Intent goFavorite = new Intent(this, FavoriteList.class);
-                startActivity(goFavorite);
-                return true;
-
-            case R.id.action_add_question:
-                Intent goAdd = new Intent(this, AddingQuestion.class);
-                startActivity(goAdd);
-                return true;
-
-            case R.id.action_profile:
-                Intent goProfile = new Intent(this, Profile.class);
-                startActivity(goProfile);
-                return true;
-
-            case R.id.action_settings:
-                Intent goSettings = new Intent(this, Settings.class);
-                startActivity(goSettings);
+            case R.id.action_return:
+                Intent goBack = new Intent(this, TopicsList.class);
+                startActivity(goBack);
                 return true;
 
             case R.id.action_add:
