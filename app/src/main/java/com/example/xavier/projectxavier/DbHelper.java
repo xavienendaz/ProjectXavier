@@ -16,27 +16,12 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "PROJECT.DB";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String CREATE_QUERY_TBL_USER =
             "CREATE TABLE "+ DB_Contract.NewUserInfo.TABLE_NAME+"("
                     + DB_Contract.NewUserInfo.USER_NAME+" TEXT,"
                     + DB_Contract.NewUserInfo.USER_PASSWORD+" TEXT);";
-
-/* private static final String CREATE_TABLE_TODO = "CREATE TABLE "
-            + TABLE_TODO + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
-            + KEY_TODO
-            + " TEXT," + KEY_STATUS + " INTEGER," + KEY_CREATED_AT
-            + " DATETIME" + ")";
-*/
-
-    private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
-            + DB_Contract.NewQuestion.TABLE_NAME + "("
-            + DB_Contract.NewQuestion.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + DB_Contract.NewQuestion.TOPIC + " TEXT,"
-            + DB_Contract.NewQuestion.TITLE + " TEXT,"
-            + DB_Contract.NewQuestion.CONTENT + " TEXT,"
-            + DB_Contract.NewQuestion.USERNAME + " TEXT" + ")";
 
     private static final String CREATE_QUERY_TBL_FAVORITE = "CREATE TABLE "
             + DB_Contract.NewFavorite.TABLE_NAME + "("
@@ -44,11 +29,29 @@ public class DbHelper extends SQLiteOpenHelper {
             + DB_Contract.NewFavorite.USER_NAME + " TEXT,"
             + DB_Contract.NewFavorite.KEY_QUESTION_ID+ " INTEGER" + ")";
 
-   /* private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
-            + DB_Contract.NewQuestion.TABLE_NAME + "(" + DB_Contract.NewQuestion.TOPIC + " TEXT,"
-            + DB_Contract.NewQuestion.TITLE + " TEXT," + DB_Contract.NewQuestion.CONTENT + " TEXT,"
+ /*   private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
+            + DB_Contract.NewQuestion.TABLE_NAME + "("
+            + DB_Contract.NewQuestion.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + DB_Contract.NewQuestion.TOPIC + " TEXT,"
+            + DB_Contract.NewQuestion.TITLE + " TEXT,"
+            + DB_Contract.NewQuestion.CONTENT + " TEXT,"
             + DB_Contract.NewQuestion.USERNAME + " TEXT" + ")";
 */
+
+/********/
+private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
+        + DB_Contract.NewQuestion.TABLE_NAME + "("
+        + DB_Contract.NewQuestion.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+        + DB_Contract.NewQuestion.TOPIC + " TEXT,"
+        + DB_Contract.NewQuestion.TITLE + " TEXT,"
+        + DB_Contract.NewQuestion.CONTENT + " TEXT,"
+        + DB_Contract.NewQuestion.USERNAME + " TEXT,"
+        + DB_Contract.NewQuestion.KEY_IMAGE + " BLOB" + ")";
+
+
+
+    /********/
+
 
 
     public DbHelper(Context context){
@@ -235,6 +238,22 @@ public class DbHelper extends SQLiteOpenHelper {
         Log.e("DATABASE OPERATIONS", "One Question inserted");
     }
 
+    /*******************/
+    public void addQuestionImage(String topic, String title, String content,
+                                 String username, byte[] imageInByte, SQLiteDatabase db) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DB_Contract.NewQuestion.TOPIC,topic);
+        contentValues.put(DB_Contract.NewQuestion.TITLE,title);
+        contentValues.put(DB_Contract.NewQuestion.CONTENT,content);
+        contentValues.put(DB_Contract.NewQuestion.USERNAME,username);
+        contentValues.put(DB_Contract.NewQuestion.KEY_IMAGE,imageInByte);
+        db.insert(DB_Contract.NewQuestion.TABLE_NAME,null,contentValues);
+        Log.e("DATABASE OPERATIONS", "One Question inserted");
+
+    }
+    /*******************/
+
+
 
     public int countUserQuestions(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -262,10 +281,14 @@ public class DbHelper extends SQLiteOpenHelper {
                 DB_Contract.NewQuestion.TOPIC,
                 DB_Contract.NewQuestion.TITLE,
                 DB_Contract.NewQuestion.CONTENT,
-                DB_Contract.NewQuestion.USERNAME};
+                DB_Contract.NewQuestion.USERNAME,
+                DB_Contract.NewQuestion.KEY_IMAGE};
         cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,null,null,null,null,null,null);
         return cursor;
     }
+    /***/
+    //ajouter key image
+    /***/
 
     /* Return all questions from selected topic */
     public Cursor getQuestionInfoFromTopic(String topicSelected, SQLiteDatabase db) {
@@ -275,7 +298,9 @@ public class DbHelper extends SQLiteOpenHelper {
                 DB_Contract.NewQuestion.TOPIC,
                 DB_Contract.NewQuestion.TITLE,
                 DB_Contract.NewQuestion.CONTENT,
-                DB_Contract.NewQuestion.USERNAME};
+                DB_Contract.NewQuestion.USERNAME,
+                DB_Contract.NewQuestion.KEY_IMAGE
+        };
         String selection =  DB_Contract.NewQuestion.TOPIC+" LIKE ? ";
         String [] topics = {topicSelected};
         cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null,null);
@@ -383,6 +408,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     }
+
 
 
 

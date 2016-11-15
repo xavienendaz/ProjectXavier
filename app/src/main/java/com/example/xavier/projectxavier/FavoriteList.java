@@ -38,7 +38,7 @@ public class FavoriteList extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.tvEmptyFavList);
 
 
-        listView = (ListView) findViewById(R.id.listview_questionList);
+        listView = (ListView) findViewById(R.id.listview_questionList_favorite);
         listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.question_list_layout);
         listView.setAdapter(listDataAdapterQuestion);
         dbHelper = new DbHelper(getApplicationContext());
@@ -57,16 +57,17 @@ public class FavoriteList extends AppCompatActivity {
         cursor = dbHelper.getQuestionInfo(sqLiteDatabase);
         if (cursor.moveToFirst()) {
             do {
-                String topic, title, content, username;
                 int id;
-
+                String topic, title, content, username;
+                byte [] image;
                 id = cursor.getInt(0);
                 topic = cursor.getString(1);
                 title = cursor.getString(2);
                 content = cursor.getString(3);
                 username = cursor.getString(4);
-                Question c = new Question(id, topic, title, content, username);
-                c.toString();
+                image = cursor.getBlob(5);
+                Question c = new Question(id, topic, title, content, username, image);
+               // c.toString();
 
 
 
@@ -100,6 +101,7 @@ public class FavoriteList extends AppCompatActivity {
                 i.putExtra("myValueKeyIdQuestion", item.getId());
                 i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", item.getTopic());
+                i.putExtra("image", item.getImage());
                 FavoriteList.this.startActivity(i);
 
 

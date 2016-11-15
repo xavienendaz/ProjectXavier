@@ -23,7 +23,7 @@ public class Profile extends AppCompatActivity{
     TextView textViewUsername, tvEmptyUserList;
     String usernameSharedPref;
     Cursor cursor;
-    ListDataAdapterProfile listDataAdapterProfile;
+    ListDataAdapterQuestion listDataAdapterQuestion;
     SharedPreferences sharedPref;
     ListView listView;
 
@@ -54,8 +54,8 @@ public class Profile extends AppCompatActivity{
 
 
         listView = (ListView) findViewById(R.id.listview_questionList_profile);
-        listDataAdapterProfile = new ListDataAdapterProfile(getApplicationContext(), R.id.profile_list_layout);
-        listView.setAdapter(listDataAdapterProfile);
+        listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.profile_list_layout);
+        listView.setAdapter(listDataAdapterQuestion);
         dbHelper = new DbHelper(getApplicationContext());
         sqLiteDatabase = dbHelper.getReadableDatabase();
 
@@ -74,7 +74,7 @@ public class Profile extends AppCompatActivity{
                 Question c = new Question(id, topic, title, content, username);
                 c.toString();
 
-                listDataAdapterProfile.add(c);
+                listDataAdapterQuestion.add(c);
 
             } while (cursor.moveToNext());
         }
@@ -86,7 +86,7 @@ public class Profile extends AppCompatActivity{
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Question item = (Question) listDataAdapterProfile.getItem(position);
+                Question item = (Question) listDataAdapterQuestion.getItem(position);
 
                 Intent i = new Intent(Profile.this, QuestionDisplay.class);
                 /* put an Extra in the intent to use Title on the question activity */

@@ -2,6 +2,8 @@ package com.example.xavier.projectxavier;
 
 import android.graphics.Bitmap;
 
+import java.sql.Blob;
+
 /**
  * Created by Xavier on 05.11.2016.
  */
@@ -13,6 +15,10 @@ public class Question {
     private String title;
     private String content;
     private String username;
+
+    /***/
+    private byte [] image;
+    /***/
 
     public Question(){
 
@@ -32,6 +38,27 @@ public class Question {
         this.content=content;
         this.username=username;
     }
+
+    /***/
+
+    public Question(int id, String topic, String title, String content, String username, byte [] image){
+        this.id=id;
+        this.topic=topic;
+        this.title=title;
+        this.content=content;
+        this.username=username;
+        this.image=image;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    /***/
 
 
     public Question(String title){
@@ -81,7 +108,7 @@ public class Question {
 
     public String toString() {
         return "Question [id=" + id + ", topic=" + topic + ", title=" + title + ", content="+content+", uname="+ username
-                + "]";
+                + "image: "+image+ "]";
     }
 
 }

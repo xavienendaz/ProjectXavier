@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -12,8 +14,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.ByteArrayInputStream;
 
 public class QuestionDisplay extends AppCompatActivity {
 
@@ -94,6 +99,38 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
         countUserPosts();
+
+
+
+
+
+        /******/
+
+       // String myValueImage = getIntent().getExtras().getString("image");
+        byte[] img = getIntent().getExtras().getByteArray("image");
+        //byte[] img = getIntent().getExtras().getByteArrayExtra("image");
+      //  Bitmap bitmap = (Bitmap) getIntent().getParcelableExtra("image");
+       // ImageHolder holder = null;
+       // holder = new ImageHolder();
+
+       // holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
+
+       ImageView  imageView = (ImageView) findViewById(R.id.imageViewImageQuestionDisplay);
+
+        //Contact picture = data.get(position);
+       // holder.txtTitle.setText(picture._name);
+//convert byte to bitmap take from contact class
+
+        //byte[] outImage= bitmap;
+        ByteArrayInputStream imageStream = new ByteArrayInputStream(img);
+        Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+        imageView.setImageBitmap(theImage);
+
+
+
+
+        /******/
+
 
 
     }

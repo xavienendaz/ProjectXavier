@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -21,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+
 public class AddingQuestion extends AppCompatActivity {
 
     Context context = this;
@@ -30,6 +35,9 @@ public class AddingQuestion extends AppCompatActivity {
     Spinner spinner;
     int SELECTED_IMAGE;
     ImageView chooseImage;
+    byte imageInByte[];
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +115,18 @@ public class AddingQuestion extends AppCompatActivity {
                     //Log.i(TAG, "Image Path : " + path);
                     // Set the image in ImageView
                     chooseImage.setImageURI(selectedImageUri);
-                }
+
+
+                    //DataBaseHandler db = new DataBaseHandler(this);
+
+
+
+
+
+
+
+
+                    }
             }
         }
     }
@@ -177,13 +196,59 @@ public class AddingQuestion extends AppCompatActivity {
             sqLiteDatabase = dbHelper.getWritableDatabase();
 
 
-
+/* marche
             dbHelper.addQuestion(topic, title, content, usernameSharedPref, sqLiteDatabase);
             Toast.makeText(getBaseContext(), "Question created", Toast.LENGTH_LONG).show();
-            dbHelper.close();
+*/
 
 
 
+            /****** test */
+
+
+            /*******************/
+        //    Bitmap image = BitmapFactory.decodeResource(getResources(),R.drawable.flaggermany);
+           // Bitmap image = BitmapFactory.decodeResource(getPathFromURI(chooseImage));
+
+
+          //  chooseImage.setImageResource(R.drawable.abc_image);
+            chooseImage.setDrawingCacheEnabled(true);
+            Bitmap image = Bitmap.createBitmap(chooseImage.getDrawingCache());
+
+// convert bitmap to byte
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+            /***/
+
+            /***/
+            imageInByte = stream.toByteArray();
+
+
+
+            dbHelper.addQuestionImage(topic, title, content, usernameSharedPref, imageInByte, sqLiteDatabase);
+
+
+// display main List view bcard and contact name
+// Reading all contacts from database
+       /*     List<Contact> contacts = db.getAllContacts();
+            for (Contact cn : contacts) {
+                String log = "ID:" + cn.getID() + " Name: " + cn.getName()
+                        + " ,Image: " + cn.getImage();
+                */
+                /*******/
+
+
+
+
+
+
+
+
+
+            Toast.makeText(getBaseContext(), "Question created", Toast.LENGTH_LONG).show();
+
+                dbHelper.close();
             /* redirect to questionlist with selected topic */
             Intent i = new Intent(AddingQuestion.this, QuestionList.class);
             i.putExtra("topicSelected", topic);

@@ -25,7 +25,9 @@ public class DB_Contract {
         public static final String TITLE = "title";
         public static final String CONTENT = "content";
         public static final String USERNAME = "username";
+        public static final String KEY_IMAGE = "image";
     }
+
 
     public static abstract class NewFavorite implements BaseColumns
     {
