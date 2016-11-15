@@ -46,6 +46,15 @@
             android:id="@+id/etPassword"
             android:hint="Password" />
 
+        <CheckBox
+            android:text="@string/rememberLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="rememberLogin"
+            android:id="@+id/cbRememberLogin"
+            android:checked="false" />
+
         <Button
             android:text="Login"
             android:layout_width="wrap_content"
@@ -68,14 +77,6 @@
         android:textColor="@color/blueFont"
         android:textSize="@dimen/mediumSize"
         android:layout_marginTop="26dp" />
-
-    <TextView
-        android:text="Home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
-        android:id="@+id/tvHome" />
 
     <TextView
         android:text="DATABASE"

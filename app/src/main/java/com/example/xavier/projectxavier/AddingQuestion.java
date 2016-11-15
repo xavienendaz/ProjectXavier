@@ -52,7 +52,7 @@ public class AddingQuestion extends AppCompatActivity {
 
 
 
-        //gimage gallery
+        /* when the user click for add a photo */
         final ImageView im = (ImageView) findViewById(R.id.imChoose);
         im.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -67,10 +67,11 @@ public class AddingQuestion extends AppCompatActivity {
 
 
 
+        spinnerTopics();
 
+    }
 
-
-
+    private void spinnerTopics() {
         // topic spinner part
         spinner = (Spinner) findViewById(R.id.spinnerTopics);
         // Spinner click listener
@@ -96,11 +97,7 @@ public class AddingQuestion extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
-
-
-
     }
-
 
 
     @Override
@@ -115,21 +112,11 @@ public class AddingQuestion extends AppCompatActivity {
                     //Log.i(TAG, "Image Path : " + path);
                     // Set the image in ImageView
                     chooseImage.setImageURI(selectedImageUri);
-
-
-                    //DataBaseHandler db = new DataBaseHandler(this);
-
-
-
-
-
-
-
-
                     }
             }
         }
     }
+
 
     /* Get the real path from the URI */
     public String getPathFromURI(Uri contentUri) {
@@ -197,7 +184,7 @@ public class AddingQuestion extends AppCompatActivity {
 
 
 /* marche
-            dbHelper.addQuestion(topic, title, content, usernameSharedPref, sqLiteDatabase);
+            dbHelper.addQuestion(topic, title, content, SharedPrefUsername, sqLiteDatabase);
             Toast.makeText(getBaseContext(), "Question created", Toast.LENGTH_LONG).show();
 */
 

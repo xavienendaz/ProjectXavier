@@ -65,13 +65,15 @@ public class Profile extends AppCompatActivity{
             do {
                 String topic, title, content, username;
                 int id;
+                byte [] image;
 
                 id = cursor.getInt(0);
                 topic = cursor.getString(1);
                 title = cursor.getString(2);
                 content = cursor.getString(3);
                 username = cursor.getString(4);
-                Question c = new Question(id, topic, title, content, username);
+                image = cursor.getBlob(5);
+                Question c = new Question(id, topic, title, content, username, image);
                 c.toString();
 
                 listDataAdapterQuestion.add(c);
@@ -95,6 +97,7 @@ public class Profile extends AppCompatActivity{
                 i.putExtra("myValueKeyIdQuestion", item.getId());
                 i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", item.getTopic());
+                i.putExtra("image", item.getImage());
                 Profile.this.startActivity(i);
             }
         });

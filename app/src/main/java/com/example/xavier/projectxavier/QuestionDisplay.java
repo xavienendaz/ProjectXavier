@@ -33,6 +33,8 @@ public class QuestionDisplay extends AppCompatActivity {
 
     String usernameSharedPref;
     SharedPreferences sharedPref;
+    ByteArrayInputStream imageStream;
+    ImageView  imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,14 +117,14 @@ public class QuestionDisplay extends AppCompatActivity {
 
        // holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
 
-       ImageView  imageView = (ImageView) findViewById(R.id.imageViewImageQuestionDisplay);
+       imageView = (ImageView) findViewById(R.id.imageViewImageQuestionDisplay);
 
         //Contact picture = data.get(position);
        // holder.txtTitle.setText(picture._name);
 //convert byte to bitmap take from contact class
 
         //byte[] outImage= bitmap;
-        ByteArrayInputStream imageStream = new ByteArrayInputStream(img);
+        imageStream = new ByteArrayInputStream(img);
         Bitmap theImage = BitmapFactory.decodeStream(imageStream);
         imageView.setImageBitmap(theImage);
 

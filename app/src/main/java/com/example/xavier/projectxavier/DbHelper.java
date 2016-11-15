@@ -315,10 +315,11 @@ private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
                 DB_Contract.NewQuestion.TOPIC,
                 DB_Contract.NewQuestion.TITLE,
                 DB_Contract.NewQuestion.CONTENT,
-                DB_Contract.NewQuestion.USERNAME};
+                DB_Contract.NewQuestion.USERNAME,
+                DB_Contract.NewQuestion.KEY_IMAGE};
         String selection =  DB_Contract.NewQuestion.USERNAME+" LIKE ? ";
-        String [] topics = {username};
-        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null,null);
+        String [] val = {username};
+        cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,val,null,null,null,null);
         return cursor;
     }
 

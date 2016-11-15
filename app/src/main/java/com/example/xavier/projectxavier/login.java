@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,9 @@ public class login extends AppCompatActivity {
     DbHelper dbHelper;
     SQLiteDatabase sqLiteDatabase;
     EditText etUsername, etPassword;
+    CheckBox checkBox;
+    SharedPreferences sharedPref;
+    String SharedPrefUsername, SharedPrefPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,15 @@ public class login extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
         final Button bLogin = (Button) findViewById(R.id.bLogin);
         final TextView registerLink = (TextView) findViewById(R.id.tvRegister);
+
+
+        checkBox = (CheckBox) findViewById(R.id.cbRememberLogin);
+
+
+
+        verifyUserRememberLoginInSharePreference();
+
+
 
         registerLink.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -51,19 +64,20 @@ public class login extends AppCompatActivity {
         });
 
 
-        //see homepage
-        final TextView t = (TextView) findViewById(R.id.tvHome);
-        t.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                //open the registerActivity when user click on registerLink
-                Intent i = new Intent(login.this, TopicsList.class);
-                i.putExtra("myValueKeyUsername", etUsername.getText().toString());
-                login.this.startActivity(i);
-            }
-        });
+    }
+
+    private void verifyUserRememberLoginInSharePreference() {
+         /* Read username from sharedPreferences */
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPrefUsername = sharedPref.getString("username", "");
+        SharedPrefPassword = sharedPref.getString("password", "");
+
+        etUsername.setText(SharedPrefUsername);
+        etPassword.setText(SharedPrefPassword);
+    }
 
 
-
+    public void rememberLogin (View view){
 
     }
 
@@ -79,22 +93,20 @@ public class login extends AppCompatActivity {
         if(dbHelper.verifyUserLogin(verifyUsername, verifyPassword) == true){
 
 
-
-
-
-
-
-
             /* Write username in sharedPreferences */
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("username", verifyUsername);
+
+
+            if(checkBox.isChecked()){
+                editor.putString("username", verifyUsername);
+                editor.putString("password", verifyPassword);
+            }else{
+                editor.putString("username", verifyUsername);
+            }
+
+
             editor.commit();
-
-
-
-
-
 
 
 
