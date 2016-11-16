@@ -9,23 +9,25 @@ import android.widget.ImageView;
 
 public class DB_Contract {
 
-    public static abstract class NewUserInfo implements BaseColumns
+    public static abstract class NewUser implements BaseColumns
     {
         public static final String TABLE_NAME = "user_info";
+        public static final String KEY_ID = "id";
         public static final String USER_NAME = "user_name";
         public static final String USER_PASSWORD = "user_password";
+        public static final String USER_IMAGE = "image";
     }
 
 
     public static abstract class NewQuestion implements BaseColumns
     {
-        public static final String KEY_ID = "id";
         public static final String TABLE_NAME = "question";
+        public static final String KEY_ID = "id";
         public static final String TOPIC = "topic";
         public static final String TITLE = "title";
         public static final String CONTENT = "content";
         public static final String USERNAME = "username";
-        public static final String KEY_IMAGE = "image";
+        public static final String QUESTION_IMAGE = "image";
     }
 
 

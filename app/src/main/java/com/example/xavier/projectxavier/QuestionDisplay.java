@@ -102,39 +102,20 @@ public class QuestionDisplay extends AppCompatActivity {
 
         countUserPosts();
 
+        setImage();
 
 
 
 
-        /******/
 
-       // String myValueImage = getIntent().getExtras().getString("image");
+    }
+
+    private void setImage() {
         byte[] img = getIntent().getExtras().getByteArray("image");
-        //byte[] img = getIntent().getExtras().getByteArrayExtra("image");
-      //  Bitmap bitmap = (Bitmap) getIntent().getParcelableExtra("image");
-       // ImageHolder holder = null;
-       // holder = new ImageHolder();
-
-       // holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
-
-       imageView = (ImageView) findViewById(R.id.imageViewImageQuestionDisplay);
-
-        //Contact picture = data.get(position);
-       // holder.txtTitle.setText(picture._name);
-//convert byte to bitmap take from contact class
-
-        //byte[] outImage= bitmap;
+        imageView = (ImageView) findViewById(R.id.imageViewImageQuestionDisplay);
         imageStream = new ByteArrayInputStream(img);
         Bitmap theImage = BitmapFactory.decodeStream(imageStream);
         imageView.setImageBitmap(theImage);
-
-
-
-
-        /******/
-
-
-
     }
 
 

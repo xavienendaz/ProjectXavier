@@ -2,14 +2,20 @@ package com.example.xavier.projectxavier;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 
 public class Registration extends AppCompatActivity {
 
@@ -18,7 +24,9 @@ public class Registration extends AppCompatActivity {
     DbHelper dbHelper;
     SQLiteDatabase sqLiteDatabase;
     EditText etUsername, etPassword, etConfirmPassword;
-
+    SharedPreferences sharedPref;
+    byte imageInByte[];
+    ImageView defaultUserImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,7 @@ public class Registration extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
         etUsername = (EditText) findViewById(R.id.etUsername);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
+        defaultUserImg = (ImageView) findViewById(R.drawable.icon_add_user);
 
         //go back to login
         final TextView tv = (TextView) findViewById(R.id.tvAlreadyMember);
@@ -91,12 +100,28 @@ public class Registration extends AppCompatActivity {
 
                     dbHelper = new DbHelper(context);
                     sqLiteDatabase = dbHelper.getWritableDatabase();
+
+
+                     /* convert bitmap to byte */
+                    R.drawable.icon_add_user.setDrawingCacheEnabled(true);
+                    Bitmap image = Bitmap.createBitmap(R.drawable.icon_add_user.getDrawingCache());
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    imageInByte = stream.toByteArray();
+
+
                     dbHelper.addUser(username, password, sqLiteDatabase);
-                    Toast.makeText(getBaseContext(), "User created", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.thanksRegistration, Toast.LENGTH_SHORT).show();
                     dbHelper.close();
 
-                    /* Delete sharedpreference values */
-                    /******* ICI supprimer contenu du shared preference *****/
+                    /* remove sharedpreference values */
+                    sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+                    if(sharedPref.contains("username"))
+                        sharedPref.edit().remove("username").commit();
+
+                    if(sharedPref.contains("password"))
+                        sharedPref.edit().remove("password").commit();
 
                     Intent i = new Intent(Registration.this, login.class);
                     Registration.this.startActivity(i);

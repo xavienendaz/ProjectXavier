@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 
 /**
@@ -16,12 +15,14 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "PROJECT.DB";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
-    private static final String CREATE_QUERY_TBL_USER =
-            "CREATE TABLE "+ DB_Contract.NewUserInfo.TABLE_NAME+"("
-                    + DB_Contract.NewUserInfo.USER_NAME+" TEXT,"
-                    + DB_Contract.NewUserInfo.USER_PASSWORD+" TEXT);";
+    private static final String CREATE_QUERY_TBL_USER = "CREATE TABLE "
+            + DB_Contract.NewUser.TABLE_NAME+"("
+                    + DB_Contract.NewFavorite.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + DB_Contract.NewUser.USER_NAME+" TEXT,"
+                    + DB_Contract.NewUser.USER_PASSWORD+" TEXT,"
+                    + DB_Contract.NewUser.USER_IMAGE + " BLOB" + ")";
 
     private static final String CREATE_QUERY_TBL_FAVORITE = "CREATE TABLE "
             + DB_Contract.NewFavorite.TABLE_NAME + "("
@@ -29,15 +30,14 @@ public class DbHelper extends SQLiteOpenHelper {
             + DB_Contract.NewFavorite.USER_NAME + " TEXT,"
             + DB_Contract.NewFavorite.KEY_QUESTION_ID+ " INTEGER" + ")";
 
-
-private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
+    private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
         + DB_Contract.NewQuestion.TABLE_NAME + "("
         + DB_Contract.NewQuestion.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
         + DB_Contract.NewQuestion.TOPIC + " TEXT,"
         + DB_Contract.NewQuestion.TITLE + " TEXT,"
         + DB_Contract.NewQuestion.CONTENT + " TEXT,"
         + DB_Contract.NewQuestion.USERNAME + " TEXT,"
-        + DB_Contract.NewQuestion.KEY_IMAGE + " BLOB" + ")";
+        + DB_Contract.NewQuestion.QUESTION_IMAGE + " BLOB" + ")";
 
 
 
@@ -57,7 +57,7 @@ private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.NewUserInfo.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.NewUser.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.NewQuestion.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + DB_Contract.NewFavorite.TABLE_NAME);
         onCreate(db);
@@ -71,31 +71,67 @@ private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
 
     public void addUser(String username, String password, SQLiteDatabase db){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DB_Contract.NewUserInfo.USER_NAME,username);
-        contentValues.put(DB_Contract.NewUserInfo.USER_PASSWORD,password);
-        db.insert(DB_Contract.NewUserInfo.TABLE_NAME,null,contentValues);
+        contentValues.put(DB_Contract.NewUser.USER_NAME,username);
+        contentValues.put(DB_Contract.NewUser.USER_PASSWORD,password);
+        contentValues.put(DB_Contract.NewUser.USER_IMAGE, R.drawable.icon_add_user);
+        db.insert(DB_Contract.NewUser.TABLE_NAME,null,contentValues);
         Log.e("DATABASE OPERATIONS", "One User inserted");
     }
 
 
+    public void updateUser(String username, byte[] imageInByte, SQLiteDatabase db) {
+
+        ContentValues values = new ContentValues();
+        values.put(DB_Contract.NewUser.USER_IMAGE, imageInByte);
+
+        String selection =  DB_Contract.NewUser.USER_NAME+" LIKE ? ";
+        String [] selectionArg = {username};
+
+
+        // updating row
+        int count = db.update(
+                DB_Contract.NewUser.TABLE_NAME,
+                values,
+                selection,
+                selectionArg);
+    }
+
     /* delete user from database */
     public void deleteUser(String username, SQLiteDatabase sqLiteDatabase)
     {
-        String selection =  DB_Contract.NewUserInfo.USER_NAME+" LIKE ? ";
+        String selection =  DB_Contract.NewUser.USER_NAME+" LIKE ? ";
         String [] selectionArg = {username};
-        sqLiteDatabase.delete(DB_Contract.NewUserInfo.TABLE_NAME,selection,selectionArg);
+        sqLiteDatabase.delete(DB_Contract.NewUser.TABLE_NAME,selection,selectionArg);
     }
 
 
-    /* read User info for listview */
+    /* read User info for listview . TO DELETE AFTER*/
     public Cursor getInfo(SQLiteDatabase db)
     {
         Cursor  cursor;
         String[] projections = {
-                DB_Contract.NewUserInfo.USER_NAME,
-                DB_Contract.NewUserInfo.USER_PASSWORD};
-        cursor = db.query(DB_Contract.NewUserInfo.TABLE_NAME,projections,null,null,null,null,null);
+                DB_Contract.NewUser.USER_NAME,
+                DB_Contract.NewUser.USER_PASSWORD};
+        cursor = db.query(DB_Contract.NewUser.TABLE_NAME,projections,null,null,null,null,null);
         return cursor;
+    }
+
+
+    public Cursor getOneUser(String username, SQLiteDatabase db){
+
+        Cursor  cursor;
+        String[] projections = {
+                DB_Contract.NewUser.USER_NAME,
+                DB_Contract.NewUser.USER_IMAGE};
+
+        String selection =  DB_Contract.NewUser.USER_NAME+" LIKE ? ";
+        String [] uname = {username};
+
+
+        cursor = db.query(DB_Contract.NewUser.TABLE_NAME,projections,selection,uname,null,null,null,null);
+        return cursor;
+
+
     }
 
 
@@ -103,9 +139,9 @@ private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
     public boolean verifyUserLogin(String username, String password) {
 
         String query = "Select * FROM "
-                + DB_Contract.NewUserInfo.TABLE_NAME
-                + " WHERE " + DB_Contract.NewUserInfo.USER_NAME + " =  \"" + username + "\""
-                + " AND " + DB_Contract.NewUserInfo.USER_PASSWORD + " =  \"" + password + "\"";
+                + DB_Contract.NewUser.TABLE_NAME
+                + " WHERE " + DB_Contract.NewUser.USER_NAME + " =  \"" + username + "\""
+                + " AND " + DB_Contract.NewUser.USER_PASSWORD + " =  \"" + password + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -130,8 +166,8 @@ private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
     public boolean verifyRegisterUsername(String username) {
 
         String query = "Select * FROM "
-                + DB_Contract.NewUserInfo.TABLE_NAME
-                + " WHERE " + DB_Contract.NewUserInfo.USER_NAME + " =  '" + username + "'";
+                + DB_Contract.NewUser.TABLE_NAME
+                + " WHERE " + DB_Contract.NewUser.USER_NAME + " =  '" + username + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -166,7 +202,7 @@ private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
         contentValues.put(DB_Contract.NewQuestion.TITLE,title);
         contentValues.put(DB_Contract.NewQuestion.CONTENT,content);
         contentValues.put(DB_Contract.NewQuestion.USERNAME,username);
-        contentValues.put(DB_Contract.NewQuestion.KEY_IMAGE,imageInByte);
+        contentValues.put(DB_Contract.NewQuestion.QUESTION_IMAGE,imageInByte);
         db.insert(DB_Contract.NewQuestion.TABLE_NAME,null,contentValues);
         Log.e("DATABASE OPERATIONS", "One Question inserted");
 
@@ -200,7 +236,7 @@ private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
                 DB_Contract.NewQuestion.TITLE,
                 DB_Contract.NewQuestion.CONTENT,
                 DB_Contract.NewQuestion.USERNAME,
-                DB_Contract.NewQuestion.KEY_IMAGE};
+                DB_Contract.NewQuestion.QUESTION_IMAGE};
         cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,null,null,null,null,null,null);
         return cursor;
     }
@@ -215,7 +251,7 @@ private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
                 DB_Contract.NewQuestion.TITLE,
                 DB_Contract.NewQuestion.CONTENT,
                 DB_Contract.NewQuestion.USERNAME,
-                DB_Contract.NewQuestion.KEY_IMAGE
+                DB_Contract.NewQuestion.QUESTION_IMAGE
         };
         String selection =  DB_Contract.NewQuestion.TOPIC+" LIKE ? ";
         String [] topics = {topicSelected};
@@ -233,7 +269,7 @@ private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
                 DB_Contract.NewQuestion.TITLE,
                 DB_Contract.NewQuestion.CONTENT,
                 DB_Contract.NewQuestion.USERNAME,
-                DB_Contract.NewQuestion.KEY_IMAGE};
+                DB_Contract.NewQuestion.QUESTION_IMAGE};
         String selection =  DB_Contract.NewQuestion.USERNAME+" LIKE ? ";
         String [] val = {username};
         cursor = db.query(DB_Contract.NewQuestion.TABLE_NAME,projectionsQuestion,selection,val,null,null,null,null);

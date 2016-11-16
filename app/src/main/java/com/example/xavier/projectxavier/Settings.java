@@ -52,12 +52,10 @@ public class Settings extends AppCompatActivity {
                         sqLiteDatabase = dbHelper.getReadableDatabase();
                         dbHelper.deleteUser(usernameSharedPref, sqLiteDatabase);
 
-                        /* clear sharedpreference values */
-                        sharedPref.edit().remove("username");
-                        sharedPref.edit().remove("password");
-                        sharedPref.edit().clear();
+                        /* remove sharedpreference values */
+                        sharedPref.edit().remove("username").commit();
+                        sharedPref.edit().remove("password").commit();
 
-                        /******* ICI supprimer contenu du shared preference *****/
                         Intent i = new Intent(Settings.this, login.class);
                         Settings.this.startActivity(i);
 

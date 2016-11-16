@@ -134,7 +134,6 @@ public class AddingQuestion extends AppCompatActivity {
     }
 
 
-
     /* redirect to questionList and save question */
     public void saveQuestion(View view) {
 
@@ -188,19 +187,12 @@ public class AddingQuestion extends AppCompatActivity {
             sqLiteDatabase = dbHelper.getWritableDatabase();
 
 
+            /* convert bitmap to byte */
             chooseImage.setDrawingCacheEnabled(true);
             Bitmap image = Bitmap.createBitmap(chooseImage.getDrawingCache());
-
-// convert bitmap to byte
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-
-            /***/
-
-            /***/
             imageInByte = stream.toByteArray();
-
-
 
             dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, sqLiteDatabase);
 

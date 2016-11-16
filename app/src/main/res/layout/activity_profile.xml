@@ -14,15 +14,17 @@
 
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/home_profile"
-        android:id="@+id/imageView" />
+        android:layout_width="138dp"
+        android:layout_height="134dp"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/icon_add_user"
+        android:id="@+id/imvAddUserPhoto" />
 
 
 
 
     <LinearLayout
+        android:layout_marginTop="10px"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
