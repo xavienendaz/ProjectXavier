@@ -58,7 +58,7 @@ public class login extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 //open the registerActivity when user click on registerLink
-                Intent i = new Intent(login.this, UserAreaActivity.class);
+                Intent i = new Intent(login.this, coordinator.class);
                 login.this.startActivity(i);
             }
         });

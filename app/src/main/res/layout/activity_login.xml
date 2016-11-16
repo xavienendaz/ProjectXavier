@@ -32,6 +32,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10pt"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:background="@drawable/linear_border">
 
         <EditText
@@ -40,7 +42,7 @@
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/etUsername"
-            android:hint="Username"
+            android:hint="@string/username"
             android:layout_marginTop="6pt" />
 
         <EditText
@@ -49,7 +51,7 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/etPassword"
-            android:hint="Password" />
+            android:hint="@string/Password" />
 
         <CheckBox
             android:text="@string/rememberLogin"
