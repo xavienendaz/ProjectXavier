@@ -37,7 +37,7 @@ public class Registration extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
         etUsername = (EditText) findViewById(R.id.etUsername);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
-        defaultUserImg = (ImageView) findViewById(R.drawable.icon_add_user);
+        defaultUserImg = (ImageView) findViewById(R.id.imvProfile);
 
         //go back to login
         final TextView tv = (TextView) findViewById(R.id.tvAlreadyMember);
@@ -103,14 +103,14 @@ public class Registration extends AppCompatActivity {
 
 
                      /* convert bitmap to byte */
-                    R.drawable.icon_add_user.setDrawingCacheEnabled(true);
-                    Bitmap image = Bitmap.createBitmap(R.drawable.icon_add_user.getDrawingCache());
+                    defaultUserImg.setDrawingCacheEnabled(true);
+                    Bitmap image = Bitmap.createBitmap(defaultUserImg.getDrawingCache());
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     imageInByte = stream.toByteArray();
 
 
-                    dbHelper.addUser(username, password, sqLiteDatabase);
+                    dbHelper.addUser(username, password, imageInByte, sqLiteDatabase);
                     Toast.makeText(getBaseContext(), R.string.thanksRegistration, Toast.LENGTH_SHORT).show();
                     dbHelper.close();
 

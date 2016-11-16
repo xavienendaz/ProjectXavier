@@ -69,11 +69,11 @@ public class DbHelper extends SQLiteOpenHelper {
     /**************** USERS PART ****************/
 
 
-    public void addUser(String username, String password, SQLiteDatabase db){
+    public void addUser(String username, String password, byte[] imageInByte, SQLiteDatabase db){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DB_Contract.NewUser.USER_NAME,username);
         contentValues.put(DB_Contract.NewUser.USER_PASSWORD,password);
-        contentValues.put(DB_Contract.NewUser.USER_IMAGE, R.drawable.icon_add_user);
+        contentValues.put(DB_Contract.NewUser.USER_IMAGE, imageInByte);
         db.insert(DB_Contract.NewUser.TABLE_NAME,null,contentValues);
         Log.e("DATABASE OPERATIONS", "One User inserted");
     }

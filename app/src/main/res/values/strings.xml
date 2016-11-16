@@ -59,6 +59,8 @@
     <string name="editContent">Edit content</string>
     <string name="imgErro">Select an image</string>
     <string name="thanksRegistration">Registration successful</string>
+    <string name="changePhoto">Change photo</string>
+    <string name="photochange">photo changed</string>
     <!-- Add Question List-->
 
 

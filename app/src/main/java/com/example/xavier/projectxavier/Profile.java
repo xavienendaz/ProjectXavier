@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -38,7 +39,6 @@ public class Profile extends AppCompatActivity{
     byte imageInByte[];
     ImageView chooseImage;
     ByteArrayInputStream imageStream;
-    User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class Profile extends AppCompatActivity{
 
 
            /* when the user click for add a photo */
-        final ImageView im = (ImageView) findViewById(R.id.imvAddUserPhoto);
+        final TextView im = (TextView) findViewById(R.id.tvChangePhoto);
         im.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
 
@@ -92,19 +92,21 @@ public class Profile extends AppCompatActivity{
                 username = cursor.getString(0);
                 image = cursor.getBlob(1);
                 User u = new User(username, image);
-                u.toString();
+
+                /* set profile image */
+                byte[] data = u.getImage();
+                imageStream = new ByteArrayInputStream(data);
+                Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+                chooseImage.setImageBitmap(theImage);
             }while (cursor.moveToNext());
         }
-        setImage();
+
+
+
+
     }
 
-    private void setImage() {
-        byte[] img = u.getImage();
-       // u.getImage();
-        imageStream = new ByteArrayInputStream(img);
-        Bitmap theImage = BitmapFactory.decodeStream(imageStream);
-        chooseImage.setImageBitmap(theImage);
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -128,6 +130,7 @@ public class Profile extends AppCompatActivity{
 
                     sqLiteDatabase = dbHelper.getReadableDatabase();
                     dbHelper.updateUser(usernameSharedPref, imageInByte, sqLiteDatabase);
+                    Toast.makeText(getBaseContext(), R.string.photochange, Toast.LENGTH_SHORT).show();
 
                 }
             }

@@ -168,6 +168,7 @@ public class AddingQuestion extends AppCompatActivity {
             /* Say to user that he needs to select an image*/
             if(chooseImage.isSelected()==false){
                 tvImgError.setText(R.string.imgErro);
+                return;
             }
 
             //insert question into database
@@ -199,7 +200,7 @@ public class AddingQuestion extends AppCompatActivity {
 
             Toast.makeText(getBaseContext(), "Question created", Toast.LENGTH_LONG).show();
 
-                dbHelper.close();
+            dbHelper.close();
             /* redirect to questionlist with selected topic */
             Intent i = new Intent(AddingQuestion.this, QuestionList.class);
             i.putExtra("topicSelected", topic);
