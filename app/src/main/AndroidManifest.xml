@@ -30,14 +30,14 @@
         </activity>
         <activity android:name=".Registration" />
         <activity android:name=".AddingQuestion" />
-        <activity android:name=".QuestionDisplay" />
+        <activity
+            android:name=".QuestionDisplay"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".QuestionList" />
         <activity android:name=".Settings" />
         <activity android:name=".TopicsList" />
         <activity android:name=".Profile" />
         <activity android:name=".UserAreaActivity" />
-        <activity android:name=".coordinator"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.

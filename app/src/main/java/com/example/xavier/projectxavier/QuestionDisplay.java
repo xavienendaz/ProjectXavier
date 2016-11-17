@@ -3,22 +3,35 @@ package com.example.xavier.projectxavier;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
+import android.drm.DrmStore;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
+
+import static android.R.id.primary;
 
 public class QuestionDisplay extends AppCompatActivity {
 
@@ -35,15 +48,33 @@ public class QuestionDisplay extends AppCompatActivity {
     SharedPreferences sharedPref;
     ByteArrayInputStream imageStream;
     ImageView  imageView;
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_display);
          /* Recover Object Question from activity_question_list */
         myValueTopicSelected = getIntent().getExtras().getString("topicSelected");
-        setTitle(myValueTopicSelected);
 
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        collapsingToolbarLayout.setTitle(myValueTopicSelected);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Find logo
+        View view = toolbar.getChildAt(0);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goBack = new Intent(QuestionDisplay.this, QuestionList.class);
+                goBack.putExtra("topicSelected", myValueTopicSelected);
+                QuestionDisplay.this.startActivity(goBack);
+            }
+        });
 
 
         textViewQuestionTitle = (TextView) findViewById(R.id.tvTitle);
@@ -104,15 +135,30 @@ public class QuestionDisplay extends AppCompatActivity {
 
         setImage();
 
+        //see the database
+        final ImageView share = (ImageView) findViewById(R.id.imvShare);
+        share.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                //sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                //send the content of the question
 
+                /********** PPROBLEM HERE NOTHING SHARE***********/
+                sendIntent.putExtra(Intent.EXTRA_TEXT, R.id.tvQuestionContent);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
 
 
 
     }
 
+
     private void setImage() {
         byte[] img = getIntent().getExtras().getByteArray("image");
-        imageView = (ImageView) findViewById(R.id.imageViewImageQuestionDisplay);
+        imageView = (ImageView) findViewById(R.id.iv_toolbar_detail);
         imageStream = new ByteArrayInputStream(img);
         Bitmap theImage = BitmapFactory.decodeStream(imageStream);
         imageView.setImageBitmap(theImage);
@@ -125,7 +171,6 @@ public class QuestionDisplay extends AppCompatActivity {
         int cpt = dbHelper.countUserQuestions(myValueKeyAuthor);
         textViewNbPost.setText(""+cpt);
     }
-
 
     public void setFabImage(){
         dbHelper = new DbHelper(getApplicationContext());
@@ -143,44 +188,6 @@ public class QuestionDisplay extends AppCompatActivity {
 
     }
 
-
-
-
-  /*Addid the actionbar*/
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_question_display, menu);
-        return true;
-    }
-
-    /*Actionbar's actions*/
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.action_return:
-                Intent goBack = new Intent(this, QuestionList.class);
-                goBack.putExtra("topicSelected", myValueTopicSelected);
-                startActivity(goBack);
-                return true;
-
-            case R.id.action_share:
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                //sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-                //send the content of the question
-
-                /********** PPROBLEM HERE NOTHING SHARE***********/
-                sendIntent.putExtra(Intent.EXTRA_TEXT, R.id.tvQuestionContent);
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
 
 }
 

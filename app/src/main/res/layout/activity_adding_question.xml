@@ -78,12 +78,17 @@
 
         <ImageView
             android:id="@+id/imChoose"
-            android:layout_width="wrap_content"
-            android:layout_height="218dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
             android:layout_gravity="center_horizontal"
             app:srcCompat="@drawable/image_add">
         </ImageView>
-
+        <TextView
+            android:text=""
+            android:textColor="@color/greenLight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvImgSelected" />
 
         <TextView
             android:text="@string/editContent"

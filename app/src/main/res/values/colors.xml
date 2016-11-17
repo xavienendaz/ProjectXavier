@@ -15,5 +15,5 @@
     <color name="blueFont">#79cbfd</color>
 
     <color name="redError">#ff000d</color>
-
+    <color name="transparent">#00ffffff</color>
 </resources>

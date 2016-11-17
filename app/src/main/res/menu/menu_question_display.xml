@@ -8,13 +8,14 @@
         android:id="@+id/action_return"
         android:icon="@drawable/ic_action_arrow_left"
         android:title=""
-        ProjectXavier:showAsAction="always"/>
+        android:orderInCategory="1"
+        ProjectXavier:showAsAction="never"/>
 
     <item
         android:id="@+id/action_share"
         android:icon="@drawable/ic_action_share"
         android:title=""
-        ProjectXavier:showAsAction="always"/>
+        ProjectXavier:showAsAction="never"/>
 
 </menu>
 

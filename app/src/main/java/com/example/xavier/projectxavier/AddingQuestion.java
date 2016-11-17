@@ -37,7 +37,8 @@ public class AddingQuestion extends AppCompatActivity {
     int SELECTED_IMAGE;
     ImageView chooseImage;
     byte imageInByte[];
-    TextView tvImgError;
+    TextView tvImgError, tvImgSelected;
+    int cpt;
 
 
 
@@ -52,6 +53,7 @@ public class AddingQuestion extends AppCompatActivity {
         etContent = (EditText) findViewById(R.id.etContent);
         chooseImage = (ImageView) findViewById(R.id.imChoose);
         tvImgError  = (TextView) findViewById(R.id.tvImgError);
+        tvImgSelected  = (TextView) findViewById(R.id.tvImgSelected);
 
 
         /* when the user click for add a photo */
@@ -133,12 +135,27 @@ public class AddingQuestion extends AppCompatActivity {
         return res;
     }
 
+    public void verifySelectedImaage(){
+        if(chooseImage.isSelected()==false){
+            tvImgError.setText(R.string.imgErro);
+            return;
+            }else{
+            cpt=1;
+            tvImgSelected.setText(R.string.imgSelected);
+        }
+    }
 
     /* redirect to questionList and save question */
     public void saveQuestion(View view) {
 
         String verifyTitle = etTitle.getText().toString();
         String verifyContent = etContent.getText().toString();
+
+          /* Say to user that he needs to select an image */
+        if(cpt<1){
+            verifySelectedImaage();
+        }
+
 
         /* display an error if the user let one field empty */
         if (TextUtils.isEmpty(verifyTitle) || TextUtils.isEmpty(verifyContent)) {
@@ -165,11 +182,7 @@ public class AddingQuestion extends AppCompatActivity {
                 return;
             }
 
-            /* Say to user that he needs to select an image*/
-            if(chooseImage.isSelected()==false){
-                tvImgError.setText(R.string.imgErro);
-                return;
-            }
+
 
             //insert question into database
             String topic = spinner.getSelectedItem().toString();

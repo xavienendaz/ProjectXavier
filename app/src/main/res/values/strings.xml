@@ -61,6 +61,7 @@
     <string name="thanksRegistration">Registration successful</string>
     <string name="changePhoto">Change photo</string>
     <string name="photochange">photo changed</string>
+    <string name="imgSelected">image selected</string>
     <!-- Add Question List-->
 
 
