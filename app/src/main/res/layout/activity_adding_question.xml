@@ -20,11 +20,35 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
+        <TextView
+            android:text="@string/selectimage"
+            android:textStyle="bold"
+            android:textSize="9pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvSelectImage"
+            android:textColor="@color/darkGray"/>
+
+        <TextView
+            android:text=""
+            android:textColor="@color/redError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvImgError" />
+
+        <ImageView
+            android:id="@+id/imChoose"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@drawable/image_add">
+        </ImageView>
 
         <TextView
             android:text="Choose a topic"
             android:textStyle="bold"
             android:textSize="9pt"
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvChooseTopic"
@@ -45,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvEditTitle"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:textColor="@color/darkGray"/>
 
         <EditText
@@ -59,30 +83,7 @@
             android:background="@drawable/linear_border"/>
 
 
-        <TextView
-            android:text="Select an image"
-            android:textStyle="bold"
-            android:textSize="9pt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvSelectImage"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/darkGray"/>
 
-        <TextView
-            android:text=""
-            android:textColor="@color/redError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvImgError" />
-
-        <ImageView
-            android:id="@+id/imChoose"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_gravity="center_horizontal"
-            app:srcCompat="@drawable/image_add">
-        </ImageView>
         <TextView
             android:text=""
             android:textColor="@color/greenLight"
@@ -95,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvEditContent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:textStyle="bold"
             android:textSize="9pt"
             android:textColor="@color/darkGray"/>

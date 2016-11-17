@@ -62,7 +62,7 @@
             android:checked="false" />
 
         <Button
-            android:text="Login"
+            android:text="@string/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bLogin"
@@ -74,14 +74,14 @@
 
 
     <TextView
-        android:text="Register"
+        android:text="@string/createAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvRegister"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:textColor="@color/blueFont"
-        android:textSize="@dimen/mediumSize"
+        android:textSize="17dp"
         android:layout_marginTop="26dp" />
 
     <TextView

@@ -29,6 +29,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10pt"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:background="@drawable/linear_border">
 
         <EditText
@@ -66,8 +68,8 @@
     </LinearLayout>
 
     <TextView
-        android:text="Login"
-        android:textSize="@dimen/mediumSize"
+        android:text="@string/login"
+        android:textSize="17dp"
         android:textColor="@color/blueFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

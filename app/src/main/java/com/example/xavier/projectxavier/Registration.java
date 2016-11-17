@@ -114,16 +114,18 @@ public class Registration extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), R.string.thanksRegistration, Toast.LENGTH_SHORT).show();
                     dbHelper.close();
 
-                    /* remove sharedpreference values */
+                    /* remove password and add username in sharedpreference */
                     sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+                    SharedPreferences.Editor editor = sharedPref.edit();
 
-                    if(sharedPref.contains("username"))
-                        sharedPref.edit().remove("username").commit();
-
+                 /* delete password because when the user will restart the app, edittext password must be empty */
                     if(sharedPref.contains("password"))
                         sharedPref.edit().remove("password").commit();
 
-                    Intent i = new Intent(Registration.this, login.class);
+                    editor.putString("username", username);
+                    editor.commit();
+
+                    Intent i = new Intent(Registration.this, TopicsList.class);
                     Registration.this.startActivity(i);
                 }else{
                     //if the username is already in database

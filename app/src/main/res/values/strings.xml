@@ -62,6 +62,10 @@
     <string name="changePhoto">Change photo</string>
     <string name="photochange">photo changed</string>
     <string name="imgSelected">image selected</string>
+    <string name="selectimage">Select an image</string>
+    <string name="createAccount">New account</string>
+    <string name="login">Login</string>
+    <string name="topicselected">Topic selected:</string>
     <!-- Add Question List-->
 
 

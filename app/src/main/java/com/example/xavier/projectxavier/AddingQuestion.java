@@ -80,12 +80,14 @@ public class AddingQuestion extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.spinnerTopics);
         // Spinner click listener
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.topics_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter =
+                ArrayAdapter.createFromResource(this, R.array.topics_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-
+        spinner.setSelection(0,false);
+       // spinner.setSelection(); //set topic selected 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapter, View v,
@@ -94,8 +96,10 @@ public class AddingQuestion extends AppCompatActivity {
                 String topic = adapter.getItemAtPosition(position).toString();
                 // Showing selected spinner item
                 Toast.makeText(getApplicationContext(),
-                        "Topic selected: " + topic, Toast.LENGTH_SHORT).show();
+                        R.string.topicselected + topic, Toast.LENGTH_SHORT).show();
             }
+
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 // TODO Auto-generated method stub
