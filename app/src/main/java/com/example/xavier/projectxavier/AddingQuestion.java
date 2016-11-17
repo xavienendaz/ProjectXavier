@@ -86,8 +86,12 @@ public class AddingQuestion extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-        spinner.setSelection(0,false);
-       // spinner.setSelection(); //set topic selected 
+
+
+
+        spinner.setSelection(setSelectedTopic(),true);
+
+       // spinner.setSelection(); //set topic selected
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapter, View v,
@@ -95,8 +99,7 @@ public class AddingQuestion extends AppCompatActivity {
                 // On selecting a spinner item
                 String topic = adapter.getItemAtPosition(position).toString();
                 // Showing selected spinner item
-                Toast.makeText(getApplicationContext(),
-                        R.string.topicselected + topic, Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(),R.string.topicChoose + topic, Toast.LENGTH_SHORT).show();
             }
 
 
@@ -105,6 +108,17 @@ public class AddingQuestion extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
+    }
+
+    private int setSelectedTopic() {
+        int val = -1;
+       String myValueTopicSelected = getIntent().getExtras().getString("topicSelected");
+
+        int tab = R.array.topics_array;
+
+        //if(myValueTopicSelected == )
+        
+        return val;
     }
 
 

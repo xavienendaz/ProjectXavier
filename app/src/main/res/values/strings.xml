@@ -66,6 +66,7 @@
     <string name="createAccount">New account</string>
     <string name="login">Login</string>
     <string name="topicselected">Topic selected:</string>
+    <string name="topicChoose">Topic selected</string>
     <!-- Add Question List-->
 
 

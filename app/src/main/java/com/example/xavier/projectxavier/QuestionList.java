@@ -18,7 +18,7 @@ public class QuestionList extends AppCompatActivity {
     DbHelper dbHelper;
     Cursor cursor;
     ListDataAdapterQuestion listDataAdapterQuestion;
-    String myValueTopicSelected;
+    String myValueTopicSelected, topicFromListView;
 
 
     @Override
@@ -72,8 +72,10 @@ public class QuestionList extends AppCompatActivity {
                 i.putExtra("myValueKeyIdQuestion", item.getId());
                 i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", item.getTopic());
+                topicFromListView = item.getTopic();
                 i.putExtra("image", item.getImage());
                 QuestionList.this.startActivity(i);
+
             }
         });
     }
@@ -102,6 +104,7 @@ public class QuestionList extends AppCompatActivity {
 
             case R.id.action_add:
                 Intent i = new Intent(QuestionList.this, AddingQuestion.class);
+                i.putExtra("topicSelected", topicFromListView);
                 QuestionList.this.startActivity(i);
                 return true;
 

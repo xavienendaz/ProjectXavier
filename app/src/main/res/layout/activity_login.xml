@@ -81,7 +81,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:textColor="@color/blueFont"
-        android:textSize="17dp"
+        android:textSize="@dimen/mediumSize"
         android:layout_marginTop="26dp" />
 
     <TextView

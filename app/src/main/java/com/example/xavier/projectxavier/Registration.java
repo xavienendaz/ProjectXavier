@@ -79,10 +79,7 @@ public class Registration extends AppCompatActivity {
                 etUsername.setError("characters: min 3, max 15");
                 return;
             }
-            if(etPassword.length()<3){
-                etPassword.setError("characters: min 3");
-                return;
-            }
+
 
 
              /*Verify if password and confirm password are equals*/

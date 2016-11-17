@@ -44,6 +44,7 @@
             app:srcCompat="@drawable/image_add">
         </ImageView>
 
+
         <TextView
             android:text="Choose a topic"
             android:textStyle="bold"
@@ -53,6 +54,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvChooseTopic"
             android:textColor="@color/darkGray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:id="@+id/profile_list_layout"
+        android:background="@drawable/linear_border">
+
+
 
         <Spinner
             android:id="@+id/spinnerTopics"
@@ -60,7 +70,10 @@
             android:layout_height="wrap_content"
             android:entries="@array/topics_array"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="10dp"></Spinner>
+            ></Spinner>
+    </LinearLayout>
+
+
 
         <TextView
             android:text="Edit title"
@@ -104,6 +117,7 @@
 
         <EditText
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="50pt"
             android:inputType="textMultiLine"
             android:ems="10"
