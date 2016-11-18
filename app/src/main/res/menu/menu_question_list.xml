@@ -3,7 +3,11 @@
     xmlns:ProjectXavier="http://schemas.android.com/apk/res-auto"
     android:textColor="@color/fontColor">
 
-
+    <item
+        android:id="@+id/backArrow"
+        android:icon="@drawable/ic_action_arrow_left"
+        ProjectXavier:showAsAction="always"
+        android:title=""/>
     <item
         android:id="@+id/action_add"
         android:icon="@drawable/ic_action_add_white"
@@ -12,43 +16,7 @@
         android:gravity="left|start"
         ProjectXavier:showAsAction="always"/>
 
-    <item
-        android:id="@+id/mainMenu"
-        android:icon="@drawable/ic_dehaze"
-        ProjectXavier:showAsAction="always"
-        android:title="menu">
-        <menu
-            >
 
-            <item
-                android:id="@+id/action_topics"
-                android:title="@string/Topics"
-                android:icon="@drawable/ic_action_home"/>
 
-            <item
-                android:id="@+id/action_favorite"
-                android:title="@string/favorite"
-                android:icon="@drawable/ic_action_heart"/>
-
-            <item
-                android:id="@+id/action_add_question"
-                android:icon="@drawable/ic_action_add"
-                android:title="@string/addQuestion"/>
-
-            <item
-                android:id="@+id/action_profile"
-                android:icon="@drawable/ic_action_user"
-                android:title="@string/profile"/>
-
-            <item
-                android:id="@+id/action_settings"
-                android:icon="@drawable/ic_action_gear"
-                android:title="@string/Settings"/>
 
         </menu>
-    </item>
-
-
-
-
-</menu>

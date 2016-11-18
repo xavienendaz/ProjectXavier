@@ -31,12 +31,11 @@ public class TopicsList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.topic_layout);
+        setContentView(R.layout.topic_list_layout);
         setTitle(R.string.titleTopics);
 
-
         topics = getResources().getStringArray(R.array.topics_array);
-       adapter = new TopicsCustomList(TopicsList.this, topics, imgTopicsId);
+        adapter = new TopicsCustomList(TopicsList.this, topics, imgTopicsId);
                 list=(ListView)findViewById(R.id.listviewTopics);
                 list.setAdapter(adapter);
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

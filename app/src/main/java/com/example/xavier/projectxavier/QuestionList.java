@@ -112,29 +112,9 @@ public class QuestionList extends AppCompatActivity {
                     QuestionList.this.startActivity(i);
                     return true;
 
-                case R.id.action_topics:
+                case R.id.backArrow:
                     Intent goHome = new Intent(this, TopicsList.class);
                     startActivity(goHome);
-                    return true;
-
-                case R.id.action_favorite:
-                    Intent goFavorite = new Intent(this, FavoriteList.class);
-                    startActivity(goFavorite);
-                    return true;
-
-                case R.id.action_add_question:
-                    Intent goAdd = new Intent(this, AddingQuestion.class);
-                    startActivity(goAdd);
-                    return true;
-
-                case R.id.action_profile:
-                    Intent goProfile = new Intent(this, Profile.class);
-                    startActivity(goProfile);
-                    return true;
-
-                case R.id.action_settings:
-                    Intent goSettings = new Intent(this, Settings.class);
-                    startActivity(goSettings);
                     return true;
 
                 default:

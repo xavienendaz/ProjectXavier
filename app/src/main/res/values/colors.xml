@@ -13,6 +13,7 @@
     <color name="white">#FFFFFF</color>
 
     <color name="blueFont">#79cbfd</color>
+    <color name="blueButton">#1685c9</color>
 
     <color name="redError">#ff000d</color>
     <color name="transparent">#00ffffff</color>

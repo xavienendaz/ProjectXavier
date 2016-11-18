@@ -39,11 +39,13 @@ public class DB_Contract {
         public static final String KEY_QUESTION_ID = "id_question";
     }
 
+
     public static abstract class Comments implements BaseColumns
     {
         public static final String TABLE_NAME = "comments";
         public static final String KEY_ID = "id";
         public static final String CONTENT = "content";
+        public static final String DATE = "date";
         public static final String USER_NAME = "user_name";
         public static final String KEY_QUESTION_ID = "id_question";
     }

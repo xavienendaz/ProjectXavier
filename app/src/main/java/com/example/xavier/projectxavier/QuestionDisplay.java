@@ -3,13 +3,10 @@ package com.example.xavier.projectxavier;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.drm.DrmStore;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
@@ -18,21 +15,22 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
-
-import static android.R.id.primary;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class QuestionDisplay extends AppCompatActivity {
 
@@ -51,6 +49,8 @@ public class QuestionDisplay extends AppCompatActivity {
     ByteArrayInputStream imageStream;
     ImageView  imageView, imageAuthor;
     CollapsingToolbarLayout collapsingToolbarLayout;
+    EditText etAddComment;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -68,7 +68,7 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
         imageAuthor = (ImageView) findViewById(R.id.imgAuthor);
-
+        etAddComment = (EditText)  findViewById(R.id.etAddComment);
 
 
 
@@ -176,8 +176,135 @@ public class QuestionDisplay extends AppCompatActivity {
         });
 
 
+        /* Clear the EditText when user click on clear */
+                final Button clearComment = (Button) findViewById(R.id.btCancelComment);
+        clearComment.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+                etAddComment.setText(R.string.addComment);
+            }
+        });
+
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+
+
+        /* Save a comment when user click on save */
+        final Button saveComment = (Button) findViewById(R.id.btSaveComment);
+        saveComment.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+                SimpleDateFormat time = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                String currentDateandTime = time.format(new Date());
+
+                String content =  etAddComment.toString();
+                /* Add the comment in database */
+                dbHelper.addComment(content, usernameSharedPref, currentDateandTime, myValueKeyIdQuestion, sqLiteDatabase);
+                Toast.makeText(getBaseContext(), R.string.commentAdded, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
+
+        ArrayList image_details = getListData();
+        final ListView lv1 = (ListView) findViewById(R.id.custom_list);
+        lv1.setFocusable(false);
+        lv1.setAdapter(new CommentListAdapter(this, image_details));
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Object o = lv1.getItemAtPosition(position);
+                Comment newsData = (Comment) o;
+                //Toast.makeText(QuestionDisplay.this, "Selected :" + " " + newsData, Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        setListViewHeight(lv1);
+    }
+
+    public static boolean setListViewHeight(ListView listView) {
+        int position =0;
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter != null) {
+
+            int numberOfItems = listAdapter.getCount();
+
+            /* height of items */
+            int totalItemsHeight = 0;
+            for ( position = 0; position < numberOfItems;position++) {
+                View item = listAdapter.getView(position, null, listView);
+                item.measure(0, 0);
+                totalItemsHeight += item.getMeasuredHeight();
+            }
+
+            // Get total height of all item dividers.
+            int totalDividersHeight = listView.getDividerHeight() *
+                    (numberOfItems - 1);
+
+            // Set list height.
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = totalItemsHeight + totalDividersHeight;
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+
+            return true;
+
+        } else {
+            return false;
+        }
 
     }
+
+    private ArrayList getListData() {
+        ArrayList<Comment> results = new ArrayList<Comment>();
+        Comment newsData = new Comment();
+        newsData.setContent("Dance of Democracy");
+        newsData.setUsername("Pankaj Gupta");
+        newsData.setDate("May 26, 2013, 13:35");
+        results.add(newsData);
+        results.add(newsData);
+        results.add(newsData);
+        results.add(newsData);
+        results.add(newsData);
+        results.add(newsData);
+        results.add(newsData);
+        results.add(newsData);
+
+
+
+
+
+        String id_question = String.valueOf(myValueKeyIdQuestion);
+        //String tmpStr10 = String.valueof(tmpInt);
+        dbHelper.getAllCommentsFromCurrentQuestion(id_question, sqLiteDatabase);
+        if (cursor.moveToFirst()) {
+            do {
+                String date, content, username;
+                int id;
+
+                id = cursor.getInt(0);
+                content = cursor.getString(1);
+                username = cursor.getString(2);
+                date = cursor.getString(3);
+                myValueKeyIdQuestion = cursor.getInt(4);
+
+                Comment c = new Comment(id, content, username, date, myValueKeyIdQuestion);
+                c.toString();
+
+                results.add(c);
+
+            } while (cursor.moveToNext());
+        }
+
+
+
+        // Add some more dummy data for testing
+        return results;
+    }
+
 
 
 
@@ -239,6 +366,10 @@ public class QuestionDisplay extends AppCompatActivity {
         }
 
     }
+
+
+
+
 
 
 }

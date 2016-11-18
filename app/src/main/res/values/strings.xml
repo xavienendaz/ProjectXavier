@@ -86,6 +86,10 @@
     <string name="accountDelete">Account deleted</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="Comments">Comments</string>
+    <string name="addComment">Add public comment...</string>
+    <string name="cancel">Cancel</string>
+    <string name="commentAdded">Comment added</string>
     <!-- Add Question List-->
 
 
