@@ -25,13 +25,15 @@
         android:id="@+id/imvAddUserPhoto" />
 
 
-
-    <ImageView
-        android:icon="@drawable/ic_add_a_photo"
+    <TextView
+        android:text="@string/changePhoto"
         android:layout_gravity="center_horizontal"
+        android:textColor="@color/blueFont"
         android:layout_width="wrap_content"
-        android:layout_height="10pt"
+        android:layout_height="wrap_content"
         android:id="@+id/tvChangePhoto" />
+
+
 
     <LinearLayout
         android:layout_marginTop="10px"

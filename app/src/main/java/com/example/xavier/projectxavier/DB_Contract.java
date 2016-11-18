@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 public class DB_Contract {
 
-    public static abstract class NewUser implements BaseColumns
+    public static abstract class User implements BaseColumns
     {
         public static final String TABLE_NAME = "user_info";
         public static final String KEY_ID = "id";
@@ -19,7 +19,7 @@ public class DB_Contract {
     }
 
 
-    public static abstract class NewQuestion implements BaseColumns
+    public static abstract class Questions implements BaseColumns
     {
         public static final String TABLE_NAME = "question";
         public static final String KEY_ID = "id";
@@ -31,7 +31,7 @@ public class DB_Contract {
     }
 
 
-    public static abstract class NewFavorite implements BaseColumns
+    public static abstract class Favorite implements BaseColumns
     {
         public static final String TABLE_NAME = "favorite";
         public static final String KEY_ID = "id";
@@ -39,5 +39,13 @@ public class DB_Contract {
         public static final String KEY_QUESTION_ID = "id_question";
     }
 
+    public static abstract class Comments implements BaseColumns
+    {
+        public static final String TABLE_NAME = "comments";
+        public static final String KEY_ID = "id";
+        public static final String CONTENT = "content";
+        public static final String USER_NAME = "user_name";
+        public static final String KEY_QUESTION_ID = "id_question";
+    }
 
 }
