@@ -3,6 +3,7 @@ package com.example.xavier.projectxavier;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,6 +37,10 @@ public class QuestionList extends AppCompatActivity {
         listView.setAdapter(listDataAdapterQuestion);
         dbHelper = new DbHelper(getApplicationContext());
         sqLiteDatabase = dbHelper.getReadableDatabase();
+
+
+
+
 
         /* get info from databse */
         cursor = dbHelper.getQuestionInfoFromTopic(myValueTopicSelected, sqLiteDatabase);
@@ -72,8 +77,8 @@ public class QuestionList extends AppCompatActivity {
                 i.putExtra("myValueKeyIdQuestion", item.getId());
                 i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", item.getTopic());
-                topicFromListView = item.getTopic();
                 i.putExtra("image", item.getImage());
+       //         i.putExtra("activitySelected", "questionList");
                 QuestionList.this.startActivity(i);
 
             }
@@ -89,30 +94,55 @@ public class QuestionList extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_question_list, menu);
+
+        // add this
+
         return true;
     }
 
+
     /*Actionbar's actions*/
-    public boolean onOptionsItemSelected(MenuItem item) {
+        public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
+            switch (item.getItemId()) {
 
-            case R.id.action_return:
-                Intent goBack = new Intent(this, TopicsList.class);
-                startActivity(goBack);
-                return true;
+                case R.id.action_add:
+                    Intent i = new Intent(QuestionList.this, AddingQuestion.class);
+                    i.putExtra("topicSelected", topicFromListView);
+                    QuestionList.this.startActivity(i);
+                    return true;
 
-            case R.id.action_add:
-                Intent i = new Intent(QuestionList.this, AddingQuestion.class);
-                i.putExtra("topicSelected", topicFromListView);
-                QuestionList.this.startActivity(i);
-                return true;
+                case R.id.action_topics:
+                    Intent goHome = new Intent(this, TopicsList.class);
+                    startActivity(goHome);
+                    return true;
 
-            default:
-                return super.onOptionsItemSelected(item);
+                case R.id.action_favorite:
+                    Intent goFavorite = new Intent(this, FavoriteList.class);
+                    startActivity(goFavorite);
+                    return true;
 
+                case R.id.action_add_question:
+                    Intent goAdd = new Intent(this, AddingQuestion.class);
+                    startActivity(goAdd);
+                    return true;
+
+                case R.id.action_profile:
+                    Intent goProfile = new Intent(this, Profile.class);
+                    startActivity(goProfile);
+                    return true;
+
+                case R.id.action_settings:
+                    Intent goSettings = new Intent(this, Settings.class);
+                    startActivity(goSettings);
+                    return true;
+
+                default:
+                    return super.onOptionsItemSelected(item);
+
+            }
         }
+
     }
 
-}
 

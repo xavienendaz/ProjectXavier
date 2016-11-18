@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class Settings extends AppCompatActivity {
@@ -33,6 +32,16 @@ public class Settings extends AppCompatActivity {
 
     }
 
+    public void logOff(View view){
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+         /* remove sharedpreference values */
+        sharedPref.edit().remove("username").commit();
+        sharedPref.edit().remove("password").commit();
+        Intent i = new Intent(Settings.this, login.class);
+        Settings.this.startActivity(i);
+        Toast.makeText(getBaseContext(), R.string.Loggof, Toast.LENGTH_SHORT).show();
+    }
+
     public void deleteUser(View view) {
 
         /* Read username from sharedPreferences */
@@ -42,9 +51,9 @@ public class Settings extends AppCompatActivity {
         /* When the user click on delete_account, a confirmation alert is created */
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Delete account")
-                .setMessage("Are you sure you want delete your account?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                .setTitle(R.string.deletAccount)
+                .setMessage(R.string.deleteAccountConfirm)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -59,12 +68,12 @@ public class Settings extends AppCompatActivity {
                         Intent i = new Intent(Settings.this, login.class);
                         Settings.this.startActivity(i);
 
-                        Toast.makeText(getBaseContext(), "Account deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), R.string.accountDelete, Toast.LENGTH_SHORT).show();
                         finish();
                     }
 
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(R.string.no, null)
                 .show();
     }
 

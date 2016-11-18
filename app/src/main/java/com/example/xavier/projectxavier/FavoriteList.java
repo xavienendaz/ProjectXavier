@@ -67,7 +67,7 @@ public class FavoriteList extends AppCompatActivity {
                 username = cursor.getString(4);
                 image = cursor.getBlob(5);
                 Question c = new Question(id, topic, title, content, username, image);
-               // c.toString();
+
 
 
 
@@ -77,12 +77,14 @@ public class FavoriteList extends AppCompatActivity {
                     cpt=1;
                 }
 
-                /* Display message when list is empty*/
-                if(cpt==0){
-                    textView.setText(R.string.emptyList);
-                }
+
 
             } while (cursor.moveToNext());
+        }
+
+         /* Display message when list is empty*/
+        if(cpt==0){
+            textView.setText(R.string.emptyList);
         }
 
         /* ListeView handler: Display the selected question */
@@ -102,6 +104,7 @@ public class FavoriteList extends AppCompatActivity {
                 i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", item.getTopic());
                 i.putExtra("image", item.getImage());
+        //        i.putExtra("activitySelected", "favorite");
                 FavoriteList.this.startActivity(i);
 
 

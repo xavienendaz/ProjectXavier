@@ -45,6 +45,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|right|end"
+        app:srcCompat="@android:drawable/ic_menu_share"/>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,8 +76,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                android:orientation="vertical"
-                xmlns:ProjectXavier="http://schemas.android.com/apk/res-auto">
+                android:orientation="vertical">
 
 
                 <TextView
@@ -93,7 +101,7 @@
 
 
                     <TextView
-                        android:text="TextView"
+                        android:text=""
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tvQuestionContent"
@@ -107,57 +115,75 @@
 
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10px"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:text="@string/author"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tvAuthorInfo" />
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical">
 
-                        <TextView
-                            android:text=""
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5pt"
-                            android:textColor="@color/blueFont"
-                            android:id="@+id/tvAuthor" />
-                    </LinearLayout>
-
-
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10px"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:text="@string/nb_posts"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5px"
-                            android:id="@+id/tvCountQuestion" />
-                        <TextView
-                            android:text=""
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5pt"
-                            android:textColor="@color/blueFont"
-                            android:id="@+id/nbPosts" />
-
-
-
-                    </LinearLayout>
-
-                    <ImageView
+                        <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_menu_share"
                         android:id="@+id/imvShare" />
+
+                        <TextView
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/linear_up_border"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5px"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="30pt"
+                                android:layout_height="30pt"
+                                android:layout_marginRight="5pt"
+                                android:id="@+id/imgAuthor" />
+
+                            <TextView
+                                android:text="@string/author"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:id="@+id/tvAuthorInfo" />
+
+                            <TextView
+                                android:text=""
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="5pt"
+                                android:textColor="@color/blueFont"
+                                android:id="@+id/tvAuthor" />
+
+                            <TextView
+                                android:text="@string/nb_posts"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10pt"
+                                android:id="@+id/tvCountQuestion" />
+                            <TextView
+                                android:text=""
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5pt"
+                                android:textColor="@color/blueFont"
+                                android:id="@+id/nbPosts" />
+                        </LinearLayout>
+
+
+
+
+
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
@@ -168,13 +194,4 @@
 
 
     </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabFavorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_anchor="@id/app_bar_layout"
-        app:layout_anchorGravity="bottom|right|end"
-        app:srcCompat="@android:drawable/ic_menu_share"/>
 </android.support.design.widget.CoordinatorLayout>

@@ -1,20 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ProjectXavier="http://schemas.android.com/apk/res-auto">
+    xmlns:ProjectXavier="http://schemas.android.com/apk/res-auto"
+    android:textColor="@color/fontColor">
 
-    <item
-        android:id="@+id/action_return"
-        android:icon="@drawable/ic_action_arrow_left"
-        android:title=""
-        ProjectXavier:showAsAction="always"/>
 
     <item
         android:id="@+id/action_add"
         android:icon="@drawable/ic_action_add_white"
         android:title=""
+        android:layout_gravity="left"
+        android:gravity="left|start"
+        ProjectXavier:showAsAction="always"/>
+
+    <item
+        android:id="@+id/mainMenu"
+        android:icon="@drawable/ic_dehaze"
         ProjectXavier:showAsAction="always"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="12dp"/>
+        android:title="menu">
+        <menu
+            >
+
+            <item
+                android:id="@+id/action_topics"
+                android:title="@string/Topics"
+                android:icon="@drawable/ic_action_home"/>
+
+            <item
+                android:id="@+id/action_favorite"
+                android:title="@string/favorite"
+                android:icon="@drawable/ic_action_heart"/>
+
+            <item
+                android:id="@+id/action_add_question"
+                android:icon="@drawable/ic_action_add"
+                android:title="@string/addQuestion"/>
+
+            <item
+                android:id="@+id/action_profile"
+                android:icon="@drawable/ic_action_user"
+                android:title="@string/profile"/>
+
+            <item
+                android:id="@+id/action_settings"
+                android:icon="@drawable/ic_action_gear"
+                android:title="@string/Settings"/>
+
+        </menu>
+    </item>
+
+
 
 
 </menu>

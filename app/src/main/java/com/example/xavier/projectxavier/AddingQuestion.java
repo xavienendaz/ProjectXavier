@@ -53,7 +53,7 @@ public class AddingQuestion extends AppCompatActivity {
         etContent = (EditText) findViewById(R.id.etContent);
         chooseImage = (ImageView) findViewById(R.id.imChoose);
         tvImgError  = (TextView) findViewById(R.id.tvImgError);
-        tvImgSelected  = (TextView) findViewById(R.id.tvImgSelected);
+
 
 
         /* when the user click for add a photo */
@@ -112,12 +112,13 @@ public class AddingQuestion extends AppCompatActivity {
 
     private int setSelectedTopic() {
         int val = -1;
-       String myValueTopicSelected = getIntent().getExtras().getString("topicSelected");
+
+//       String myValueTopicSelected = getIntent().getExtras().getString("topicSelected");
 
         int tab = R.array.topics_array;
 
         //if(myValueTopicSelected == )
-        
+
         return val;
     }
 
@@ -134,6 +135,10 @@ public class AddingQuestion extends AppCompatActivity {
                     //Log.i(TAG, "Image Path : " + path);
                     // Set the image in ImageView
                     chooseImage.setImageURI(selectedImageUri);
+                    tvImgError.setTextColor(getResources().getColor(R.color.greenLight));
+                    tvImgError.setText(R.string.imgSelected);
+                    /* in method below saveQuestion that the user has select the image*/
+                    cpt = 1;
                     }
             }
         }
@@ -154,13 +159,15 @@ public class AddingQuestion extends AppCompatActivity {
     }
 
     public void verifySelectedImaage(){
+
         if(chooseImage.isSelected()==false){
             tvImgError.setText(R.string.imgErro);
+            Toast.makeText(getBaseContext(), R.string.imgErro, Toast.LENGTH_SHORT).show();
             return;
             }else{
+             /* If user select an image one time, cpt = 1 for verify in saveQuestion method*/
             cpt=1;
-            tvImgSelected.setText(R.string.imgSelected);
-        }
+            }
     }
 
     /* redirect to questionList and save question */
@@ -169,9 +176,11 @@ public class AddingQuestion extends AppCompatActivity {
         String verifyTitle = etTitle.getText().toString();
         String verifyContent = etContent.getText().toString();
 
-          /* Say to user that he needs to select an image */
+          /* Say to user that he needs to select an image
+          *  If cpt = 1, he has already selected an image*/
         if(cpt<1){
             verifySelectedImaage();
+            return;
         }
 
 
@@ -229,7 +238,7 @@ public class AddingQuestion extends AppCompatActivity {
             dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, sqLiteDatabase);
 
 
-            Toast.makeText(getBaseContext(), "Question created", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), R.string.questionCreated, Toast.LENGTH_SHORT).show();
 
             dbHelper.close();
             /* redirect to questionlist with selected topic */

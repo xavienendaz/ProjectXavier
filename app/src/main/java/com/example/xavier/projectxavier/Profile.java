@@ -15,8 +15,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +36,7 @@ public class Profile extends AppCompatActivity{
     Cursor cursor;
     ListDataAdapterQuestion listDataAdapterQuestion;
     SharedPreferences sharedPref;
-    ListView listView;
+    ListView listViewProfileQuestions;
     int SELECTED_IMAGE;
     byte imageInByte[];
     ImageView chooseImage;
@@ -46,6 +48,9 @@ public class Profile extends AppCompatActivity{
         setContentView(R.layout.activity_profile);
         setTitle(R.string.profile);
 
+        chooseImage = (ImageView) findViewById(R.id.imvAddUserPhoto);
+        listViewProfileQuestions = (ListView) findViewById(R.id.listview_questionList_profile);
+
         /* Read username from sharedPreferences */
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         usernameSharedPref = sharedPref.getString("username", "");
@@ -53,13 +58,8 @@ public class Profile extends AppCompatActivity{
         textViewUsername.setText(usernameSharedPref);
 
 
-        chooseImage = (ImageView) findViewById(R.id.imvAddUserPhoto);
 
-        readUserFromDatabase();
 
-        countUserPosts();
-
-        displayUserPostsList();
 
 
            /* when the user click for add a photo */
@@ -70,13 +70,54 @@ public class Profile extends AppCompatActivity{
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(galleryIntent, SELECTED_IMAGE);
-
-
             }
         });
 
 
+        readUserFromDatabase();
+
+        countUserPosts();
+
+        displayUserPostsList();
+
+        setListViewHeight(listViewProfileQuestions);
+
     }
+
+
+    public static boolean setListViewHeight(ListView listView) {
+        int position =0;
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter != null) {
+
+            int numberOfItems = listAdapter.getCount();
+
+            /* height of items */
+            int totalItemsHeight = 0;
+            for ( position = 0; position < numberOfItems;position++) {
+                View item = listAdapter.getView(position, null, listView);
+                item.measure(0, 0);
+                totalItemsHeight += item.getMeasuredHeight();
+            }
+
+            // Get total height of all item dividers.
+            int totalDividersHeight = listView.getDividerHeight() *
+                    (numberOfItems - 1);
+
+            // Set list height.
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = totalItemsHeight + totalDividersHeight;
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+
+            return true;
+
+        } else {
+            return false;
+        }
+
+    }
+
 
     private void readUserFromDatabase() {
         dbHelper = new DbHelper(context);
@@ -100,12 +141,7 @@ public class Profile extends AppCompatActivity{
                 chooseImage.setImageBitmap(theImage);
             }while (cursor.moveToNext());
         }
-
-
-
-
     }
-
 
 
     @Override
@@ -152,23 +188,11 @@ public class Profile extends AppCompatActivity{
     }
 
 
-
-
-
-
-
-
-
-
-
-
     private void displayUserPostsList() {
         tvEmptyUserList = (TextView) findViewById(R.id.tvEmptyUserCurrentList);
-
-
-        listView = (ListView) findViewById(R.id.listview_questionList_profile);
+        listViewProfileQuestions = (ListView) findViewById(R.id.listview_questionList_profile);
         listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.profile_list_layout);
-        listView.setAdapter(listDataAdapterQuestion);
+        listViewProfileQuestions.setAdapter(listDataAdapterQuestion);
         dbHelper = new DbHelper(getApplicationContext());
         sqLiteDatabase = dbHelper.getReadableDatabase();
 
@@ -195,7 +219,7 @@ public class Profile extends AppCompatActivity{
         }
 
         /* ListeView handler: Display the selected question */
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewProfileQuestions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -211,6 +235,7 @@ public class Profile extends AppCompatActivity{
                 i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", item.getTopic());
                 i.putExtra("image", item.getImage());
+              //  i.putExtra("activitySelected", "profileList");
                 Profile.this.startActivity(i);
             }
         });
@@ -223,8 +248,6 @@ public class Profile extends AppCompatActivity{
         int cpt = dbHelper.countUserQuestions(usernameSharedPref);
         textViewCount.setText(""+cpt);
     }
-
-
 
 
   /*Addid the actionbar*/

@@ -62,21 +62,21 @@ public class Registration extends AppCompatActivity {
         //show error message if the user let one field empty
         if (TextUtils.isEmpty(verifyPassword) || TextUtils.isEmpty(verifyUsername)) {
             if(TextUtils.isEmpty(verifyPassword) && TextUtils.isEmpty(verifyUsername)){
-                etPassword.setError("Enter a password");
-                etUsername.setError("Enter a username");
+                etPassword.setError(""+R.string.enterPassword);
+                etUsername.setError(""+R.string.enterUsername);
                 return;
             } else if (TextUtils.isEmpty(verifyUsername)) {
-                etUsername.setError("Enter a username");
+                etUsername.setError(""+R.string.enterUsername);
                 return;
             } else  if (TextUtils.isEmpty(verifyPassword)) {
-                etPassword.setError("Enter a password");
+                etPassword.setError(""+R.string.enterPassword);
                 return;
             }
         }else {
 
             /* verify characters size tu username and password*/
             if(etUsername.length()<3 || verifyUsername.length()>15){
-                etUsername.setError("characters: min 3, max 15");
+                etUsername.setError(""+R.string.unameResctriction);
                 return;
             }
 
@@ -85,7 +85,7 @@ public class Registration extends AppCompatActivity {
              /*Verify if password and confirm password are equals*/
             if (!verifyPassword.equals(confirmPassword)) {
                 Toast.makeText(getApplicationContext(),
-                        "Password does not match", Toast.LENGTH_SHORT).show();
+                        R.string.passwordWrong, Toast.LENGTH_SHORT).show();
                 return;
             } else {
 
@@ -126,7 +126,7 @@ public class Registration extends AppCompatActivity {
                     Registration.this.startActivity(i);
                 }else{
                     //if the username is already in database
-                    Toast.makeText(getBaseContext(), "Username already exist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.usernameExist, Toast.LENGTH_SHORT).show();
                 }
 
             }

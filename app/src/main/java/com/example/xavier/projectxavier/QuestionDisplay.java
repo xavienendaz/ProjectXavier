@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.drm.DrmStore;
 import android.graphics.Bitmap;
@@ -38,16 +39,17 @@ public class QuestionDisplay extends AppCompatActivity {
     TextView textViewQuestionTitle, textViewQuestionContent, textViewAuthor;
     String myValueTopicSelected, myValueKeyAuthor;
 
+    Cursor cursor;
     Context context = this;
     DbHelper dbHelper;
     SQLiteDatabase sqLiteDatabase;
     FloatingActionButton fab;
     int myValueKeyIdQuestion;
-
+    Intent goBack;
     String usernameSharedPref;
     SharedPreferences sharedPref;
     ByteArrayInputStream imageStream;
-    ImageView  imageView;
+    ImageView  imageView, imageAuthor;
     CollapsingToolbarLayout collapsingToolbarLayout;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -64,15 +66,45 @@ public class QuestionDisplay extends AppCompatActivity {
         collapsingToolbarLayout.setTitle(myValueTopicSelected);
 
 
+
+        imageAuthor = (ImageView) findViewById(R.id.imgAuthor);
+
+
+
+
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Find logo
         View view = toolbar.getChildAt(0);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String activitySelected = getIntent().getExtras().getString("activitySelected");
                 Intent goBack = new Intent(QuestionDisplay.this, QuestionList.class);
                 goBack.putExtra("topicSelected", myValueTopicSelected);
                 QuestionDisplay.this.startActivity(goBack);
+      /*         if(activitySelected == "questionList")
+               {
+                   Intent goBack = new Intent(QuestionDisplay.this, QuestionList.class);
+                   goBack.putExtra("topicSelected", myValueTopicSelected);
+                   QuestionDisplay.this.startActivity(goBack);
+
+               }else if(activitySelected.toString() == "favorite")
+               {
+                   /* when the user open this activity from favorites
+                   Intent goBack = new Intent(QuestionDisplay.this, FavoriteList.class);
+                   QuestionDisplay.this.startActivity(goBack);
+               }else if(activitySelected == "profileList")
+     /*          {
+                   /* when the user open this activity from profile
+                   Intent goBack = new Intent(QuestionDisplay.this, Profile.class);
+                   QuestionDisplay.this.startActivity(goBack);
+               }
+*/
+
             }
         });
 
@@ -103,9 +135,6 @@ public class QuestionDisplay extends AppCompatActivity {
 
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
- /* Read username from sharedPreferences */
-
-                //myValueKeyIdQuestion = getIntent().getExtras().getInt("myValueKeyIdQuestion");
 
                 if(dbHelper.verifyFavorite(usernameSharedPref, myValueKeyIdQuestion) == true){
 
@@ -115,14 +144,10 @@ public class QuestionDisplay extends AppCompatActivity {
 
                 }else{
                     /* If the question is not in favorites */
-
-
                     sqLiteDatabase = dbHelper.getWritableDatabase();
                     dbHelper.addFavorite(usernameSharedPref, myValueKeyIdQuestion, sqLiteDatabase);
                     Toast.makeText(getBaseContext(), "Favorite added", Toast.LENGTH_SHORT).show();
                     dbHelper.close();
-
-
                 }
                 setFabImage();
 
@@ -132,9 +157,8 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
         countUserPosts();
-
         setImage();
-
+        readUserFromDatabase();
         //see the database
         final ImageView share = (ImageView) findViewById(R.id.imvShare);
         share.setOnClickListener(new View.OnClickListener(){
@@ -154,6 +178,34 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
     }
+
+
+
+    private void readUserFromDatabase() {
+        dbHelper = new DbHelper(context);
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+
+        /* read the author user from database */
+        cursor = dbHelper.getOneUser(myValueKeyAuthor, sqLiteDatabase);
+
+        if(cursor.moveToFirst())
+        {
+            do {
+                String username;
+                byte[] image;
+                username = cursor.getString(0);
+                image = cursor.getBlob(1);
+                User u = new User(username, image);
+
+                /* set profile image */
+                byte[] data = u.getImage();
+                imageStream = new ByteArrayInputStream(data);
+                Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+                imageAuthor.setImageBitmap(theImage);
+            }while (cursor.moveToNext());
+        }
+    }
+
 
 
     private void setImage() {

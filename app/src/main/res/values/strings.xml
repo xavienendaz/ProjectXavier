@@ -67,6 +67,25 @@
     <string name="login">Login</string>
     <string name="topicselected">Topic selected:</string>
     <string name="topicChoose">Topic selected</string>
+    <string name="enterPassword">Enter a password</string>
+    <string name="enterUsername">Enter username</string>
+    <string name="unameResctriction">characters: min 3, max 15</string>
+    <string name="passwordWrong">Password does not match</string>
+    <string name="usernameExist">Username already exist</string>
+    <string name="title">Title</string>
+    <string name="content">Content</string>
+    <string name="editTitle">Edit title</string>
+    <string name="chooseTopic">Choose a topic</string>
+    <string name="questionCreated">Question created</string>
+    <string name="Languages">Languages</string>
+    <string name="Account">Account</string>
+    <string name="deletAccount">delete my account</string>
+    <string name="loggOff">Log off</string>
+    <string name="Loggof">Logg of</string>
+    <string name="deleteAccountConfirm">Are you sure you want delete your account?</string>
+    <string name="accountDelete">Account deleted</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
     <!-- Add Question List-->
 
 

@@ -18,58 +18,63 @@
 
 
     <TextView
-        android:text="Languages"
+        android:text="@string/Languages"
+        android:textStyle="bold"
+        android:textSize="9pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/textView"/>
 
     <ImageButton
         android:layout_width="150px"
         android:layout_height="150px"
         app:srcCompat="@drawable/flagenglish"
-        android:layout_marginTop="29dp"
-        android:id="@+id/imageButton"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="10dp"
+        android:id="@+id/imbFlagEnglish"/>
 
     <ImageButton
         android:layout_width="150px"
         android:layout_height="150px"
         app:srcCompat="@drawable/flagfrance"
-        android:id="@+id/imageButton2"
-        android:layout_alignTop="@+id/imageButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="10dp"
+        android:id="@+id/imbFlagFrance"/>
 
-    <TextView
-        android:text="Account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvAccount"
-        android:layout_marginBottom="33dp"
-        android:layout_above="@+id/btDeleteAccount"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
-    <Button
-        android:text="delete my account"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btDeleteAccount"
-        android:layout_marginBottom="77dp"
-        android:onClick="deleteUser"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:orientation="vertical"
+        android:layout_marginTop="10pt"
+        android:background="@drawable/linear_border">
+        <TextView
+            android:text="@string/Account"
+            android:textStyle="bold"
+            android:textSize="9pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAccount"/>
+
+
+        <TextView
+            android:text="@string/loggOff"
+            android:layout_marginTop="10pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvLogOff"
+            android:onClick="logOff"/>
+
+        <TextView
+            android:text="@string/deletAccount"
+            android:layout_marginTop="10pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btDeleteAccount"
+            android:onClick="deleteUser"/>
+
+
+
+    </LinearLayout>
+
 
 </LinearLayout>
     </ScrollView>
