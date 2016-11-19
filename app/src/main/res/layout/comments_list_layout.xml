@@ -4,18 +4,20 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dip" >
+        android:padding="5dip"
+        android:id="@+id/comment_list_layout">
 
 
 
         <TextView
             android:id="@+id/author"
+            android:layout_marginTop="5pt"
             android:textColor="@color/blueFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:typeface="sans"
-            android:textSize="14sp"/>
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/commentContent"
@@ -23,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/author"
             android:layout_marginTop="5dip"
+            android:layout_marginBottom="5pt"
             android:textColor="#343434"
             android:textSize="14sp" />
 
@@ -33,6 +36,6 @@
             android:layout_alignBaseline="@+id/author"
             android:layout_alignBottom="@+id/author"
             android:layout_alignParentRight="true"
-            android:textColor="#343434"
+            android:textColor="#706f6f"
             android:textSize="12sp" />
     </RelativeLayout>

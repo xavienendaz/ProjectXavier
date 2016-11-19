@@ -16,20 +16,26 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 public class QuestionDisplay extends AppCompatActivity {
@@ -50,6 +56,8 @@ public class QuestionDisplay extends AppCompatActivity {
     ImageView  imageView, imageAuthor;
     CollapsingToolbarLayout collapsingToolbarLayout;
     EditText etAddComment;
+    ListView listViewComments;
+    CommentAdapter commentAdapter;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -66,14 +74,8 @@ public class QuestionDisplay extends AppCompatActivity {
         collapsingToolbarLayout.setTitle(myValueTopicSelected);
 
 
-
         imageAuthor = (ImageView) findViewById(R.id.imgAuthor);
-        etAddComment = (EditText)  findViewById(R.id.etAddComment);
-
-
-
-
-
+        etAddComment = (EditText) findViewById(R.id.etAddComment);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -111,7 +113,7 @@ public class QuestionDisplay extends AppCompatActivity {
 
         textViewQuestionTitle = (TextView) findViewById(R.id.tvTitle);
         textViewQuestionContent = (TextView) findViewById(R.id.tvQuestionContent);
-        textViewAuthor= (TextView) findViewById(R.id.tvAuthor);
+        textViewAuthor = (TextView) findViewById(R.id.tvAuthor);
 
         /* Recover Object Question from activity_question_list */
         String myValueTitle = getIntent().getExtras().getString("myValueKeyTitle");
@@ -136,13 +138,13 @@ public class QuestionDisplay extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(dbHelper.verifyFavorite(usernameSharedPref, myValueKeyIdQuestion) == true){
+                if (dbHelper.verifyFavorite(usernameSharedPref, myValueKeyIdQuestion) == true) {
 
                     /* If the question is in favorites, we delete the row from table */
                     dbHelper.deleteFavorite(usernameSharedPref, myValueKeyIdQuestion, sqLiteDatabase);
                     Toast.makeText(getBaseContext(), "Favorite delete", Toast.LENGTH_SHORT).show();
 
-                }else{
+                } else {
                     /* If the question is not in favorites */
                     sqLiteDatabase = dbHelper.getWritableDatabase();
                     dbHelper.addFavorite(usernameSharedPref, myValueKeyIdQuestion, sqLiteDatabase);
@@ -155,14 +157,13 @@ public class QuestionDisplay extends AppCompatActivity {
         });
 
 
-
         countUserPosts();
         setImage();
         readUserFromDatabase();
         //see the database
         final ImageView share = (ImageView) findViewById(R.id.imvShare);
-        share.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        share.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 //sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
@@ -177,11 +178,11 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
         /* Clear the EditText when user click on clear */
-                final Button clearComment = (Button) findViewById(R.id.btCancelComment);
-        clearComment.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-
-                etAddComment.setText(R.string.addComment);
+        final Button clearComment = (Button) findViewById(R.id.btCancelComment);
+        clearComment.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                etAddComment.getText().clear();
+                etAddComment.setHint(R.string.addComment);
             }
         });
 
@@ -190,16 +191,32 @@ public class QuestionDisplay extends AppCompatActivity {
 
         /* Save a comment when user click on save */
         final Button saveComment = (Button) findViewById(R.id.btSaveComment);
-        saveComment.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        saveComment.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String comment = etAddComment.getText().toString();
+                if (TextUtils.isEmpty(comment)) {
+                    Toast.makeText(getBaseContext(), R.string.enterComment, Toast.LENGTH_SHORT).show();
 
-                SimpleDateFormat time = new SimpleDateFormat("yyyyMMdd_HHmmss");
-                String currentDateandTime = time.format(new Date());
+                    /* add on click keybord diesappear*/
+                }else{
+                    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm");
+                    String currentTime = time.format(new Date());
 
-                String content =  etAddComment.toString();
-                /* Add the comment in database */
-                dbHelper.addComment(content, usernameSharedPref, currentDateandTime, myValueKeyIdQuestion, sqLiteDatabase);
-                Toast.makeText(getBaseContext(), R.string.commentAdded, Toast.LENGTH_SHORT).show();
+                    String content = etAddComment.getText().toString();
+                    String author = usernameSharedPref.toString();
+                    /* Add the comment in database */
+                    dbHelper.addComment(content, currentTime, author, myValueKeyIdQuestion, sqLiteDatabase);
+                    Toast.makeText(getBaseContext(), R.string.commentAdded, Toast.LENGTH_SHORT).show();
+
+                    /* Clear and set hint in EditText addComment */
+                    etAddComment.getText().clear();
+                    etAddComment.setHint(R.string.addComment);
+
+                    /* Load the updated list */
+                    setCommentList();
+                }
+
+
 
             }
         });
@@ -207,7 +224,7 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
 
-        ArrayList image_details = getListData();
+  /*      ArrayList image_details = getListData();
         final ListView lv1 = (ListView) findViewById(R.id.custom_list);
         lv1.setFocusable(false);
         lv1.setAdapter(new CommentListAdapter(this, image_details));
@@ -223,6 +240,46 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
         setListViewHeight(lv1);
+        */
+
+        setCommentList();
+
+
+
+    }
+
+    private void setCommentList() {
+
+        listViewComments = (ListView) findViewById(R.id.listview_comments);
+        commentAdapter = new CommentAdapter(getApplicationContext(), R.id.comment_list_layout);
+        listViewComments.setAdapter(commentAdapter);
+        dbHelper = new DbHelper(getApplicationContext());
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+
+
+        String id_question = String.valueOf(myValueKeyIdQuestion);
+        cursor = dbHelper.getAllCommentsFromCurrentQuestion(id_question, sqLiteDatabase);
+        if (cursor.moveToFirst()) {
+            do {
+                String date, content, username;
+                int id;
+
+                id = cursor.getInt(0);
+                content = cursor.getString(1);
+                date = cursor.getString(2);
+                username = cursor.getString(3);
+                myValueKeyIdQuestion = cursor.getInt(4);
+
+                Comment c = new Comment(id, content, date, username, myValueKeyIdQuestion);
+                c.toString();
+
+                commentAdapter.add(c);
+
+            } while (cursor.moveToNext());
+        }
+
+
+        setListViewHeight(listViewComments);
     }
 
     public static boolean setListViewHeight(ListView listView) {
@@ -246,7 +303,7 @@ public class QuestionDisplay extends AppCompatActivity {
 
             // Set list height.
             ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = totalItemsHeight + totalDividersHeight;
+            params.height = totalItemsHeight + totalDividersHeight ;
             listView.setLayoutParams(params);
             listView.requestLayout();
 
@@ -257,6 +314,7 @@ public class QuestionDisplay extends AppCompatActivity {
         }
 
     }
+
 
     private ArrayList getListData() {
         ArrayList<Comment> results = new ArrayList<Comment>();
@@ -272,9 +330,6 @@ public class QuestionDisplay extends AppCompatActivity {
         results.add(newsData);
         results.add(newsData);
         results.add(newsData);
-
-
-
 
 
         String id_question = String.valueOf(myValueKeyIdQuestion);

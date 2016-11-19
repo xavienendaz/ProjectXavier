@@ -196,7 +196,9 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/linear_border"
                     android:layout_marginTop="10pt"
+                    android:layout_marginBottom="10pt"
                     android:orientation="vertical"
+                    android:id="@+id/linearLayoutComments"
                     >
 
 
@@ -260,11 +262,12 @@
                         android:background="@drawable/linear_up_border"/>
 
                     <ListView
-                        android:id="@+id/custom_list"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/listview_comments"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:dividerHeight="2dp"
-                        android:layout_marginTop="10pt"></ListView>
+                        android:dividerHeight="1dp"
+                        android:layout_marginTop="10pt"
+                        android:layout_marginBottom="10pt"></ListView>
 
                 </LinearLayout>
 

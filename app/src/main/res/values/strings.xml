@@ -69,7 +69,7 @@
     <string name="topicChoose">Topic selected</string>
     <string name="enterPassword">Enter a password</string>
     <string name="enterUsername">Enter username</string>
-    <string name="unameResctriction">characters: min 3, max 15</string>
+    <string name="unameResctriction">characters: min 3</string>
     <string name="passwordWrong">Password does not match</string>
     <string name="usernameExist">Username already exist</string>
     <string name="title">Title</string>
@@ -90,6 +90,7 @@
     <string name="addComment">Add public comment...</string>
     <string name="cancel">Cancel</string>
     <string name="commentAdded">Comment added</string>
+    <string name="enterComment">Enter a comment</string>
     <!-- Add Question List-->
 
 

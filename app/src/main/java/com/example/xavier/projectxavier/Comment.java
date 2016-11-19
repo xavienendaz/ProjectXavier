@@ -9,16 +9,16 @@ public class Comment {
 
     private int id;
     private String content;
-    private String username;
     private String date;
+    private String username;
     private int id_question;
 
     public Comment(){}
-    public Comment(int id, String content, String username, String date, int id_question){
+    public Comment(int id, String content, String date, String username,  int id_question){
         this.id=id;
         this.content=content;
-        this.username=username;
         this.date=date;
+        this.username=username;
         this.id_question=id_question;
     }
 

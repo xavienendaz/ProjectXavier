@@ -15,7 +15,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "PROJECT.DB";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     private static final String CREATE_QUERY_TBL_USER = "CREATE TABLE "
             + DB_Contract.User.TABLE_NAME+"("
@@ -338,11 +338,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /**************** Comments PART ****************/
 
-    public void addComment(String content, String username, String date, int question_id, SQLiteDatabase db){
+    public void addComment(String content, String date, String username,  int question_id, SQLiteDatabase db){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DB_Contract.Comments.CONTENT,content);
-        contentValues.put(DB_Contract.Comments.USER_NAME,username);
         contentValues.put(DB_Contract.Comments.DATE,date);
+        contentValues.put(DB_Contract.Comments.USER_NAME,username);
         contentValues.put(DB_Contract.Comments.KEY_QUESTION_ID,question_id);
         db.insert(DB_Contract.Comments.TABLE_NAME,null,contentValues);
         Log.e("DATABASE OPERATIONS", "One comment created");
@@ -351,7 +351,7 @@ public class DbHelper extends SQLiteOpenHelper {
     /* Return all questions from current user */
     public Cursor getAllCommentsFromCurrentQuestion(String idQuestion, SQLiteDatabase db) {
         Cursor  cursor;
-        String[] projectionsQuestion = {
+        String[] projectionsComment = {
                 DB_Contract.Comments.KEY_ID,
                 DB_Contract.Comments.CONTENT,
                 DB_Contract.Comments.DATE,
@@ -360,7 +360,7 @@ public class DbHelper extends SQLiteOpenHelper {
         String selection =  DB_Contract.Comments.KEY_QUESTION_ID+" LIKE ? ";
 
         String [] val = {idQuestion};
-        cursor = db.query(DB_Contract.Comments.TABLE_NAME,projectionsQuestion,selection,val,null,null,null,null);
+        cursor = db.query(DB_Contract.Comments.TABLE_NAME,projectionsComment,selection,val,null,null,null,null);
         return cursor;
     }
 

@@ -75,7 +75,7 @@ public class Registration extends AppCompatActivity {
         }else {
 
             /* verify characters size tu username and password*/
-            if(etUsername.length()<3 || verifyUsername.length()>15){
+            if(etUsername.length()<3){
                 etUsername.setError(""+R.string.unameResctriction);
                 return;
             }
