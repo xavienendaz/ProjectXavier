@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ProjectXavier="http://schemas.android.com/apk/res-auto"
-    android:textColor="@color/fontColor">
+    android:textColor="@color/fontColor"
+    >
 
     <item
         android:id="@+id/backArrow"
         android:icon="@drawable/ic_action_arrow_left"
         ProjectXavier:showAsAction="always"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:title=""/>
     <item
         android:id="@+id/action_add"
@@ -15,7 +18,6 @@
         android:layout_gravity="left"
         android:gravity="left|start"
         ProjectXavier:showAsAction="always"/>
-
 
 
 

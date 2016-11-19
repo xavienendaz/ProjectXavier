@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -89,6 +90,8 @@ public class QuestionList extends AppCompatActivity {
 
         /* Set title and count nb questions */
         setTitle(myValueTopicSelected + " ("+listDataAdapterQuestion.getCount()+")");
+
+
 
 
     }
