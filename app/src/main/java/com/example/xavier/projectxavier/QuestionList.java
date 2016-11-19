@@ -29,7 +29,7 @@ public class QuestionList extends AppCompatActivity {
 
       /* Recover Object Question from activity_question_list */
         myValueTopicSelected = getIntent().getExtras().getString("topicSelected");
-        setTitle(myValueTopicSelected);
+
 
 
         listView = (ListView) findViewById(R.id.listview_questionList);
@@ -61,6 +61,8 @@ public class QuestionList extends AppCompatActivity {
             } while (cursor.moveToNext());
         }
 
+        String title = ("("+listDataAdapterQuestion.getCount()+")");
+
         /* ListeView handler: Display the selected question */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -83,6 +85,12 @@ public class QuestionList extends AppCompatActivity {
 
             }
         });
+
+
+        /* Set title and count nb questions */
+        setTitle(myValueTopicSelected + " ("+listDataAdapterQuestion.getCount()+")");
+
+
     }
 
 

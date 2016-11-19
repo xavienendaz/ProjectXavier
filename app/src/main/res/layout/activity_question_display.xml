@@ -201,16 +201,36 @@
                     android:id="@+id/linearLayoutComments"
                     >
 
-
-                    <TextView
-                        android:text="@string/Comments"
+                    <TableLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvComments"
-                        android:textSize="9pt"
-                        android:textStyle="bold"
-                        android:textColor="#343434"
-                        />
+                        android:layout_height="wrap_content">
+
+                        <TableRow
+                            android:layout_marginTop="2dp"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:text="@string/Comments"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tvComments"
+                                android:textSize="9pt"
+                                android:textStyle="bold"
+                                android:textColor="#343434"
+                                />
+                            <TextView
+                                android:text=""
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tvCommentsCpt"
+                                android:textSize="9pt"
+                                android:layout_marginLeft="5pt"
+                                android:textStyle="bold"
+                                android:textColor="#343434"
+                                />
+                        </TableRow>
+
+                    </TableLayout>
+
 
                     <EditText
                         android:id="@+id/etAddComment"

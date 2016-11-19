@@ -279,6 +279,11 @@ public class QuestionDisplay extends AppCompatActivity {
         }
 
 
+        /* Count nb comments */
+        TextView t  = (TextView) findViewById(R.id.tvCommentsCpt);
+        t.setText("("+commentAdapter.getCount()+")");
+
+        /* Set list Height */
         setListViewHeight(listViewComments);
     }
 
