@@ -72,8 +72,8 @@
     <string name="unameResctriction">characters: min 3</string>
     <string name="passwordWrong">Password does not match</string>
     <string name="usernameExist">Username already exist</string>
-    <string name="title">Title</string>
-    <string name="content">Content</string>
+    <string name="title">Title ...</string>
+    <string name="content">Content ...</string>
     <string name="editTitle">Edit title</string>
     <string name="chooseTopic">Choose a topic</string>
     <string name="questionCreated">Question created</string>
@@ -91,6 +91,9 @@
     <string name="cancel">Cancel</string>
     <string name="commentAdded">Comment added</string>
     <string name="enterComment">Enter a comment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Add Question List-->
 
 

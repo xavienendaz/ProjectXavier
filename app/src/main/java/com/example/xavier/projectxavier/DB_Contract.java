@@ -1,7 +1,6 @@
 package com.example.xavier.projectxavier;
 
 import android.provider.BaseColumns;
-import android.widget.ImageView;
 
 /**
  * Created by Xavier on 05.11.2016.
@@ -50,4 +49,13 @@ public class DB_Contract {
         public static final String KEY_QUESTION_ID = "id_question";
     }
 
+
+    public static abstract class Vote implements BaseColumns
+    {
+        public static final String TABLE_NAME = "vote";
+        public static final String KEY_ID = "id";
+        public static final String USER_NAME = "user_name";
+        public static final String VOTE = "positif_negatif";
+        public static final String KEY_QUESTION_ID = "id_question";
+    }
 }

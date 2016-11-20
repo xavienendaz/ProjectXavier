@@ -107,7 +107,7 @@ public class Registration extends AppCompatActivity {
                     imageInByte = stream.toByteArray();
 
 
-                    dbHelper.addUser(username, password, imageInByte, sqLiteDatabase);
+                    dbHelper.addUser(username, password, imageInByte);
                     Toast.makeText(getBaseContext(), R.string.thanksRegistration, Toast.LENGTH_SHORT).show();
                     dbHelper.close();
 

@@ -204,8 +204,8 @@ public class AddingQuestion extends AppCompatActivity {
                 etTitle.setError("characters: min 5, max 40");
                 return;
             }
-            if(etContent.length()<100 || etContent.length() >500){
-                etContent.setError("characters: min 100, max 500");
+            if(etContent.length()<100){
+                etContent.setError("characters: min 100");
                 return;
             }
 
@@ -225,7 +225,6 @@ public class AddingQuestion extends AppCompatActivity {
 
 
             dbHelper = new DbHelper(context);
-            sqLiteDatabase = dbHelper.getWritableDatabase();
 
 
             /* convert bitmap to byte */
@@ -235,7 +234,7 @@ public class AddingQuestion extends AppCompatActivity {
             image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             imageInByte = stream.toByteArray();
 
-            dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, sqLiteDatabase);
+            dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte);
 
 
             Toast.makeText(getBaseContext(), R.string.questionCreated, Toast.LENGTH_SHORT).show();

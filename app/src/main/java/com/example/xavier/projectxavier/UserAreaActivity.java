@@ -23,9 +23,8 @@ public class UserAreaActivity extends AppCompatActivity {
         listDataAdapterUser = new ListDataAdapterUser(getApplicationContext(),R.id.row_layout);
         listView.setAdapter(listDataAdapterUser);
         dbHelper =  new DbHelper(getApplicationContext());
-        sqLiteDatabase = dbHelper.getReadableDatabase();
         //get info from databse
-        cursor =  dbHelper.getInfo(sqLiteDatabase);
+        cursor =  dbHelper.getInfo();
         if(cursor.moveToFirst())
         {
             do{

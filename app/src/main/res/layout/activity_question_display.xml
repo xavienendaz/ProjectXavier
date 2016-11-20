@@ -123,11 +123,58 @@
                         android:orientation="vertical"
                         android:layout_gravity="center_vertical">
 
-                        <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_menu_share"
-                        android:id="@+id/imvShare" />
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal">
+                            <TableRow
+                                android:layout_marginTop="2dp"
+                                android:gravity="center_vertical">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:srcCompat="@drawable/ic_menu_share"
+                                    android:layout_marginRight="40pt"
+                                    android:layout_marginLeft="5pt"
+                                    android:id="@+id/imvShare" />
+
+                                <ImageView
+                                    android:id="@+id/imvVotePositive"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:srcCompat="@drawable/ic_action_like_gray"
+                                    android:layout_marginLeft="5pt"
+
+                                    />
+
+                                <TextView
+                                    android:id="@+id/nbVotePositive"
+                                    android:text=""
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5pt"
+                                    />
+
+                                <ImageView
+                                    android:id="@+id/imvVoteNegative"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:srcCompat="@drawable/ic_action_dontlike_gray"
+                                    android:layout_marginLeft="5pt"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/nbVoteNegative"
+                                    android:text=""
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5pt"
+                                    />
+                            </TableRow>
+                        </TableLayout>
+
 
                         <TextView
                             android:text=""
@@ -178,7 +225,11 @@
                                 android:layout_marginLeft="5pt"
                                 android:textColor="@color/blueFont"
                                 android:id="@+id/nbPosts" />
+
                         </LinearLayout>
+
+
+
 
 
 

@@ -1,5 +1,9 @@
 package com.example.xavier.projectxavier;
 
+
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,7 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 public class QuestionList extends AppCompatActivity {
 
@@ -21,7 +27,7 @@ public class QuestionList extends AppCompatActivity {
     Cursor cursor;
     ListDataAdapterQuestion listDataAdapterQuestion;
     String myValueTopicSelected, topicFromListView;
-
+    Button b1, b2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +43,13 @@ public class QuestionList extends AppCompatActivity {
         listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.question_list_layout);
         listView.setAdapter(listDataAdapterQuestion);
         dbHelper = new DbHelper(getApplicationContext());
-        sqLiteDatabase = dbHelper.getReadableDatabase();
 
 
 
 
 
         /* get info from databse */
-        cursor = dbHelper.getQuestionInfoFromTopic(myValueTopicSelected, sqLiteDatabase);
+        cursor = dbHelper.getQuestionInfoFromTopic(myValueTopicSelected);
         if (cursor.moveToFirst()) {
             do {
                 int id;
@@ -94,6 +99,12 @@ public class QuestionList extends AppCompatActivity {
 
 
 
+
+
+
+
+
+
     }
 
 
@@ -126,6 +137,15 @@ public class QuestionList extends AppCompatActivity {
                 case R.id.backArrow:
                     Intent goHome = new Intent(this, TopicsList.class);
                     startActivity(goHome);
+                    return true;
+
+                case R.id.menu_sort:
+                    //Intent goHome = new Intent(this, TopicsList.class);
+                   // startActivity(goHome);
+                   CameraFragment cameraFragment = new CameraFragment();
+                    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.relativelayoutfragment2, cameraFragment
+                    , cameraFragment.getTag()).commit();
                     return true;
 
                 default:

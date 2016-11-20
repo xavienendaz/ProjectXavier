@@ -11,7 +11,10 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:title=""/>
-    <item
+
+
+
+     <item
         android:id="@+id/action_add"
         android:icon="@drawable/ic_action_add_white"
         android:title=""
@@ -20,5 +23,11 @@
         ProjectXavier:showAsAction="always"/>
 
 
+    <item
+        android:id="@+id/menu_sort"
+        android:title=""
+        android:icon="@drawable/ic_action_sort"
+        ProjectXavier:showAsAction="always"
+        />
 
         </menu>

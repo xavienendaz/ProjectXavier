@@ -42,7 +42,6 @@ public class FavoriteList extends AppCompatActivity {
         listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.question_list_layout);
         listView.setAdapter(listDataAdapterQuestion);
         dbHelper = new DbHelper(getApplicationContext());
-        sqLiteDatabase = dbHelper.getReadableDatabase();
 
 
 
@@ -54,7 +53,7 @@ public class FavoriteList extends AppCompatActivity {
 
 
         /* get info from databse */
-        cursor = dbHelper.getQuestionInfo(sqLiteDatabase);
+        cursor = dbHelper.getQuestionInfo();
         if (cursor.moveToFirst()) {
             do {
                 int id;

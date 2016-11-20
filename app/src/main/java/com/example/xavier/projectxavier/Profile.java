@@ -121,9 +121,8 @@ public class Profile extends AppCompatActivity{
 
     private void readUserFromDatabase() {
         dbHelper = new DbHelper(context);
-        sqLiteDatabase = dbHelper.getReadableDatabase();
 
-        cursor = dbHelper.getOneUser(usernameSharedPref, sqLiteDatabase);
+        cursor = dbHelper.getOneUser(usernameSharedPref);
 
         if(cursor.moveToFirst())
         {
@@ -164,8 +163,8 @@ public class Profile extends AppCompatActivity{
                     image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     imageInByte = stream.toByteArray();
 
-                    sqLiteDatabase = dbHelper.getReadableDatabase();
-                    dbHelper.updateUser(usernameSharedPref, imageInByte, sqLiteDatabase);
+
+                    dbHelper.updateUser(usernameSharedPref, imageInByte);
                     Toast.makeText(getBaseContext(), R.string.photochange, Toast.LENGTH_SHORT).show();
 
                 }
@@ -194,10 +193,10 @@ public class Profile extends AppCompatActivity{
         listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.profile_list_layout);
         listViewProfileQuestions.setAdapter(listDataAdapterQuestion);
         dbHelper = new DbHelper(getApplicationContext());
-        sqLiteDatabase = dbHelper.getReadableDatabase();
 
 
-        cursor = dbHelper.getAllQuestionsFromCurrentUser(usernameSharedPref, sqLiteDatabase);
+
+        cursor = dbHelper.getAllQuestionsFromCurrentUser(usernameSharedPref);
         if (cursor.moveToFirst()) {
             do {
                 String topic, title, content, username;
