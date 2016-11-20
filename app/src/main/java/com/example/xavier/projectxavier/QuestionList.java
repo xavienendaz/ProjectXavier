@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.util.Collections;
+
 public class QuestionList extends AppCompatActivity {
 
     ListView listView;
@@ -45,10 +47,28 @@ public class QuestionList extends AppCompatActivity {
         dbHelper = new DbHelper(getApplicationContext());
 
 
+        setQuestionListFromDate();
 
 
 
-        /* get info from databse */
+
+        /* Set title and count nb questions */
+        setTitle(myValueTopicSelected + " ("+listDataAdapterQuestion.getCount()+")");
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+    private void setQuestionListFromDate() {
+                /* get info from databse */
         cursor = dbHelper.getQuestionInfoFromTopic(myValueTopicSelected);
         if (cursor.moveToFirst()) {
             do {
@@ -67,7 +87,6 @@ public class QuestionList extends AppCompatActivity {
             } while (cursor.moveToNext());
         }
 
-        String title = ("("+listDataAdapterQuestion.getCount()+")");
 
         /* ListeView handler: Display the selected question */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,24 +105,11 @@ public class QuestionList extends AppCompatActivity {
                 i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", item.getTopic());
                 i.putExtra("image", item.getImage());
-       //         i.putExtra("activitySelected", "questionList");
+                //         i.putExtra("activitySelected", "questionList");
                 QuestionList.this.startActivity(i);
 
             }
         });
-
-
-        /* Set title and count nb questions */
-        setTitle(myValueTopicSelected + " ("+listDataAdapterQuestion.getCount()+")");
-
-
-
-
-
-
-
-
-
 
     }
 
@@ -142,16 +148,71 @@ public class QuestionList extends AppCompatActivity {
                 case R.id.menu_sort:
                     //Intent goHome = new Intent(this, TopicsList.class);
                    // startActivity(goHome);
-                   CameraFragment cameraFragment = new CameraFragment();
-                    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.relativelayoutfragment2, cameraFragment
-                    , cameraFragment.getTag()).commit();
+
+
+
+                   // listView.setAdapter(listDataAdapterQuestion);
+                    //listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.question_list_layout);
+                  //  listDataAdapterQuestion.notifyDataSetChanged();
+                    listView.setAdapter(null);
+
+                    ListDataAdapterQuestion
+                            listDataAdapterQuestion2 = new
+                            ListDataAdapterQuestion(getApplicationContext(), R.id.question_list_layout);
+
+                    listView.setAdapter(listDataAdapterQuestion2);
+
+                    dbHelper.getQuestionInfoFromTopicASC(myValueTopicSelected);
+                    if (cursor.moveToFirst()) {
+                    do {
+                        int id;
+                        String topic, title, content, username;
+                        byte [] image;
+                        id = cursor.getInt(0);
+                        topic = cursor.getString(1);
+                        title = cursor.getString(2);
+                        content = cursor.getString(3);
+                        username = cursor.getString(4);
+                        image = cursor.getBlob(5);
+                        Question c = new Question(id, topic, title, content, username, image);
+                        listDataAdapterQuestion2.add(c);
+
+                    } while (cursor.moveToNext());
+                }
+
+
+
+        /* ListeView handler: Display the selected question */
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+
+                            Question item = (Question) listDataAdapterQuestion.getItem(position);
+
+                            Intent i = new Intent(QuestionList.this, QuestionDisplay.class);
+                /* put an Extra in the intent to use Title on the question activity */
+                            i.putExtra("myValueKeyTitle", item.getTitle());
+                            i.putExtra("myValueKeyContent", item.getContent());
+                            i.putExtra("myValueKeyIdQuestion", item.getId());
+                            i.putExtra("myValueKeyAuthor", item.getUsername());
+                            i.putExtra("topicSelected", item.getTopic());
+                            i.putExtra("image", item.getImage());
+                            //         i.putExtra("activitySelected", "questionList");
+                            QuestionList.this.startActivity(i);
+
+                        }
+                    });
+                    
+
                     return true;
 
                 default:
                     return super.onOptionsItemSelected(item);
 
             }
+
         }
 
     }

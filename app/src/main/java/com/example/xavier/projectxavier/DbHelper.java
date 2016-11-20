@@ -276,7 +276,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
-    /* Return all questions from selected topic */
+    /* Return all questions from selected topic by date */
     public Cursor getQuestionInfoFromTopic(String topicSelected) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor  cursor;
@@ -300,6 +300,33 @@ public class DbHelper extends SQLiteOpenHelper {
 
         return cursor;
     }
+
+
+    /* Return all questions from selected topic ASC order */
+    public Cursor getQuestionInfoFromTopicASC(String topicSelected) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor  cursor;
+        String[] projectionsQuestion = {
+                DB_Contract.Questions.KEY_ID,
+                DB_Contract.Questions.TOPIC,
+                DB_Contract.Questions.TITLE,
+                DB_Contract.Questions.CONTENT,
+                DB_Contract.Questions.USERNAME,
+                DB_Contract.Questions.QUESTION_IMAGE
+        };
+        String selection =  DB_Contract.Questions.TOPIC+" LIKE ? ";
+        String [] topics = {topicSelected};
+        //cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null,null);
+       /* cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,
+                DB_Contract.Questions.TITLE+" DESC");
+
+                */
+        cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,
+                DB_Contract.Questions.TITLE+" ASC");
+
+        return cursor;
+    }
+
 
 
     /* Return all questions from current user */
