@@ -321,17 +321,36 @@ public class DbHelper extends SQLiteOpenHelper {
         };
         String selection =  DB_Contract.Questions.TOPIC+" LIKE ? ";
         String [] topics = {topicSelected};
-        //cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null,null);
-       /* cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,
-                DB_Contract.Questions.TITLE+" DESC");
 
-                */
         cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,
                 DB_Contract.Questions.TITLE+" ASC");
 
         return cursor;
     }
 
+
+
+    /* Return all questions from selected topic DESC order */
+    public Cursor getQuestionInfoFromTopicDESC(String topicSelected) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor  cursor;
+        String[] projectionsQuestion = {
+                DB_Contract.Questions.KEY_ID,
+                DB_Contract.Questions.TOPIC,
+                DB_Contract.Questions.TITLE,
+                DB_Contract.Questions.CONTENT,
+                DB_Contract.Questions.USERNAME,
+                DB_Contract.Questions.QUESTION_IMAGE,
+                DB_Contract.Questions.QUESTION_DATE
+        };
+        String selection =  DB_Contract.Questions.TOPIC+" LIKE ? ";
+        String [] topics = {topicSelected};
+
+              cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,
+                DB_Contract.Questions.TITLE+" DESC");
+
+        return cursor;
+    }
 
     /* Return all questions from selected topic ASC order */
     public Cursor getQuestionInfoFromTopicLike(String topicSelected) {
@@ -356,9 +375,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
                 */
 
-
         cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,
-                DB_Contract.Questions.TITLE+" ASC");
+                DB_Contract.Vote.VOTE+" ASC");
 
         return cursor;
     }

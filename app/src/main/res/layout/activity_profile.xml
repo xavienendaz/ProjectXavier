@@ -27,13 +27,34 @@
         android:id="@+id/imvAddUserPhoto" />
 
 
-    <TextView
-        android:text="@string/changePhoto"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/blueFont"
+
+    <LinearLayout
+        android:id="@+id/linearChangeUserPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvChangePhoto" />
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5pt"
+        android:layout_marginBottom="5pt">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2pt"
+            app:srcCompat="@drawable/ic_add_a_photo"
+            android:id="@+id/imvLoggOff" />
+
+
+        <TextView
+            android:text="@string/changePhoto"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/blueFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvChangePhoto" />
+    </LinearLayout>
+
+
 
 
     <LinearLayout
@@ -57,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="30dp">
             <TextView
                 android:text="@string/nb_posts"
                 android:layout_width="wrap_content"

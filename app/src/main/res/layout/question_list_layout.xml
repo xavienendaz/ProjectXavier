@@ -8,10 +8,11 @@
 
     <TextView
         android:id="@+id/question_title"
-        android:layout_width="match_parent"
-        android:layout_height="120px"
+        android:layout_width="125pt"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5pt"
+        android:layout_marginBottom="5pt"
         android:text="Title"
-        android:gravity="center_vertical"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/darkGray"/>
@@ -21,10 +22,12 @@
     <TextView
         android:id="@+id/nbLikeInfo"
         android:text="@string/nbLike"
+        android:layout_alignParentLeft="@+id/question_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dip"
-        android:layout_marginRight="15dip"
+        android:layout_marginTop="7pt"
+        android:layout_marginBottom="4pt"
+        android:layout_marginRight="20dip"
         android:layout_alignRight="@+id/nbLike"
         android:textColor="#706f6f"
         android:textSize="12sp" />
@@ -35,10 +38,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="5dip"
-        android:layout_marginLeft="5dip"
-        android:layout_marginBottom="5pt"
-        android:textColor="#706f6f"
+        android:layout_marginTop="7pt"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="4pt"
+        android:textColor="@color/blueFont"
         android:textSize="12sp" />
 
     <TextView
@@ -46,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/nbLike"
+        android:layout_alignParentBottom="@+id/question_title"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5pt"
         android:textColor="#706f6f"

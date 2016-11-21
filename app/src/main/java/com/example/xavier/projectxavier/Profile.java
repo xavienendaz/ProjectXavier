@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -58,21 +59,15 @@ public class Profile extends AppCompatActivity{
         textViewUsername.setText(usernameSharedPref);
 
 
-
-
-
-
-           /* when the user click for add a photo */
-        final TextView im = (TextView) findViewById(R.id.tvChangePhoto);
-        im.setOnClickListener(new View.OnClickListener(){
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearChangeUserPhoto);
+        linearLayout.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-
+                //open the registerActivity when user click on registerLink
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(galleryIntent, SELECTED_IMAGE);
             }
         });
-
 
         readUserFromDatabase();
 
@@ -197,7 +192,7 @@ public class Profile extends AppCompatActivity{
 
 
         cursor = dbHelper.getAllQuestionsFromCurrentUser(usernameSharedPref);
-        if (cursor.moveToFirst()) {
+        if (cursor.moveToLast()) {
             do {
                 int id;
                 String topic, title, content, username, nbLike, date;
@@ -214,7 +209,7 @@ public class Profile extends AppCompatActivity{
                 Question c = new Question(id, topic, title, content, username, image, nbLike, date);
                 listDataAdapterQuestion.add(c);
 
-            } while (cursor.moveToNext());
+            } while (cursor.moveToPrevious());
         }
 
         /* ListeView handler: Display the selected question */

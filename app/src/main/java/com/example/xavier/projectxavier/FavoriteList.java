@@ -54,7 +54,7 @@ public class FavoriteList extends AppCompatActivity {
 
         /* get info from databse */
         cursor = dbHelper.getQuestionInfo();
-        if (cursor.moveToFirst()) {
+        if (cursor.moveToLast()) {
             do {
                 int id;
                 String topic, title, content, username, nbLike, date;
@@ -79,7 +79,7 @@ public class FavoriteList extends AppCompatActivity {
 
 
 
-            } while (cursor.moveToNext());
+            } while (cursor.moveToPrevious());
         }
 
          /* Display message when list is empty*/

@@ -3,6 +3,7 @@ package com.example.xavier.projectxavier;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ClipData;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
@@ -68,9 +69,9 @@ public class QuestionList extends AppCompatActivity {
 
 
     private void setQuestionListFromDate() {
-                /* get info from databse */
+        /* all the question from the last ID to first ID (order by date) */
         cursor = dbHelper.getQuestionInfoFromTopic(myValueTopicSelected);
-        if (cursor.moveToFirst()) {
+        if (cursor.moveToLast()) {
             do {
                 int id;
                 String topic, title, content, username, nbLike, date;
@@ -87,8 +88,9 @@ public class QuestionList extends AppCompatActivity {
                 Question c = new Question(id, topic, title, content, username, image, nbLike, date);
                 listDataAdapterQuestion.add(c);
 
-            } while (cursor.moveToNext());
+            } while (cursor.moveToPrevious());
         }
+
 
         listViewOnClickListener();
 
@@ -127,9 +129,8 @@ public void listViewOnClickListener(){
   /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_question_list, menu);
 
-        // add this
+        getMenuInflater().inflate(R.menu.menu_question_list, menu);
 
         return true;
     }
@@ -140,33 +141,79 @@ public void listViewOnClickListener(){
 
             switch (item.getItemId()) {
 
+                case R.id.backArrow:
+                    Intent back= new Intent(QuestionList.this, TopicsList.class);
+                    QuestionList.this.startActivity(back);
+                    return true;
+
+
                 case R.id.action_add:
                     Intent i = new Intent(QuestionList.this, AddingQuestion.class);
                     i.putExtra("topicSelected", topicFromListView);
                     QuestionList.this.startActivity(i);
                     return true;
 
-                case R.id.backArrow:
-                    Intent goHome = new Intent(this, TopicsList.class);
-                    startActivity(goHome);
-                    return true;
 
                 case R.id.menu_sortLike:
+                    listDataAdapterQuestion.clear();
+                    cursor = dbHelper.getQuestionInfoFromTopicLike(myValueTopicSelected);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            int id;
+                            String topic, title, content, username, nbLike, date;
+                            byte [] image;
+                            id = cursor.getInt(0);
+                            topic = cursor.getString(1);
+                            title = cursor.getString(2);
+                            content = cursor.getString(3);
+                            username = cursor.getString(4);
+                            image = cursor.getBlob(5);
+                            date = cursor.getString(6);
+                            nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
+                            Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                            listDataAdapterQuestion.add(c);
 
-
-
-
+                        } while (cursor.moveToNext());
+                    }
+                    listViewOnClickListener();
                     return true;
+
 
                 case R.id.menu_sortTime:
-
+                    listDataAdapterQuestion.clear();
+                    setQuestionListFromDate();
                     return true;
 
-                case R.id.menu_sortASC:
 
+                case R.id.menu_sortTimeOld:
                     listDataAdapterQuestion.clear();
+                    cursor = dbHelper.getQuestionInfoFromTopic(myValueTopicSelected);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            int id;
+                            String topic, title, content, username, nbLike, date;
+                            byte [] image;
+                            id = cursor.getInt(0);
+                            topic = cursor.getString(1);
+                            title = cursor.getString(2);
+                            content = cursor.getString(3);
+                            username = cursor.getString(4);
+                            image = cursor.getBlob(5);
+                            date = cursor.getString(6);
+                            nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
+                            Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                            listDataAdapterQuestion.add(c);
+
+                        } while (cursor.moveToNext());
+                    }
+                    listViewOnClickListener();
+                    return true;
+
+
+                case R.id.menu_sortASC:
+                    listDataAdapterQuestion.clear();
                     cursor = dbHelper.getQuestionInfoFromTopicASC(myValueTopicSelected);
                     if (cursor.moveToFirst()) {
                         do {
@@ -187,9 +234,35 @@ public void listViewOnClickListener(){
 
                         } while (cursor.moveToNext());
                     }
-
                     listViewOnClickListener();
                     return true;
+
+
+                case R.id.menu_sortDESC:
+                    listDataAdapterQuestion.clear();
+                    cursor = dbHelper.getQuestionInfoFromTopicDESC(myValueTopicSelected);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            int id;
+                            String topic, title, content, username, nbLike, date;
+                            byte [] image;
+                            id = cursor.getInt(0);
+                            topic = cursor.getString(1);
+                            title = cursor.getString(2);
+                            content = cursor.getString(3);
+                            username = cursor.getString(4);
+                            image = cursor.getBlob(5);
+                            date = cursor.getString(6);
+                            nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                            Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                            listDataAdapterQuestion.add(c);
+
+                        } while (cursor.moveToNext());
+                    }
+                    listViewOnClickListener();
+                    return true;
+
 
                 default:
                     return super.onOptionsItemSelected(item);
