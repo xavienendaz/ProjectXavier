@@ -27,6 +27,7 @@ public class DB_Contract {
         public static final String CONTENT = "content";
         public static final String USERNAME = "username";
         public static final String QUESTION_IMAGE = "image";
+        public static final String QUESTION_DATE = "date";
     }
 
 

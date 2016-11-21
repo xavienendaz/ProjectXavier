@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class ListDataAdapterQuestion extends ArrayAdapter {
 
     List list = new ArrayList();
     LayoutHandler layoutHandler;
-
+    DbHelper dbHelper;
     public ListDataAdapterQuestion(Context context, int resource) {
         super(context, resource);
     }
@@ -26,6 +27,8 @@ public class ListDataAdapterQuestion extends ArrayAdapter {
     static class LayoutHandler
     {
         TextView QUESTION_TITLE;
+        TextView QUESTION_DATE;
+        TextView QUESTION_LIKE;
     }
 
 
@@ -46,6 +49,12 @@ public class ListDataAdapterQuestion extends ArrayAdapter {
     }
 
     @Override
+    public void clear() {
+        list.clear();
+    }
+
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
 
@@ -55,18 +64,24 @@ public class ListDataAdapterQuestion extends ArrayAdapter {
             row = layoutInflater.inflate(R.layout.question_list_layout, parent, false);
             layoutHandler = new LayoutHandler();
             layoutHandler.QUESTION_TITLE = (TextView)row.findViewById(R.id.question_title );
+            layoutHandler.QUESTION_LIKE = (TextView)row.findViewById(R.id.nbLike );
+            layoutHandler.QUESTION_DATE = (TextView)row.findViewById(R.id.quesionDate );
             row.setTag(layoutHandler);
         }
         else{
-            //if the row is already existing
+
             layoutHandler = (ListDataAdapterQuestion.LayoutHandler)row.getTag();
 
         }
 
+
+
         Question question = (Question)this.getItem(position);
 
 
-        layoutHandler.QUESTION_TITLE.setText(question.getTitle());;
+        layoutHandler.QUESTION_TITLE.setText(question.getTitle());
+        layoutHandler.QUESTION_LIKE.setText(question.getNkLike());
+        layoutHandler.QUESTION_DATE.setText(question.getDate());
 
 
         return row;

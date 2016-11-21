@@ -130,14 +130,15 @@
                             android:layout_gravity="center_horizontal">
                             <TableRow
                                 android:layout_marginTop="2dp"
-                                android:gravity="center_vertical">
+                                android:gravity="center_horizontal">
+
+
 
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     app:srcCompat="@drawable/ic_menu_share"
-                                    android:layout_marginRight="40pt"
-                                    android:layout_marginLeft="5pt"
+                                    android:layout_marginRight="25pt"
                                     android:id="@+id/imvShare" />
 
                                 <ImageView
@@ -145,7 +146,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     app:srcCompat="@drawable/ic_action_like_gray"
-                                    android:layout_marginLeft="5pt"
 
                                     />
 
@@ -181,6 +181,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/linear_up_border"/>
+
+                        <TextView
+                            android:id="@+id/questionDate"
+                            android:text="@string/addedDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5pt"
+                            android:layout_marginRight="2pt"
+                            android:layout_marginBottom="5pt"
+                            android:textColor="#706f6f"
+                            android:textSize="12sp"
+                            />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -279,7 +291,6 @@
                                 android:textColor="#343434"
                                 />
                         </TableRow>
-
                     </TableLayout>
 
 

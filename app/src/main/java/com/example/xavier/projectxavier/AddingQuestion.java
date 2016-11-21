@@ -26,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddingQuestion extends AppCompatActivity {
 
@@ -200,12 +202,12 @@ public class AddingQuestion extends AppCompatActivity {
         } else {
 
 
-            if(etTitle.length()<5 || etTitle.length()>40){
-                etTitle.setError("characters: min 5, max 40");
+            if(etTitle.length()<5){
+                etTitle.setError("characters: min 5");
                 return;
             }
-            if(etContent.length()<100){
-                etContent.setError("characters: min 100");
+            if(etContent.length()<50){
+                etContent.setError("characters: min 50");
                 return;
             }
 
@@ -234,7 +236,9 @@ public class AddingQuestion extends AppCompatActivity {
             image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             imageInByte = stream.toByteArray();
 
-            dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte);
+            SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm");
+            String currentTime = time.format(new Date());
+            dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, currentTime);
 
 
             Toast.makeText(getBaseContext(), R.string.questionCreated, Toast.LENGTH_SHORT).show();

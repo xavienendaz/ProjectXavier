@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,13 +7,48 @@
 
 
     <TextView
+        android:id="@+id/question_title"
         android:layout_width="match_parent"
         android:layout_height="120px"
-        android:id="@+id/question_title"
         android:text="Title"
         android:gravity="center_vertical"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/darkGray"/>
 
-</LinearLayout>
+
+
+    <TextView
+        android:id="@+id/nbLikeInfo"
+        android:text="@string/nbLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:layout_marginRight="15dip"
+        android:layout_alignRight="@+id/nbLike"
+        android:textColor="#706f6f"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/nbLike"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginBottom="5pt"
+        android:textColor="#706f6f"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/quesionDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nbLike"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5pt"
+        android:textColor="#706f6f"
+        android:textSize="10sp" />
+
+</RelativeLayout>

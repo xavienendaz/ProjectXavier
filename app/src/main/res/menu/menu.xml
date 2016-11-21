@@ -10,9 +10,8 @@
         android:icon="@drawable/ic_dehaze"
         ProjectXavier:showAsAction="always"
         android:title="menu">
-        <menu
->
 
+        <menu>
             <item
                 android:id="@+id/action_topics"
                 android:title="@string/Topics"

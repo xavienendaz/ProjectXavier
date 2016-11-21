@@ -11,11 +11,13 @@ import java.sql.Blob;
 public class Question {
 
     private int id;
+    private String nkLike;
     private String topic;
     private String title;
     private String content;
     private String username;
     private byte [] image;
+    private String date;
 
     public Question(){
 
@@ -45,6 +47,33 @@ public class Question {
         this.content=content;
         this.username=username;
         this.image=image;
+    }
+
+    public Question(int id, String topic, String title, String content, String username, byte [] image, String nbLike, String date){
+        this.id=id;
+        this.topic=topic;
+        this.title=title;
+        this.content=content;
+        this.username=username;
+        this.image=image;
+        this.nkLike=nbLike;
+        this.date=date;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getNkLike() {
+        return nkLike;
+    }
+
+    public void setNkLike(String nkLike) {
+        this.nkLike = nkLike;
     }
 
     public byte[] getImage() {

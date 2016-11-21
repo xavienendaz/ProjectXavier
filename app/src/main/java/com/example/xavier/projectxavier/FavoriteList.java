@@ -57,7 +57,7 @@ public class FavoriteList extends AppCompatActivity {
         if (cursor.moveToFirst()) {
             do {
                 int id;
-                String topic, title, content, username;
+                String topic, title, content, username, nbLike, date;
                 byte [] image;
                 id = cursor.getInt(0);
                 topic = cursor.getString(1);
@@ -65,9 +65,10 @@ public class FavoriteList extends AppCompatActivity {
                 content = cursor.getString(3);
                 username = cursor.getString(4);
                 image = cursor.getBlob(5);
-                Question c = new Question(id, topic, title, content, username, image);
+                date = cursor.getString(6);
+                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
-
+                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
 
 
                 /*  Here we need to verify if the user has put the question, c, in his favorites */
@@ -103,7 +104,8 @@ public class FavoriteList extends AppCompatActivity {
                 i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", item.getTopic());
                 i.putExtra("image", item.getImage());
-        //        i.putExtra("activitySelected", "favorite");
+                i.putExtra("date", item.getDate());
+                //         i.putExtra("activitySelected", "questionList");
                 FavoriteList.this.startActivity(i);
 
 

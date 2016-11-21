@@ -199,19 +199,19 @@ public class Profile extends AppCompatActivity{
         cursor = dbHelper.getAllQuestionsFromCurrentUser(usernameSharedPref);
         if (cursor.moveToFirst()) {
             do {
-                String topic, title, content, username;
                 int id;
+                String topic, title, content, username, nbLike, date;
                 byte [] image;
-
                 id = cursor.getInt(0);
                 topic = cursor.getString(1);
                 title = cursor.getString(2);
                 content = cursor.getString(3);
                 username = cursor.getString(4);
                 image = cursor.getBlob(5);
-                Question c = new Question(id, topic, title, content, username, image);
-                c.toString();
+                date = cursor.getString(6);
+                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
+                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
                 listDataAdapterQuestion.add(c);
 
             } while (cursor.moveToNext());
@@ -234,7 +234,8 @@ public class Profile extends AppCompatActivity{
                 i.putExtra("myValueKeyAuthor", item.getUsername());
                 i.putExtra("topicSelected", item.getTopic());
                 i.putExtra("image", item.getImage());
-              //  i.putExtra("activitySelected", "profileList");
+                i.putExtra("date", item.getDate());
+                //         i.putExtra("activitySelected", "questionList");
                 Profile.this.startActivity(i);
             }
         });

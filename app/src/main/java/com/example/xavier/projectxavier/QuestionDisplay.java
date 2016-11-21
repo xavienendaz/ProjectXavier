@@ -33,7 +33,7 @@ import java.util.Date;
 
 public class QuestionDisplay extends AppCompatActivity {
 
-    TextView textViewQuestionTitle, textViewQuestionContent, textViewAuthor, cptPositiveVote, cptNegativeVote;
+    TextView textViewQuestionTitle, textViewQuestionContent, textViewAuthor, cptPositiveVote, cptNegativeVote, questionDate;
     String myValueTopicSelected, myValueKeyAuthor;
 
     Cursor cursor;
@@ -42,7 +42,7 @@ public class QuestionDisplay extends AppCompatActivity {
     SQLiteDatabase sqLiteDatabase;
     FloatingActionButton fab;
     int myValueKeyIdQuestion;
-    String usernameSharedPref,  myValueContent, myValueTitle;
+    String usernameSharedPref,  myValueContent, myValueTitle, date;
     SharedPreferences sharedPref;
     ByteArrayInputStream imageStream;
     ImageView  imageView, imageAuthor;
@@ -73,6 +73,7 @@ public class QuestionDisplay extends AppCompatActivity {
         textViewAuthor = (TextView) findViewById(R.id.tvAuthor);
         cptPositiveVote = (TextView) findViewById(R.id.nbVotePositive);
         cptNegativeVote = (TextView) findViewById(R.id.nbVoteNegative);
+        questionDate = (TextView) findViewById(R.id.questionDate);
 
         /* Recover values from object Question in activity_question_list */
 
@@ -87,6 +88,8 @@ public class QuestionDisplay extends AppCompatActivity {
 
         myValueKeyIdQuestion = getIntent().getExtras().getInt("myValueKeyIdQuestion");
 
+        date = getIntent().getExtras().getString("date");
+        questionDate.setText(questionDate.getText()+" "+date);
 
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -129,11 +132,15 @@ public class QuestionDisplay extends AppCompatActivity {
             public void onClick(View v) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                //sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-                //send the content of the question
+
+                /* send the question */
+                String title = textViewQuestionTitle.getText().toString();
+                String content = textViewQuestionContent.getText().toString();
 
                 /********** PPROBLEM HERE NOTHING SHARE***********/
-                sendIntent.putExtra(Intent.EXTRA_TEXT, R.id.tvQuestionContent);
+
+                sendIntent.putExtra(Intent.EXTRA_TEXT, title);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, content);
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             }

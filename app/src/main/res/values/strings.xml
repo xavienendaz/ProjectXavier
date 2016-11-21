@@ -52,9 +52,9 @@
 
     <string name="enterTitle">Enter a title</string>
     <string name="author">Author: </string>
-    <string name="nb_posts">Posts: </string>
+    <string name="nb_posts">Questions: </string>
     <string name="save">save</string>
-    <string name="yourPosts">Your posts</string>
+    <string name="yourPosts">Your questions</string>
     <string name="rememberLogin">Remember login</string>
     <string name="editContent">Edit content</string>
     <string name="imgErro">Select an image</string>
@@ -79,7 +79,7 @@
     <string name="questionCreated">Question created</string>
     <string name="Languages">Languages</string>
     <string name="Account">Account</string>
-    <string name="deletAccount">delete my account</string>
+    <string name="DeletAccount">delete my account</string>
     <string name="loggOff">Log off</string>
     <string name="Loggof">Logg of</string>
     <string name="deleteAccountConfirm">Are you sure you want delete your account?</string>
@@ -94,6 +94,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nbLike">Like: </string>
+    <string name="sortASC">ASC</string>
+    <string name="sortLike">Like</string>
+    <string name="sortTime">New</string>
+    <string name="addedDate">Added: </string>
+    <string name="deletAccount">Delete my account</string>
     <!-- Add Question List-->
 
 

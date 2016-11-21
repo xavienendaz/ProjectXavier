@@ -15,7 +15,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "PROJECT.DB";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     private static final String CREATE_QUERY_TBL_USER = "CREATE TABLE "
             + DB_Contract.User.TABLE_NAME+"("
@@ -31,7 +31,8 @@ public class DbHelper extends SQLiteOpenHelper {
             + DB_Contract.Questions.TITLE + " TEXT,"
             + DB_Contract.Questions.CONTENT + " TEXT,"
             + DB_Contract.Questions.USERNAME + " TEXT,"
-            + DB_Contract.Questions.QUESTION_IMAGE + " BLOB" + ")";
+            + DB_Contract.Questions.QUESTION_IMAGE + " BLOB,"
+            + DB_Contract.Questions.QUESTION_DATE + " TEXT" + ")";
 
     private static final String CREATE_QUERY_TBL_FAVORITE = "CREATE TABLE "
             + DB_Contract.Favorite.TABLE_NAME + "("
@@ -228,7 +229,7 @@ public class DbHelper extends SQLiteOpenHelper {
     /**************** QUESTIONS PART ****************/
 
 
-    public void addQuestion(String topic, String title, String content, String username, byte[] imageInByte) {
+    public void addQuestion(String topic, String title, String content, String username, byte[] imageInByte, String date) {
         ContentValues contentValues = new ContentValues();
         SQLiteDatabase db = this.getWritableDatabase();
         contentValues.put(DB_Contract.Questions.TOPIC,topic);
@@ -236,6 +237,7 @@ public class DbHelper extends SQLiteOpenHelper {
         contentValues.put(DB_Contract.Questions.CONTENT,content);
         contentValues.put(DB_Contract.Questions.USERNAME,username);
         contentValues.put(DB_Contract.Questions.QUESTION_IMAGE,imageInByte);
+        contentValues.put(DB_Contract.Questions.QUESTION_DATE,date);
         db.insert(DB_Contract.Questions.TABLE_NAME,null,contentValues);
         Log.e("DATABASE OPERATIONS", "One Question inserted");
 
@@ -270,7 +272,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 DB_Contract.Questions.TITLE,
                 DB_Contract.Questions.CONTENT,
                 DB_Contract.Questions.USERNAME,
-                DB_Contract.Questions.QUESTION_IMAGE};
+                DB_Contract.Questions.QUESTION_IMAGE,
+                DB_Contract.Questions.QUESTION_DATE};
         cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,null,null,null,null,null,null);
         return cursor;
     }
@@ -286,7 +289,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 DB_Contract.Questions.TITLE,
                 DB_Contract.Questions.CONTENT,
                 DB_Contract.Questions.USERNAME,
-                DB_Contract.Questions.QUESTION_IMAGE
+                DB_Contract.Questions.QUESTION_IMAGE,
+                DB_Contract.Questions.QUESTION_DATE
         };
         String selection =  DB_Contract.Questions.TOPIC+" LIKE ? ";
         String [] topics = {topicSelected};
@@ -312,7 +316,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 DB_Contract.Questions.TITLE,
                 DB_Contract.Questions.CONTENT,
                 DB_Contract.Questions.USERNAME,
-                DB_Contract.Questions.QUESTION_IMAGE
+                DB_Contract.Questions.QUESTION_IMAGE,
+                DB_Contract.Questions.QUESTION_DATE
         };
         String selection =  DB_Contract.Questions.TOPIC+" LIKE ? ";
         String [] topics = {topicSelected};
@@ -321,6 +326,37 @@ public class DbHelper extends SQLiteOpenHelper {
                 DB_Contract.Questions.TITLE+" DESC");
 
                 */
+        cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,
+                DB_Contract.Questions.TITLE+" ASC");
+
+        return cursor;
+    }
+
+
+    /* Return all questions from selected topic ASC order */
+    public Cursor getQuestionInfoFromTopicLike(String topicSelected) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor  cursor;
+        String[] projectionsQuestion = {
+                DB_Contract.Questions.KEY_ID,
+                DB_Contract.Questions.TOPIC,
+                DB_Contract.Questions.TITLE,
+                DB_Contract.Questions.CONTENT,
+                DB_Contract.Questions.USERNAME,
+                DB_Contract.Questions.QUESTION_IMAGE,
+                DB_Contract.Questions.QUESTION_DATE
+        };
+        String selection =  DB_Contract.Questions.TOPIC+" LIKE ? ";
+        String [] topics = {topicSelected};
+        //cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null,null);
+       /* cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,
+                DB_Contract.Questions.TITLE+" DESC");
+
+
+
+                */
+
+
         cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,
                 DB_Contract.Questions.TITLE+" ASC");
 
@@ -339,7 +375,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 DB_Contract.Questions.TITLE,
                 DB_Contract.Questions.CONTENT,
                 DB_Contract.Questions.USERNAME,
-                DB_Contract.Questions.QUESTION_IMAGE};
+                DB_Contract.Questions.QUESTION_IMAGE,
+                DB_Contract.Questions.QUESTION_DATE};
         String selection =  DB_Contract.Questions.USERNAME+" LIKE ? ";
         String [] val = {username};
         cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,val,null,null,null,null);
