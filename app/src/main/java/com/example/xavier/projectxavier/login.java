@@ -33,7 +33,7 @@ public class login extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         final Button bLogin = (Button) findViewById(R.id.bLogin);
-        final TextView registerLink = (TextView) findViewById(R.id.tvRegister);
+
 
 
         checkBox = (CheckBox) findViewById(R.id.cbRememberLogin);
@@ -43,7 +43,7 @@ public class login extends AppCompatActivity {
         verifyUserRememberLoginInSharePreference();
 
 
-
+        final TextView registerLink = (TextView) findViewById(R.id.tvRegister);
         registerLink.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 //open the registerActivity when user click on registerLink

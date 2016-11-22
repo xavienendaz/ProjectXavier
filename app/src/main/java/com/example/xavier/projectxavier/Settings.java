@@ -14,11 +14,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -58,16 +61,53 @@ public class Settings extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
        //C client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+/*
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        Configuration config = getBaseContext().getResources().getConfiguration();
 
+        String lang = settings.getString("LANG", "");
+        if (! "".equals(lang) && ! config.locale.getLanguage().equals(lang)) {
+            Locale locale = new Locale(lang);
+            Locale.setDefault(locale);
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        }
 
+        final ImageButton flagEnglish = (ImageButton) findViewById(R.id.imbFlagEnglish);
+        flagEnglish.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //open the registerActivity when user click on registerLink
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LANG", "en").commit();
+              // setLangRecreate("en");
 
+            }
+        });
+
+        final ImageButton flagFrance = (ImageButton) findViewById(R.id.imbFlagFrance);
+        flagFrance.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //open the registerActivity when user click on registerLink
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LANG", "fr").commit();
+                // setLangRecreate("fr");
+
+            }
+        });
+*/
 
     }
 
 
+    /*
 
-
-
+    public void setLangRecreate(String langval) {
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        locale = new Locale(langval);
+        Locale.setDefault(locale);
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        recreate();
+    }
+    */
 
 
 
