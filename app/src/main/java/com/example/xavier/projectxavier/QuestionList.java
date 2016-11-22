@@ -154,32 +154,6 @@ public void listViewOnClickListener(){
                     return true;
 
 
-                case R.id.menu_sortLike:
-                    listDataAdapterQuestion.clear();
-                    cursor = dbHelper.getQuestionInfoFromTopicLike(myValueTopicSelected);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            int id;
-                            String topic, title, content, username, nbLike, date;
-                            byte [] image;
-                            id = cursor.getInt(0);
-                            topic = cursor.getString(1);
-                            title = cursor.getString(2);
-                            content = cursor.getString(3);
-                            username = cursor.getString(4);
-                            image = cursor.getBlob(5);
-                            date = cursor.getString(6);
-                            nbLike = String.valueOf(dbHelper.countPositiveVote(id));
-
-                            Question c = new Question(id, topic, title, content, username, image, nbLike, date);
-                            listDataAdapterQuestion.add(c);
-
-                        } while (cursor.moveToNext());
-                    }
-                    listViewOnClickListener();
-                    return true;
-
-
                 case R.id.menu_sortTime:
                     listDataAdapterQuestion.clear();
                     setQuestionListFromDate();

@@ -53,16 +53,6 @@ public class login extends AppCompatActivity {
             }
         });
 
-        //see the database
-        final TextView tv = (TextView) findViewById(R.id.tvUserArea);
-        tv.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                //open the registerActivity when user click on registerLink
-                Intent i = new Intent(login.this, UserAreaActivity.class);
-                login.this.startActivity(i);
-            }
-        });
-
 
     }
 

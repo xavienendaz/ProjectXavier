@@ -52,7 +52,7 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        setTitle(R.string.action_settings);
+        setTitle(R.string.Settings);
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.

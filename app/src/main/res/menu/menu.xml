@@ -14,7 +14,7 @@
         <menu>
             <item
                 android:id="@+id/action_topics"
-                android:title="@string/Topics"
+                android:title="@string/titleTopics"
                 android:icon="@drawable/ic_action_home"/>
 
             <item

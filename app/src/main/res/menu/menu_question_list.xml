@@ -61,13 +61,6 @@
             />
 
 
-        <item
-            android:id="@+id/menu_sortLike"
-            android:title="@string/sortLike"
-            android:icon="@drawable/ic_action_like_gray"
-            ProjectXavier:showAsAction="always"
-            />
-
     </menu>
          </item>
 

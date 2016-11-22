@@ -37,7 +37,6 @@
         <activity android:name=".Settings" />
         <activity android:name=".TopicsList" />
         <activity android:name=".Profile" />
-        <activity android:name=".UserAreaActivity" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
