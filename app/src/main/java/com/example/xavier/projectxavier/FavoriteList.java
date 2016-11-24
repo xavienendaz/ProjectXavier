@@ -50,11 +50,9 @@ public class FavoriteList extends AppCompatActivity {
         String usernameSharedPref = sharedPref.getString("username", "");
 
 
-
-
         /* get info from databse */
         cursor = dbHelper.getQuestionInfo();
-        if (cursor.moveToLast()) {
+        if (cursor.moveToFirst()) {
             do {
                 int id;
                 String topic, title, content, username, nbLike, date;
@@ -76,10 +74,7 @@ public class FavoriteList extends AppCompatActivity {
                     listDataAdapterQuestion.add(c);
                     cpt=1;
                 }
-
-
-
-            } while (cursor.moveToPrevious());
+            } while (cursor.moveToNext());
         }
 
          /* Display message when list is empty*/

@@ -42,7 +42,7 @@ public class Settings extends AppCompatActivity {
     SQLiteDatabase sqLiteDatabase;
     SharedPreferences sharedPref;
     String usernameSharedPref;
-    TextView deleteAccount, logOff;
+    TextView deleteAccount, logOff, tvAccount, tvLanguages;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -63,6 +63,9 @@ public class Settings extends AppCompatActivity {
 
         deleteAccount = (TextView) findViewById(R.id.tvDeleteAccount);
         logOff = (TextView) findViewById(R.id.tvLogOff);
+        tvAccount = (TextView) findViewById(R.id.tvAccount);
+        tvLanguages = (TextView) findViewById(R.id.tvLanguages);
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -103,15 +106,8 @@ public class Settings extends AppCompatActivity {
         final ImageButton flagEnglish = (ImageButton) findViewById(R.id.imbFlagEnglish);
         flagEnglish.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                //open the registerActivity when user click on registerLink
-               // PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LANG", "en").commit();
-                // setLangRecreate("en");
+
                 languageLocalHelper.setLocale(Settings.this, "en");
-
-                sharedPref = PreferenceManager.getDefaultSharedPreferences(Settings.this);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("language", "en");
-
                 updateTexts();
 
 
@@ -126,11 +122,6 @@ public class Settings extends AppCompatActivity {
                 // setLangRecreate("fr");
 
                 languageLocalHelper.setLocale(Settings.this, "fr");
-
-                sharedPref = PreferenceManager.getDefaultSharedPreferences(Settings.this);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("language", "fr");
-
                 updateTexts();
 
 
@@ -156,6 +147,9 @@ public class Settings extends AppCompatActivity {
 
         deleteAccount.setText(R.string.deletAccount);
         logOff.setText(R.string.loggOff);
+        tvAccount.setText(R.string.Account);
+        tvLanguages.setText(R.string.Languages);
+        setTitle(R.string.Settings);
 
 
 
@@ -172,6 +166,7 @@ public class Settings extends AppCompatActivity {
         Settings.this.startActivity(i);
         Toast.makeText(getBaseContext(), R.string.Loggof, Toast.LENGTH_SHORT).show();
     }
+
 
     public void deleteUser(View view) {
 
@@ -213,6 +208,7 @@ public class Settings extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
 
     /*Actionbar's actions*/
     public boolean onOptionsItemSelected(MenuItem item) {

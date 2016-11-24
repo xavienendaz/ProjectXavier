@@ -39,35 +39,35 @@
         android:background="@drawable/linear_border">
 
         <EditText
+            android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/etUsername"
             android:hint="@string/username"
             android:layout_marginTop="6pt" />
 
         <EditText
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/etPassword"
             android:hint="@string/Password" />
 
         <CheckBox
+            android:id="@+id/cbRememberLogin"
             android:text="@string/rememberLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:id="@+id/cbRememberLogin"
             android:checked="false" />
 
         <Button
+            android:id="@+id/bLogin"
             android:text="@string/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bLogin"
             android:onClick="buttonLogin"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5pt"/>
@@ -76,10 +76,10 @@
 
 
     <TextView
+        android:id="@+id/tvRegister"
         android:text="@string/createAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvRegister"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:textColor="@color/blueFont"

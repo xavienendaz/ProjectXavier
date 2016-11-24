@@ -34,7 +34,7 @@ public class TopicsList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topic_list_layout);
         setTitle(R.string.titleTopics);
-        languageLocalHelper.onCreate(this);
+
         topics = getResources().getStringArray(R.array.topics_array);
         adapter = new TopicsCustomList(TopicsList.this, topics, imgTopicsId);
                 list=(ListView)findViewById(R.id.listviewTopics);

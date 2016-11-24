@@ -14,14 +14,6 @@
 
 
 
-     <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/ic_action_add_white"
-        android:title=""
-        android:layout_gravity="left"
-        android:gravity="left|start"
-        ProjectXavier:showAsAction="always"/>
-
 
 
         <item

@@ -88,6 +88,16 @@ public class Profile extends AppCompatActivity{
 
     }
 
+  /*  private void updateTexts() {
+        textViewUsername.setText(usernameSharedPref);
+        tvChangePhoto.setText(R.string.changePhoto);
+        tvNbQuestionsInfo.setText(R.string.nb_posts);
+        tvEmptyUserCurrentList.setText(R.string.yourPosts);
+        setTitle(R.string.profile);
+
+    }
+*/
+
 
     public static boolean setListViewHeight(ListView listView) {
         int position =0;

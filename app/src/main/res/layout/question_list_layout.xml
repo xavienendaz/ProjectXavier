@@ -1,58 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/question_list_layout">
 
 
+
+
+    <ImageView
+        android:id="@+id/imvQuestionList"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="3pt"
+        android:layout_marginBottom="3pt"
+        android:layout_width="30pt"
+        android:layout_height="30pt"
+        />
+
     <TextView
         android:id="@+id/question_title"
-        android:layout_width="125pt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5pt"
+        android:layout_marginLeft="34pt"
         android:layout_marginBottom="5pt"
         android:text="Title"
-        android:textSize="18sp"
+        android:layout_centerVertical="true"
+        android:textSize="17sp"
         android:textStyle="bold"
         android:textColor="@color/darkGray"/>
-
 
 
     <TextView
         android:id="@+id/nbLikeInfo"
         android:text="@string/nbLike"
-        android:layout_alignParentLeft="@+id/question_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7pt"
-        android:layout_marginBottom="4pt"
-        android:layout_marginRight="20dip"
-        android:layout_alignRight="@+id/nbLike"
         android:textColor="#706f6f"
-        android:textSize="12sp" />
+        android:textSize="11sp"
+        android:layout_marginRight="9pt"
+        android:layout_alignTop="@+id/nbLike"
+        android:layout_alignParentBottom="@+id/question_title"
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/nbLike"
         android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5pt"
+        android:layout_marginLeft="3pt"
+        android:textSize="11sp"
+        android:layout_alignBottom="@+id/imvQuestionList"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="7pt"
-        android:layout_marginRight="10dip"
-        android:layout_marginBottom="4pt"
-        android:textColor="@color/blueFont"
-        android:textSize="12sp" />
+        android:textColor="@color/blueFont"/>
 
     <TextView
         android:id="@+id/quesionDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nbLike"
-        android:layout_alignParentBottom="@+id/question_title"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="5pt"
         android:textColor="#706f6f"
-        android:textSize="10sp" />
+        android:layout_marginRight="5pt"
+        android:textSize="10sp"
+        android:layout_alignBottom="@+id/nbLikeInfo"
+        android:layout_toLeftOf="@+id/nbLikeInfo"
+        android:layout_toStartOf="@+id/nbLikeInfo" />
+
 
 </RelativeLayout>

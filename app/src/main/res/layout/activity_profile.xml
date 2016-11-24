@@ -46,12 +46,13 @@
 
 
         <TextView
+            android:id="@+id/tvChangePhoto"
             android:text="@string/changePhoto"
             android:layout_gravity="center_vertical"
             android:textColor="@color/blueFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvChangePhoto" />
+            />
     </LinearLayout>
 
 
@@ -79,11 +80,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="30dp">
+
             <TextView
+                android:id="@+id/tvNbQuestionsInfo"
                 android:text="@string/nb_posts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvNbQuestionsInfo"
                  />
 
             <TextView
@@ -107,26 +109,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="25dp"
+        android:layout_marginRight="0pt"
         android:id="@+id/profile_list_layout"
         android:background="@drawable/linear_border">
 
 
         <TextView
+            android:id="@+id/tvEmptyUserCurrentList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/yourPosts"
             android:textStyle="bold"
             android:textSize="10pt"
-            android:textColor="@color/fontColor"
-            android:id="@+id/tvEmptyUserCurrentList" />
+            android:textColor="@color/fontColor" />
 
         <ListView
             android:id="@+id/listview_questionList_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="20dp" >
+            android:layout_marginTop="10pt"
+            android:layout_gravity="center_horizontal">
         </ListView>
 
 

@@ -77,13 +77,16 @@
     <string name="enterComment">Entrer un commentaire</string>
 
     <string name="nbLike">Aime: </string>
-    <string name="sortASC">ASC</string>
+    <string name="sortASC">Ascendant</string>
     <string name="sortTime">Nouveau</string>
     <string name="addedDate">Ajoutée: </string>
     <string name="deletAccount">Supprimer mon compte</string>
     <!-- Add Question List-->
     <string name="sortTimeOld">Ancien</string>
-    <string name="sortDESC">DESC</string>
+    <string name="sortDESC">Descendant</string>
 
-
+    <string name="english">EN</string>
+    <string name="french">FR</string>
+    <string name="confirmPassword">Confirmer le mot de passe</string>
+    <string name="loginSuccess">Identification réussie</string>
 </resources>

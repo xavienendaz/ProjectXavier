@@ -147,13 +147,6 @@ public void listViewOnClickListener(){
                     return true;
 
 
-                case R.id.action_add:
-                    Intent i = new Intent(QuestionList.this, AddingQuestion.class);
-                    i.putExtra("topicSelected", topicFromListView);
-                    QuestionList.this.startActivity(i);
-                    return true;
-
-
                 case R.id.menu_sortTime:
                     listDataAdapterQuestion.clear();
                     setQuestionListFromDate();

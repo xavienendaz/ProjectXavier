@@ -34,48 +34,48 @@
         android:background="@drawable/linear_border">
 
         <EditText
+            android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/etUsername"
             android:hint="@string/username" />
 
         <EditText
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/etPassword"
             android:hint="@string/Password"/>
 
         <EditText
+            android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/etConfirmPassword"
-            android:hint="Confirm Password" />
+            android:hint="@string/confirmPassword" />
 
         <Button
+            android:id="@+id/bRegister"
             android:text="@string/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bRegister"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5pt"
             android:onClick="registerUser"/>
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tvAlreadyMember"
         android:text="@string/login"
         android:textSize="17dp"
         android:textColor="@color/blueFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10pt"
-        android:id="@+id/tvAlreadyMember"/>
+        android:layout_marginTop="10pt"/>
 
 
 </LinearLayout>

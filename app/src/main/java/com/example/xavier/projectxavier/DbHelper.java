@@ -15,7 +15,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "PROJECT.DB";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 1;
 
     private static final String CREATE_QUERY_TBL_USER = "CREATE TABLE "
             + DB_Contract.User.TABLE_NAME+"("
@@ -294,12 +294,7 @@ public class DbHelper extends SQLiteOpenHelper {
         };
         String selection =  DB_Contract.Questions.TOPIC+" LIKE ? ";
         String [] topics = {topicSelected};
-        //cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null,null);
-       /* cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,
-                DB_Contract.Questions.TITLE+" DESC");
-                 cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,
-                DB_Contract.Questions.TITLE+" ASC");
-                */
+
         cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null,null);
 
         return cursor;

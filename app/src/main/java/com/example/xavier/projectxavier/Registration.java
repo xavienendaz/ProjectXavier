@@ -9,7 +9,10 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,18 +30,21 @@ public class Registration extends AppCompatActivity {
     SharedPreferences sharedPref;
     byte imageInByte[];
     ImageView defaultUserImg;
+    TextView tvLogin;
+    Button btRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         setTitle(R.string.registration);
-        languageLocalHelper.onCreate(this);
 
         etPassword = (EditText) findViewById(R.id.etPassword);
         etUsername = (EditText) findViewById(R.id.etUsername);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
         defaultUserImg = (ImageView) findViewById(R.id.imvProfile);
+        tvLogin = (TextView) findViewById(R.id.tvAlreadyMember);
+        btRegister = (Button) findViewById(R.id.bRegister);
 
         //go back to login
         final TextView tv = (TextView) findViewById(R.id.tvAlreadyMember);
@@ -54,6 +60,19 @@ public class Registration extends AppCompatActivity {
         });
 
     }
+
+
+       private void updateTexts() {
+           etUsername.setText(R.string.username);
+           etPassword.setText(R.string.Password);
+           etConfirmPassword.setText(R.string.confirmPassword);
+           btRegister.setText(R.string.register);
+           tvLogin.setText(R.string.login);
+           setTitle(R.string.registration);
+    }
+
+
+
 
     public void registerUser(View view) {
         String verifyPassword = etPassword.getText().toString();
@@ -140,5 +159,37 @@ public class Registration extends AppCompatActivity {
 
 
 
+  /*Addid the actionbar*/
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.login_choose_language, menu);
+        return true;
+    }
+
+    /*Actionbar's actions*/
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.language_english:
+                languageLocalHelper.setLocale(Registration.this, "en");
+                updateTexts();
+                return true;
+
+            case R.id.language_french:
+                languageLocalHelper.setLocale(Registration.this, "fr");
+                updateTexts();
+                return true;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+
 }
+
+
+
 

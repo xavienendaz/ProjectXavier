@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,25 +22,28 @@ public class login extends AppCompatActivity {
     DbHelper dbHelper;
     SQLiteDatabase sqLiteDatabase;
     EditText etUsername, etPassword;
-    CheckBox checkBox;
+    CheckBox cbRememberLogin;
     SharedPreferences sharedPref;
     String SharedPrefUsername, SharedPrefPassword;
-   LanguageLocalHelper languageLocalHelper;
+    Button bLogin;
+    TextView tvNewAccount;
+    LanguageLocalHelper languageLocalHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-       // languageLocalHelper.onCreate(this, "en");
+        languageLocalHelper.onCreate(this);
 
         //Create variables
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        final Button bLogin = (Button) findViewById(R.id.bLogin);
+        bLogin = (Button) findViewById(R.id.bLogin);
+        tvNewAccount = (TextView) findViewById(R.id.tvRegister);
 
 
 
-        checkBox = (CheckBox) findViewById(R.id.cbRememberLogin);
+        cbRememberLogin = (CheckBox) findViewById(R.id.cbRememberLogin);
 
 
 
@@ -58,6 +63,19 @@ public class login extends AppCompatActivity {
 
     }
 
+
+    private void updateTexts() {
+        etUsername.setText(R.string.username);
+        etPassword.setText(R.string.Password);
+        cbRememberLogin.setText(R.string.rememberLogin);
+        bLogin.setText(R.string.login);
+        tvNewAccount.setText(R.string.createAccount);
+        setTitle(R.string.registration);
+    }
+
+
+
+
     private void verifyUserRememberLoginInSharePreference() {
          /* Read username and password from sharedPreferences */
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -66,7 +84,7 @@ public class login extends AppCompatActivity {
 
         /* If the user had selected remember login */
         if(SharedPrefPassword != "" ){
-            checkBox.setChecked(true);
+            cbRememberLogin.setChecked(true);
             etUsername.setText(SharedPrefUsername);
             etPassword.setText(SharedPrefPassword);
 
@@ -96,7 +114,7 @@ public class login extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPref.edit();
 
 
-            if(checkBox.isChecked()){
+            if(cbRememberLogin.isChecked()){
                 editor.putString("username", verifyUsername);
                 editor.putString("password", verifyPassword);
             }else{
@@ -116,10 +134,44 @@ public class login extends AppCompatActivity {
 
             Intent i = new Intent(login.this, TopicsList.class);
             login.this.startActivity(i);
-            Toast.makeText(login.this, "Login Successfull", Toast.LENGTH_SHORT).show();
+            Toast.makeText(login.this, R.string.loginSuccess, Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(getBaseContext(), "User Name or Password does not match", Toast.LENGTH_SHORT).show();
         }
     }
+
+  /*Addid the actionbar*/
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.login_choose_language, menu);
+        return true;
+    }
+
+    /*Actionbar's actions*/
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.language_english:
+                languageLocalHelper.setLocale(login.this, "en");
+                updateTexts();
+                return true;
+
+            case R.id.language_french:
+                languageLocalHelper.setLocale(login.this, "fr");
+                updateTexts();
+                return true;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+
 }
+
+
+
+

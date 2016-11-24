@@ -202,8 +202,8 @@ public class AddingQuestion extends AppCompatActivity {
         } else {
 
 
-            if(etTitle.length()<5 || etTitle.length()>60){
-                etTitle.setError("characters: min 5, max 60");
+            if(etTitle.length()<5 || etTitle.length()>65){
+                etTitle.setError("characters: min 5, max 65");
                 return;
             }
             if(etContent.length()<50){
