@@ -19,7 +19,7 @@ import java.io.ByteArrayOutputStream;
 
 public class Registration extends AppCompatActivity {
 
-
+    LanguageLocalHelper languageLocalHelper;
     Context context = this;
     DbHelper dbHelper;
     SQLiteDatabase sqLiteDatabase;
@@ -33,6 +33,7 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         setTitle(R.string.registration);
+        languageLocalHelper.onCreate(this);
 
         etPassword = (EditText) findViewById(R.id.etPassword);
         etUsername = (EditText) findViewById(R.id.etUsername);

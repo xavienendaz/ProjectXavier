@@ -29,6 +29,7 @@ import java.io.ByteArrayOutputStream;
 
 public class Profile extends AppCompatActivity{
 
+    LanguageLocalHelper languageLocalHelper;
     Context context = this;
     DbHelper dbHelper;
     SQLiteDatabase sqLiteDatabase;
@@ -49,12 +50,20 @@ public class Profile extends AppCompatActivity{
         setContentView(R.layout.activity_profile);
         setTitle(R.string.profile);
 
+
+        //languageLocalHelper.getPersistedData(Profile.this, "en");
+
+
         chooseImage = (ImageView) findViewById(R.id.imvAddUserPhoto);
         listViewProfileQuestions = (ListView) findViewById(R.id.listview_questionList_profile);
 
         /* Read username from sharedPreferences */
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         usernameSharedPref = sharedPref.getString("username", "");
+        String currentLanguage = sharedPref.getString("language", "");
+        languageLocalHelper.onCreate(this, currentLanguage);
+
+
         textViewUsername = (TextView) findViewById(R.id.tvUsername);
         textViewUsername.setText(usernameSharedPref);
 

@@ -1,5 +1,6 @@
 package com.example.xavier.projectxavier;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -58,7 +59,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         setTitle(R.string.Settings);
-        languageLocalHelper.onCreate(this, "en");
+        languageLocalHelper.onCreate(this);
 
         deleteAccount = (TextView) findViewById(R.id.tvDeleteAccount);
         logOff = (TextView) findViewById(R.id.tvLogOff);
@@ -103,10 +104,14 @@ public class Settings extends AppCompatActivity {
         flagEnglish.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 //open the registerActivity when user click on registerLink
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LANG", "en").commit();
+               // PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LANG", "en").commit();
                 // setLangRecreate("en");
                 languageLocalHelper.setLocale(Settings.this, "en");
-                //updateViews();
+
+                sharedPref = PreferenceManager.getDefaultSharedPreferences(Settings.this);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("language", "en");
+
                 updateTexts();
 
 
@@ -121,7 +126,11 @@ public class Settings extends AppCompatActivity {
                 // setLangRecreate("fr");
 
                 languageLocalHelper.setLocale(Settings.this, "fr");
-                //updateViews();
+
+                sharedPref = PreferenceManager.getDefaultSharedPreferences(Settings.this);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("language", "fr");
+
                 updateTexts();
 
 
