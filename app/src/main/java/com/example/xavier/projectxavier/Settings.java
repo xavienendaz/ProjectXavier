@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,11 +36,12 @@ import java.util.Locale;
 
 public class Settings extends AppCompatActivity {
 
-
+    LanguageLocalHelper languageLocalHelper;
     DbHelper dbHelper;
     SQLiteDatabase sqLiteDatabase;
     SharedPreferences sharedPref;
     String usernameSharedPref;
+    TextView deleteAccount, logOff;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -56,7 +58,10 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         setTitle(R.string.Settings);
+        languageLocalHelper.onCreate(this, "en");
 
+        deleteAccount = (TextView) findViewById(R.id.tvDeleteAccount);
+        logOff = (TextView) findViewById(R.id.tvLogOff);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -94,6 +99,34 @@ public class Settings extends AppCompatActivity {
         });
 */
 
+        final ImageButton flagEnglish = (ImageButton) findViewById(R.id.imbFlagEnglish);
+        flagEnglish.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //open the registerActivity when user click on registerLink
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LANG", "en").commit();
+                // setLangRecreate("en");
+                languageLocalHelper.setLocale(Settings.this, "en");
+                //updateViews();
+                updateTexts();
+
+
+            }
+        });
+
+        final ImageButton flagFrance = (ImageButton) findViewById(R.id.imbFlagFrance);
+        flagFrance.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //open the registerActivity when user click on registerLink
+               // PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LANG", "fr").commit();
+                // setLangRecreate("fr");
+
+                languageLocalHelper.setLocale(Settings.this, "fr");
+                //updateViews();
+                updateTexts();
+
+
+            }
+        });
     }
 
 
@@ -108,6 +141,16 @@ public class Settings extends AppCompatActivity {
         recreate();
     }
     */
+
+
+    private void updateTexts() {
+
+        deleteAccount.setText(R.string.deletAccount);
+        logOff.setText(R.string.loggOff);
+
+
+
+    }
 
 
 
