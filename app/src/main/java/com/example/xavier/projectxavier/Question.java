@@ -18,6 +18,7 @@ public class Question {
     private String username;
     private byte [] image;
     private String date;
+    String language;
 
     public Question(){
 
@@ -58,6 +59,14 @@ public class Question {
         this.image=image;
         this.nkLike=nbLike;
         this.date=date;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public String getDate() {

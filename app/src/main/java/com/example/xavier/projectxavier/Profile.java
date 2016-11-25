@@ -249,7 +249,7 @@ public class Profile extends AppCompatActivity{
                 i.putExtra("topicSelected", item.getTopic());
                 i.putExtra("image", item.getImage());
                 i.putExtra("date", item.getDate());
-                //         i.putExtra("activitySelected", "questionList");
+                i.putExtra("activitySelected", "profile");
                 Profile.this.startActivity(i);
             }
         });

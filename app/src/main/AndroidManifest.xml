@@ -33,8 +33,12 @@
         <activity
             android:name=".QuestionDisplay"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".QuestionList" />
-        <activity android:name=".Settings" />
+
+        <activity android:name=".QuestionList"
+            android:parentActivityName="com.example.xavier.projectxavier.TopicsList" >
+        </activity>
+        <activity android:name=".Settings"
+            android:parentActivityName="com.example.xavier.projectxavier.TopicsList" />
         <activity android:name=".TopicsList" />
         <activity android:name=".Profile" />
         <!--

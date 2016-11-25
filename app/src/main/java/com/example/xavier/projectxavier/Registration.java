@@ -63,9 +63,9 @@ public class Registration extends AppCompatActivity {
 
 
        private void updateTexts() {
-           etUsername.setText(R.string.username);
-           etPassword.setText(R.string.Password);
-           etConfirmPassword.setText(R.string.confirmPassword);
+           etUsername.setHint(R.string.username);
+           etPassword.setHint(R.string.Password);
+           etConfirmPassword.setHint(R.string.confirmPassword);
            btRegister.setText(R.string.register);
            tvLogin.setText(R.string.login);
            setTitle(R.string.registration);

@@ -27,10 +27,13 @@ public class QuestionList extends AppCompatActivity {
     ListView listView;
     SQLiteDatabase sqLiteDatabase;
     DbHelper dbHelper;
-    Cursor cursor;
+    Cursor cursor, cursorEN, cursorFR;
     ListDataAdapterQuestion listDataAdapterQuestion;
     String myValueTopicSelected, topicFromListView;
     Button b1, b2;
+    LanguageLocalHelper languageLocalHelper;
+    String currentLanguage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class QuestionList extends AppCompatActivity {
         listView.setAdapter(listDataAdapterQuestion);
         dbHelper = new DbHelper(getApplicationContext());
 
+        currentLanguage = languageLocalHelper.getLanguage(QuestionList.this).toString();
 
         setQuestionListFromDate();
 
@@ -83,6 +87,7 @@ public class QuestionList extends AppCompatActivity {
                 username = cursor.getString(4);
                 image = cursor.getBlob(5);
                 date = cursor.getString(6);
+
                 nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
                 Question c = new Question(id, topic, title, content, username, image, nbLike, date);
@@ -116,7 +121,7 @@ public void listViewOnClickListener(){
             i.putExtra("topicSelected", item.getTopic());
             i.putExtra("image", item.getImage());
             i.putExtra("date", item.getDate());
-            //         i.putExtra("activitySelected", "questionList");
+            i.putExtra("activitySelected", "questionList");
             QuestionList.this.startActivity(i);
 
         }
@@ -141,10 +146,6 @@ public void listViewOnClickListener(){
 
             switch (item.getItemId()) {
 
-                case R.id.backArrow:
-                    Intent back= new Intent(QuestionList.this, TopicsList.class);
-                    QuestionList.this.startActivity(back);
-                    return true;
 
 
                 case R.id.menu_sortTime:

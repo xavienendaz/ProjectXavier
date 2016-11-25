@@ -13,8 +13,8 @@
         android:layout_marginTop="3pt"
         android:layout_marginBottom="3pt"
         android:layout_marginRight="3pt"
-        android:layout_width="30pt"
-        android:layout_height="30pt"
+        android:layout_width="25pt"
+        android:layout_height="25pt"
         />
 
 
@@ -24,7 +24,7 @@
             android:textColor="@color/blueFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35pt"
+            android:layout_marginLeft="30pt"
             android:textStyle="bold"
             android:typeface="sans"
             android:textSize="15sp"/>
@@ -35,9 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/author"
             android:layout_marginTop="5dip"
-            android:layout_marginLeft="35pt"
+            android:layout_marginLeft="30pt"
             android:layout_marginBottom="5pt"
-            android:textColor="#343434"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
         <TextView

@@ -73,8 +73,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:orientation="vertical"
                 android:descendantFocusability="beforeDescendants"
@@ -88,10 +86,11 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tvTitle"
                     tools:height="50dp"
+                    android:layout_marginLeft="3pt"
                     android:textStyle="bold"
                     android:layout_marginTop="8pt"
                     android:textSize="10pt"
-                    android:textColor="@color/fontColor"/>
+                    android:textColor="@color/black"/>
 
 
 
@@ -100,23 +99,33 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="10pt"
-                    android:background="@drawable/linear_border">
+                    android:background="@drawable/linear_border_square">
 
 
 
                     <TextView
+                        android:id="@+id/tvQuestionContent"
                         android:text=""
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tvQuestionContent"
                         android:layout_below="@+id/tvTitle"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="24dp"
                         android:lineSpacingMultiplier="0.85"
                         android:paddingBottom="10dp"
                         android:ellipsize="end"
+                        android:textColor="#343434"
                         android:textSize="9pt"/>
 
+                    <TextView
+                        android:id="@+id/questionDate"
+                        android:text="@string/addedDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5pt"
+
+                        android:textSize="12sp"
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -127,20 +136,12 @@
 
                         <TableLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal">
+                            android:layout_height="wrap_content">
                             <TableRow
-                                android:layout_marginTop="2dp"
-                                android:gravity="center_horizontal">
+                                android:layout_marginTop="2dp">
 
 
 
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    app:srcCompat="@drawable/ic_menu_share"
-                                    android:layout_marginRight="25pt"
-                                    android:id="@+id/imvShare" />
 
                                 <ImageView
                                     android:id="@+id/imvVotePositive"
@@ -156,6 +157,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="5pt"
+                                    android:layout_gravity="center_vertical"
                                     />
 
                                 <ImageView
@@ -172,7 +174,19 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="5pt"
+                                    android:layout_gravity="center_vertical"
                                     />
+
+
+                                <ImageView
+                                    android:id="@+id/imvShare"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:srcCompat="@drawable/ic_action_share_gray"
+                                    android:layout_marginRight="25pt"
+                                    android:layout_marginLeft="18pt"
+                                     />
+
                             </TableRow>
                         </TableLayout>
 
@@ -183,17 +197,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/linear_up_border"/>
 
-                        <TextView
-                            android:id="@+id/questionDate"
-                            android:text="@string/addedDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5pt"
-                            android:layout_marginRight="2pt"
-                            android:layout_marginBottom="5pt"
-                            android:textColor="#706f6f"
-                            android:textSize="12sp"
-                            />
+
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -242,121 +246,106 @@
                         </LinearLayout>
 
 
+                        <TextView
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/linear_up_border"/>
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TableRow
+                                android:layout_marginTop="2dp"
+                                android:gravity="center_vertical">
+                                <TextView
+                                    android:id="@+id/tvComments"
+                                    android:text="@string/Comments"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:textSize="9pt"
+                                    android:textColor="@color/black"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tvCommentsCpt"
+                                    android:text=""
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="9pt"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginLeft="5pt"
+                                    android:textStyle="bold"
+                                    />
+                            </TableRow>
+                        </TableLayout>
+
+
+                        <EditText
+                            android:id="@+id/etAddComment"
+                            android:background="@drawable/linear_border"
+                            android:layout_width="match_parent"
+                            android:layout_height="30pt"
+                            android:layout_marginTop="10pt"
+                            android:layout_marginBottom="3pt"
+                            android:layout_alignBottom="@+id/tvComments"
+                            android:textSize="7pt"
+                            android:hint="@string/addComment"
+
+                            />
 
 
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="right"
+                            android:layout_marginTop="3dp"
+                            >
+
+                            <Button
+                                android:text="@string/cancel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/btCancelComment"
+                                android:textSize="7pt"/>
+
+                            <Button
+                                android:text="@string/save"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/btSaveComment"
+                                android:textSize="7pt"/>
+
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/linear_up_border"/>
+
+                        <ListView
+                            android:id="@+id/listview_comments"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:dividerHeight="1dp"
+                            android:layout_marginTop="5pt"
+                            android:layout_marginBottom="10pt"></ListView>
 
 
 
 
                     </LinearLayout>
-
-
                 </LinearLayout>
-
-    
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/linear_border"
-                    android:layout_marginTop="10pt"
-                    android:layout_marginBottom="10pt"
-                    android:orientation="vertical"
-                    android:id="@+id/linearLayoutComments"
-                    >
-
-                    <TableLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TableRow
-                            android:layout_marginTop="2dp"
-                            android:gravity="center_vertical">
-                            <TextView
-                                android:text="@string/Comments"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/tvComments"
-                                android:textSize="9pt"
-                                android:textStyle="bold"
-                                android:textColor="#343434"
-                                />
-                            <TextView
-                                android:text=""
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/tvCommentsCpt"
-                                android:textSize="9pt"
-                                android:layout_marginLeft="5pt"
-                                android:textStyle="bold"
-                                android:textColor="#343434"
-                                />
-                        </TableRow>
-                    </TableLayout>
-
-
-                    <EditText
-                        android:id="@+id/etAddComment"
-                        android:background="@drawable/linear_border"
-                        android:layout_width="match_parent"
-                        android:layout_height="30pt"
-                        android:layout_marginTop="10pt"
-                        android:layout_alignBottom="@+id/tvComments"
-                        android:textSize="7pt"
-                        android:hint="@string/addComment"
-
-                        />
-
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="end">
-
-                        <Button
-                            android:text="@string/cancel"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/btCancelComment"
-                            android:layout_marginTop="10dp"
-                            android:textSize="7pt"/>
-
-                        <Button
-                            android:text="@string/save"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/greenDark"
-                            android:textColor="@color/white"
-                            android:id="@+id/btSaveComment"
-                            android:layout_marginTop="10dp"
-                            android:textSize="7pt"/>
-
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:text=""
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/linear_up_border"/>
-
-                    <ListView
-                        android:id="@+id/listview_comments"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:dividerHeight="1dp"
-                        android:layout_marginTop="10pt"
-                        android:layout_marginBottom="10pt"></ListView>
-
-                </LinearLayout>
-
-
-
             </LinearLayout>
+
+
+
 
 
 

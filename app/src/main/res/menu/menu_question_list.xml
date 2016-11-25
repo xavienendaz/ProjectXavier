@@ -4,17 +4,6 @@
     android:textColor="@color/fontColor"
     >
 
-    <item
-        android:id="@+id/backArrow"
-        android:icon="@drawable/ic_action_arrow_left"
-        ProjectXavier:showAsAction="always"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:title=""/>
-
-
-
-
 
         <item
             android:id="@+id/menu_sort"
@@ -51,6 +40,8 @@
             android:icon="@drawable/ic_action_sort_asc"
             ProjectXavier:showAsAction="always"
             />
+
+
 
 
     </menu>

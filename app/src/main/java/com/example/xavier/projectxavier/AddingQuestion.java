@@ -41,6 +41,8 @@ public class AddingQuestion extends AppCompatActivity {
     byte imageInByte[];
     TextView tvImgError, tvImgSelected;
     int cpt;
+    LanguageLocalHelper languageLocalHelper;
+    String currentLanguage;
 
 
 
@@ -100,8 +102,6 @@ public class AddingQuestion extends AppCompatActivity {
                                        int position, long id) {
                 // On selecting a spinner item
                 String topic = adapter.getItemAtPosition(position).toString();
-                // Showing selected spinner item
-              //  Toast.makeText(getApplicationContext(),R.string.topicChoose + topic, Toast.LENGTH_SHORT).show();
             }
 
 
@@ -115,11 +115,9 @@ public class AddingQuestion extends AppCompatActivity {
     private int setSelectedTopic() {
         int val = -1;
 
-//       String myValueTopicSelected = getIntent().getExtras().getString("topicSelected");
 
         int tab = R.array.topics_array;
 
-        //if(myValueTopicSelected == )
 
         return val;
     }
@@ -238,7 +236,10 @@ public class AddingQuestion extends AppCompatActivity {
 
             SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm");
             String currentTime = time.format(new Date());
-            dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, currentTime);
+
+
+            currentLanguage = languageLocalHelper.getLanguage(AddingQuestion.this).toString();
+            dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, currentTime, currentLanguage);
 
 
             Toast.makeText(getBaseContext(), R.string.questionCreated, Toast.LENGTH_SHORT).show();

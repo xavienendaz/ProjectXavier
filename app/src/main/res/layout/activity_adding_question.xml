@@ -29,13 +29,7 @@
             android:id="@+id/tvSelectImage"
             android:textColor="@color/darkGray"/>
 
-        <TextView
-            android:text=""
-            android:textColor="@color/redError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/tvImgError" />
+
 
         <ImageView
             android:id="@+id/imChoose"
@@ -44,6 +38,15 @@
             android:layout_gravity="center_horizontal"
             app:srcCompat="@drawable/image_add">
         </ImageView>
+
+        <TextView
+            android:id="@+id/tvImgError"
+            android:text=""
+            android:textColor="@color/redError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            />
 
         <TextView
             android:text="@string/chooseTopic"

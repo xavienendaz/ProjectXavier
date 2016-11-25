@@ -32,7 +32,8 @@ public class DbHelper extends SQLiteOpenHelper {
             + DB_Contract.Questions.CONTENT + " TEXT,"
             + DB_Contract.Questions.USERNAME + " TEXT,"
             + DB_Contract.Questions.QUESTION_IMAGE + " BLOB,"
-            + DB_Contract.Questions.QUESTION_DATE + " TEXT" + ")";
+            + DB_Contract.Questions.QUESTION_DATE + " TEXT,"
+            + DB_Contract.Questions.CURRENT_LANGUAGE + " TEXT" + ")";
 
     private static final String CREATE_QUERY_TBL_FAVORITE = "CREATE TABLE "
             + DB_Contract.Favorite.TABLE_NAME + "("
@@ -55,9 +56,6 @@ public class DbHelper extends SQLiteOpenHelper {
             + DB_Contract.Vote.USER_NAME + " TEXT,"
             + DB_Contract.Vote.VOTE + " TEXT,"
             + DB_Contract.Vote.KEY_QUESTION_ID+ " INTEGER" + ")";
-
-
-
 
 
     public DbHelper(Context context){
@@ -117,6 +115,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 selection,
                 selectionArg);
     }
+
 
     /* delete user from database */
     public void deleteUser(String username)
@@ -229,7 +228,7 @@ public class DbHelper extends SQLiteOpenHelper {
     /**************** QUESTIONS PART ****************/
 
 
-    public void addQuestion(String topic, String title, String content, String username, byte[] imageInByte, String date) {
+    public void addQuestion(String topic, String title, String content, String username, byte[] imageInByte, String date, String language) {
         ContentValues contentValues = new ContentValues();
         SQLiteDatabase db = this.getWritableDatabase();
         contentValues.put(DB_Contract.Questions.TOPIC,topic);
@@ -238,6 +237,7 @@ public class DbHelper extends SQLiteOpenHelper {
         contentValues.put(DB_Contract.Questions.USERNAME,username);
         contentValues.put(DB_Contract.Questions.QUESTION_IMAGE,imageInByte);
         contentValues.put(DB_Contract.Questions.QUESTION_DATE,date);
+        contentValues.put(DB_Contract.Questions.CURRENT_LANGUAGE,language);
         db.insert(DB_Contract.Questions.TABLE_NAME,null,contentValues);
         Log.e("DATABASE OPERATIONS", "One Question inserted");
 
@@ -279,7 +279,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
-    /* Return all questions from selected topic by date */
+     /* Return all questions from selected topic by date */
     public Cursor getQuestionInfoFromTopic(String topicSelected) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor  cursor;
@@ -420,6 +420,22 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    public void deleteAllFavorites(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Delete FROM "
+                + DB_Contract.Favorite.TABLE_NAME
+                + " WHERE " + DB_Contract.Favorite.USER_NAME + " =  \"" + username + "\"";
+
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            cursor.close();
+        }
+        db.close();
+    }
 
 
     /**************** Comments PART ****************/

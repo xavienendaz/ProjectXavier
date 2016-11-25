@@ -43,7 +43,7 @@ public class QuestionDisplay extends AppCompatActivity {
     SQLiteDatabase sqLiteDatabase;
     FloatingActionButton fab;
     int myValueKeyIdQuestion;
-    String usernameSharedPref,  myValueContent, myValueTitle, date;
+    String usernameSharedPref,  myValueContent, myValueTitle, date, activityFrom;
     SharedPreferences sharedPref;
     ByteArrayInputStream imageStream;
     ImageView  imageView, imageAuthor;
@@ -88,6 +88,8 @@ public class QuestionDisplay extends AppCompatActivity {
         textViewAuthor.setText(myValueKeyAuthor);
 
         myValueKeyIdQuestion = getIntent().getExtras().getInt("myValueKeyIdQuestion");
+
+        activityFrom = getIntent().getExtras().getString("activitySelected");
 
         date = getIntent().getExtras().getString("date");
         questionDate.setText(questionDate.getText()+" "+date);
@@ -285,10 +287,25 @@ public class QuestionDisplay extends AppCompatActivity {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String activitySelected = getIntent().getExtras().getString("activitySelected");
-                Intent goBack = new Intent(QuestionDisplay.this, QuestionList.class);
-                goBack.putExtra("topicSelected", myValueTopicSelected);
-                QuestionDisplay.this.startActivity(goBack);
+
+                /* Because the user cans arrive in this activity from 3 differents ways,
+                 * when he clicks the back arrow he wants to return on the good activity */
+
+                if(activityFrom.equalsIgnoreCase("questionList")){
+                    Intent goBack = new Intent(QuestionDisplay.this, QuestionList.class);
+                    goBack.putExtra("topicSelected", myValueTopicSelected);
+                    QuestionDisplay.this.startActivity(goBack);
+                }
+                else if(activityFrom.equalsIgnoreCase("profile")){
+                    Intent goBack = new Intent(QuestionDisplay.this, Profile.class);
+                    QuestionDisplay.this.startActivity(goBack);
+                }
+                else if(activityFrom.equalsIgnoreCase("favorite")){
+                    Intent goBack = new Intent(QuestionDisplay.this, FavoriteList.class);
+                    QuestionDisplay.this.startActivity(goBack);
+                }
+
+
 
             }
         });
@@ -342,7 +359,7 @@ public class QuestionDisplay extends AppCompatActivity {
 
         /* Count nb comments */
         TextView t  = (TextView) findViewById(R.id.tvCommentsCpt);
-        t.setText("("+commentAdapter.getCount()+")");
+        t.setText(""+commentAdapter.getCount());
 
         /* Set list Height */
         setListViewHeight(listViewComments);

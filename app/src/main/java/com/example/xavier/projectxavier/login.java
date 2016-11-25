@@ -65,8 +65,8 @@ public class login extends AppCompatActivity {
 
 
     private void updateTexts() {
-        etUsername.setText(R.string.username);
-        etPassword.setText(R.string.Password);
+        etUsername.setHint(R.string.username);
+        etPassword.setHint(R.string.Password);
         cbRememberLogin.setText(R.string.rememberLogin);
         bLogin.setText(R.string.login);
         tvNewAccount.setText(R.string.createAccount);

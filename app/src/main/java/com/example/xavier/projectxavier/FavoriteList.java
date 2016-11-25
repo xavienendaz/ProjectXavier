@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class FavoriteList extends AppCompatActivity {
 
@@ -26,6 +28,9 @@ public class FavoriteList extends AppCompatActivity {
     Cursor cursor;
     ListDataAdapterQuestion listDataAdapterQuestion;
     int cpt=0;
+    FloatingActionButton fab;
+    String usernameSharedPref;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +51,37 @@ public class FavoriteList extends AppCompatActivity {
 
 
          /* Read username from sharedPreferences */
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String usernameSharedPref = sharedPref.getString("username", "");
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        usernameSharedPref = sharedPref.getString("username", "");
 
 
-        /* get info from databse */
+        setFavoritesList();
+
+
+
+
+
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabDeleteAllFavorite);
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                dbHelper.deleteAllFavorites(usernameSharedPref);
+                setFavoritesList();
+
+
+            }
+        });
+
+
+
+
+
+    }
+
+    private void setFavoritesList() {
+         /* get info from databse */
         cursor = dbHelper.getQuestionInfo();
         if (cursor.moveToFirst()) {
             do {
@@ -100,12 +131,15 @@ public class FavoriteList extends AppCompatActivity {
                 i.putExtra("topicSelected", item.getTopic());
                 i.putExtra("image", item.getImage());
                 i.putExtra("date", item.getDate());
-                //         i.putExtra("activitySelected", "questionList");
+                i.putExtra("activitySelected", "favorite");
                 FavoriteList.this.startActivity(i);
 
 
             }
         });
+
+
+
     }
 
 
