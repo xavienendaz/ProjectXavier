@@ -12,6 +12,7 @@ public class Comment {
     private String date;
     private String username;
     private int id_question;
+    private byte [] image;
 
     public Comment(){}
     public Comment(int id, String content, String date, String username,  int id_question){
@@ -20,6 +21,23 @@ public class Comment {
         this.date=date;
         this.username=username;
         this.id_question=id_question;
+    }
+
+    public Comment(int id, String content, String date, String username, int id_question, byte[] image) {
+        this.id=id;
+        this.content=content;
+        this.date=date;
+        this.username=username;
+        this.id_question=id_question;
+        this.image=image;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public int getId() {

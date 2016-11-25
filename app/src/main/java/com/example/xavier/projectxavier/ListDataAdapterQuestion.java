@@ -24,6 +24,7 @@ public class ListDataAdapterQuestion extends ArrayAdapter {
     List list = new ArrayList();
     LayoutHandler layoutHandler;
     ByteArrayInputStream imageStream;
+
     public ListDataAdapterQuestion(Context context, int resource) {
         super(context, resource);
     }

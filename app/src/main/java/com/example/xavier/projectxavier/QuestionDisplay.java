@@ -35,8 +35,9 @@ public class QuestionDisplay extends AppCompatActivity {
 
     TextView textViewQuestionTitle, textViewQuestionContent, textViewAuthor, cptPositiveVote, cptNegativeVote, questionDate;
     String myValueTopicSelected, myValueKeyAuthor;
-
-    Cursor cursor;
+    User u;
+    byte[] imgCommentAuthor;
+    Cursor cursor, cursorUser;
     Context context = this;
     DbHelper dbHelper;
     SQLiteDatabase sqLiteDatabase;
@@ -316,7 +317,23 @@ public class QuestionDisplay extends AppCompatActivity {
                 username = cursor.getString(3);
                 myValueKeyIdQuestion = cursor.getInt(4);
 
-                Comment c = new Comment(id, content, date, username, myValueKeyIdQuestion);
+
+              /* read the author user from database */
+                cursorUser = dbHelper.getOneUser(username);
+
+                if(cursorUser.moveToFirst())
+                {
+                        String uname;
+                        byte[] image;
+                        uname = cursorUser.getString(0);
+                        image = cursorUser.getBlob(1);
+                        User u = new User(uname, image);
+
+                        imgCommentAuthor = u.getImage();
+                }
+
+
+                Comment c = new Comment(id, content, date, username, myValueKeyIdQuestion,  imgCommentAuthor);
 
                 commentAdapter.add(c);
 

@@ -19,10 +19,10 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_QUERY_TBL_USER = "CREATE TABLE "
             + DB_Contract.User.TABLE_NAME+"("
-                    + DB_Contract.User.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + DB_Contract.User.USER_NAME+" TEXT,"
-                    + DB_Contract.User.USER_PASSWORD+" TEXT,"
-                    + DB_Contract.User.USER_IMAGE + " BLOB" + ")";
+            + DB_Contract.User.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + DB_Contract.User.USER_NAME+" TEXT,"
+            + DB_Contract.User.USER_PASSWORD+" TEXT,"
+            + DB_Contract.User.USER_IMAGE + " BLOB" + ")";
 
     private static final String CREATE_QUERY_TBL_QUESTIONS = "CREATE TABLE "
             + DB_Contract.Questions.TABLE_NAME + "("
