@@ -1,26 +1,17 @@
 package com.example.xavier.projectxavier;
 
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.ClipData;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-
-import java.util.Collections;
 
 public class QuestionList extends AppCompatActivity {
 
@@ -28,7 +19,7 @@ public class QuestionList extends AppCompatActivity {
     SQLiteDatabase sqLiteDatabase;
     DbHelper dbHelper;
     Cursor cursor, cursorEN, cursorFR;
-    ListDataAdapterQuestion listDataAdapterQuestion;
+    QuestionListDataAdapter questionListDataAdapter;
     String myValueTopicSelected, topicFromListView;
     Button b1, b2;
     LanguageLocalHelper languageLocalHelper;
@@ -46,8 +37,8 @@ public class QuestionList extends AppCompatActivity {
 
 
         listView = (ListView) findViewById(R.id.listview_questionList);
-        listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.question_list_layout);
-        listView.setAdapter(listDataAdapterQuestion);
+        questionListDataAdapter = new QuestionListDataAdapter(getApplicationContext(), R.id.question_list_layout);
+        listView.setAdapter(questionListDataAdapter);
         dbHelper = new DbHelper(getApplicationContext());
 
         currentLanguage = languageLocalHelper.getLanguage(QuestionList.this).toString();
@@ -58,7 +49,7 @@ public class QuestionList extends AppCompatActivity {
 
 
         /* Set title and count nb questions */
-        setTitle(myValueTopicSelected + " ("+listDataAdapterQuestion.getCount()+")");
+        setTitle(myValueTopicSelected + " ("+ questionListDataAdapter.getCount()+")");
 
 
 
@@ -91,7 +82,7 @@ public class QuestionList extends AppCompatActivity {
                 nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
                 Question c = new Question(id, topic, title, content, username, image, nbLike, date);
-                listDataAdapterQuestion.add(c);
+                questionListDataAdapter.add(c);
 
             } while (cursor.moveToPrevious());
         }
@@ -110,7 +101,7 @@ public void listViewOnClickListener(){
         public void onItemClick(AdapterView<?> parent, View view,
                                 int position, long id) {
 
-            Question item = (Question) listDataAdapterQuestion.getItem(position);
+            Question item = (Question) questionListDataAdapter.getItem(position);
 
             Intent i = new Intent(QuestionList.this, QuestionDisplay.class);
                 /* put an Extra in the intent to use Title on the question activity */
@@ -149,13 +140,13 @@ public void listViewOnClickListener(){
 
 
                 case R.id.menu_sortTime:
-                    listDataAdapterQuestion.clear();
+                    questionListDataAdapter.clear();
                     setQuestionListFromDate();
                     return true;
 
 
                 case R.id.menu_sortTimeOld:
-                    listDataAdapterQuestion.clear();
+                    questionListDataAdapter.clear();
                     cursor = dbHelper.getQuestionInfoFromTopic(myValueTopicSelected);
                     if (cursor.moveToFirst()) {
                         do {
@@ -172,7 +163,7 @@ public void listViewOnClickListener(){
                             nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
                             Question c = new Question(id, topic, title, content, username, image, nbLike, date);
-                            listDataAdapterQuestion.add(c);
+                            questionListDataAdapter.add(c);
 
                         } while (cursor.moveToNext());
                     }
@@ -181,7 +172,7 @@ public void listViewOnClickListener(){
 
 
                 case R.id.menu_sortASC:
-                    listDataAdapterQuestion.clear();
+                    questionListDataAdapter.clear();
                     cursor = dbHelper.getQuestionInfoFromTopicASC(myValueTopicSelected);
                     if (cursor.moveToFirst()) {
                         do {
@@ -198,7 +189,7 @@ public void listViewOnClickListener(){
                             nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
                             Question c = new Question(id, topic, title, content, username, image, nbLike, date);
-                            listDataAdapterQuestion.add(c);
+                            questionListDataAdapter.add(c);
 
                         } while (cursor.moveToNext());
                     }
@@ -207,7 +198,7 @@ public void listViewOnClickListener(){
 
 
                 case R.id.menu_sortDESC:
-                    listDataAdapterQuestion.clear();
+                    questionListDataAdapter.clear();
                     cursor = dbHelper.getQuestionInfoFromTopicDESC(myValueTopicSelected);
                     if (cursor.moveToFirst()) {
                         do {
@@ -224,7 +215,7 @@ public void listViewOnClickListener(){
                             nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
                             Question c = new Question(id, topic, title, content, username, image, nbLike, date);
-                            listDataAdapterQuestion.add(c);
+                            questionListDataAdapter.add(c);
 
                         } while (cursor.moveToNext());
                     }

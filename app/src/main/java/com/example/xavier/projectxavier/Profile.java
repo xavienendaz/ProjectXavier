@@ -36,7 +36,7 @@ public class Profile extends AppCompatActivity{
     TextView textViewUsername, tvEmptyUserList;
     String usernameSharedPref;
     Cursor cursor;
-    ListDataAdapterQuestion listDataAdapterQuestion;
+    QuestionListDataAdapter questionListDataAdapter;
     SharedPreferences sharedPref;
     ListView listViewProfileQuestions;
     int SELECTED_IMAGE;
@@ -204,8 +204,8 @@ public class Profile extends AppCompatActivity{
     private void displayUserPostsList() {
         tvEmptyUserList = (TextView) findViewById(R.id.tvEmptyUserCurrentList);
         listViewProfileQuestions = (ListView) findViewById(R.id.listview_questionList_profile);
-        listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.profile_list_layout);
-        listViewProfileQuestions.setAdapter(listDataAdapterQuestion);
+        questionListDataAdapter = new QuestionListDataAdapter(getApplicationContext(), R.id.profile_list_layout);
+        listViewProfileQuestions.setAdapter(questionListDataAdapter);
         dbHelper = new DbHelper(getApplicationContext());
 
 
@@ -226,7 +226,7 @@ public class Profile extends AppCompatActivity{
                 nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
                 Question c = new Question(id, topic, title, content, username, image, nbLike, date);
-                listDataAdapterQuestion.add(c);
+                questionListDataAdapter.add(c);
 
             } while (cursor.moveToPrevious());
         }
@@ -238,7 +238,7 @@ public class Profile extends AppCompatActivity{
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Question item = (Question) listDataAdapterQuestion.getItem(position);
+                Question item = (Question) questionListDataAdapter.getItem(position);
 
                 Intent i = new Intent(Profile.this, QuestionDisplay.class);
                 /* put an Extra in the intent to use Title on the question activity */
@@ -286,7 +286,7 @@ public class Profile extends AppCompatActivity{
                 return true;
 
             case R.id.action_add_question:
-                Intent goAdd = new Intent(this, AddingQuestion.class);
+                Intent goAdd = new Intent(this, QuestionAdd.class);
                 startActivity(goAdd);
                 return true;
 

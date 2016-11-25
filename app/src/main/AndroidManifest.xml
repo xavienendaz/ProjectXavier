@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Registration" />
-        <activity android:name=".AddingQuestion" />
+        <activity android:name=".QuestionAdd" />
         <activity
             android:name=".QuestionDisplay"
             android:theme="@style/AppTheme.NoActionBar" />

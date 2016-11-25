@@ -90,6 +90,8 @@
     <string name="confirmPassword">Confirm Password</string>
 
     <string name="loginSuccess">Login successfull</string>
+    <string name="favoriDeleted">All favorites deleted</string>
+    <string name="NofavoriDeleted">No favorites in list</string>
 
 </resources>
 

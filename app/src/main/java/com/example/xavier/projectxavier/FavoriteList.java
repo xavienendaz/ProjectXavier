@@ -26,9 +26,9 @@ public class FavoriteList extends AppCompatActivity {
     SQLiteDatabase sqLiteDatabase;
     DbHelper dbHelper;
     Cursor cursor;
-    ListDataAdapterQuestion listDataAdapterQuestion;
+    QuestionListDataAdapter questionListDataAdapter;
     int cpt=0;
-    FloatingActionButton fab;
+    FloatingActionButton favDelete;
     String usernameSharedPref;
     SharedPreferences sharedPref;
 
@@ -42,10 +42,9 @@ public class FavoriteList extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.tvEmptyFavList);
 
-
         listView = (ListView) findViewById(R.id.listview_questionList_favorite);
-        listDataAdapterQuestion = new ListDataAdapterQuestion(getApplicationContext(), R.id.question_list_layout);
-        listView.setAdapter(listDataAdapterQuestion);
+        questionListDataAdapter = new QuestionListDataAdapter(getApplicationContext(), R.id.question_list_layout);
+        listView.setAdapter(questionListDataAdapter);
         dbHelper = new DbHelper(getApplicationContext());
 
 
@@ -59,18 +58,26 @@ public class FavoriteList extends AppCompatActivity {
 
 
 
-
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabDeleteAllFavorite);
-        fab.setOnClickListener(new View.OnClickListener() {
+        favDelete = (FloatingActionButton) findViewById(R.id.fabDeleteAllFavorite);
+        favDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                dbHelper.deleteAllFavorites(usernameSharedPref);
-                setFavoritesList();
+                // Verify if the user has some favorites
+                if(questionListDataAdapter.isEmpty()){
+                    Toast.makeText(getBaseContext(), R.string.NofavoriDeleted, Toast.LENGTH_SHORT).show();
+                }else{
 
+                    // delete all use favorites
+                    dbHelper.deleteAllFavorites(usernameSharedPref);
+                    Toast.makeText(getBaseContext(), R.string.favoriDeleted, Toast.LENGTH_SHORT).show();
 
+                    // clear and notify the ListAdapter
+                    questionListDataAdapter.clear();
+                    questionListDataAdapter.notifyDataSetChanged();
+
+                    // show emptyList message
+                    textView.setText(R.string.emptyList);
+                }
             }
         });
 
@@ -78,7 +85,12 @@ public class FavoriteList extends AppCompatActivity {
 
 
 
+
+
     }
+
+
+
 
     private void setFavoritesList() {
          /* get info from databse */
@@ -102,7 +114,7 @@ public class FavoriteList extends AppCompatActivity {
 
                 /*  Here we need to verify if the user has put the question, c, in his favorites */
                 if(dbHelper.verifyFavorite(usernameSharedPref, c.getId()) == true){
-                    listDataAdapterQuestion.add(c);
+                    questionListDataAdapter.add(c);
                     cpt=1;
                 }
             } while (cursor.moveToNext());
@@ -113,6 +125,9 @@ public class FavoriteList extends AppCompatActivity {
             textView.setText(R.string.emptyList);
         }
 
+
+
+
         /* ListeView handler: Display the selected question */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -120,7 +135,7 @@ public class FavoriteList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Question item = (Question) listDataAdapterQuestion.getItem(position);
+                Question item = (Question) questionListDataAdapter.getItem(position);
 
                 Intent i = new Intent(FavoriteList.this, QuestionDisplay.class);
                 /* put an Extra in the intent to use Title on the question activity */
@@ -166,7 +181,7 @@ public class FavoriteList extends AppCompatActivity {
                 return true;
 
             case R.id.action_add_question:
-                Intent goAdd = new Intent(this, AddingQuestion.class);
+                Intent goAdd = new Intent(this, QuestionAdd.class);
                 startActivity(goAdd);
                 return true;
 

@@ -80,7 +80,7 @@ public class TopicsList extends AppCompatActivity {
                 return true;
 
             case R.id.action_add_question:
-                Intent goAdd = new Intent(this, AddingQuestion.class);
+                Intent goAdd = new Intent(this, QuestionAdd.class);
                 startActivity(goAdd);
                 return true;
 

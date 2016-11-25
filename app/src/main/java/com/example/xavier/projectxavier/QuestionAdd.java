@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -29,7 +27,7 @@ import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddingQuestion extends AppCompatActivity {
+public class QuestionAdd extends AppCompatActivity {
 
     Context context = this;
     DbHelper dbHelper;
@@ -238,7 +236,7 @@ public class AddingQuestion extends AppCompatActivity {
             String currentTime = time.format(new Date());
 
 
-            currentLanguage = languageLocalHelper.getLanguage(AddingQuestion.this).toString();
+            currentLanguage = languageLocalHelper.getLanguage(QuestionAdd.this).toString();
             dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, currentTime, currentLanguage);
 
 
@@ -246,9 +244,9 @@ public class AddingQuestion extends AppCompatActivity {
 
             dbHelper.close();
             /* redirect to questionlist with selected topic */
-            Intent i = new Intent(AddingQuestion.this, QuestionList.class);
+            Intent i = new Intent(QuestionAdd.this, QuestionList.class);
             i.putExtra("topicSelected", topic);
-            AddingQuestion.this.startActivity(i);
+            QuestionAdd.this.startActivity(i);
 
         }
     }
@@ -276,7 +274,7 @@ public class AddingQuestion extends AppCompatActivity {
                 return true;
 
             case R.id.action_add_question:
-                Intent goAdd = new Intent(this, AddingQuestion.class);
+                Intent goAdd = new Intent(this, QuestionAdd.class);
                 startActivity(goAdd);
                 return true;
 

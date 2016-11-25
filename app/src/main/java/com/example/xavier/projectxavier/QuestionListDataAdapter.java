@@ -12,20 +12,19 @@ import android.widget.TextView;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by Xavier on 05.11.2016.
  */
 
-public class ListDataAdapterQuestion extends ArrayAdapter {
+public class QuestionListDataAdapter extends ArrayAdapter {
 
     List list = new ArrayList();
     LayoutHandler layoutHandler;
     ByteArrayInputStream imageStream;
 
-    public ListDataAdapterQuestion(Context context, int resource) {
+    public QuestionListDataAdapter(Context context, int resource) {
         super(context, resource);
     }
 
@@ -78,7 +77,7 @@ public class ListDataAdapterQuestion extends ArrayAdapter {
         }
         else{
 
-            layoutHandler = (ListDataAdapterQuestion.LayoutHandler)row.getTag();
+            layoutHandler = (QuestionListDataAdapter.LayoutHandler)row.getTag();
 
         }
 
