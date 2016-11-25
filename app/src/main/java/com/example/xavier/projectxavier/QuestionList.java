@@ -1,11 +1,15 @@
 package com.example.xavier.projectxavier;
 
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -90,10 +94,32 @@ public class QuestionList extends AppCompatActivity {
 
         listViewOnClickListener();
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // 1. Instantiate an AlertDialog.Builder with its constructor
+                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionList.this);
+                LayoutInflater inflater = QuestionList.this.getLayoutInflater();
+
+                // setView with a layout dialog.xml
+                builder.setView(inflater.inflate(R.layout.dialog, null));
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                return true; // true because I dont want to be redirected on the activity Quetiondisplay
+            }
+
+
+        });
 
     }
 
-public void listViewOnClickListener(){
+
+
+
+
+    public void listViewOnClickListener(){
             /* ListeView handler: Display the selected question */
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

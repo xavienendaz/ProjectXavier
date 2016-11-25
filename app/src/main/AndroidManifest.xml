@@ -33,12 +33,12 @@
         <activity
             android:name=".QuestionDisplay"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".QuestionList"
-            android:parentActivityName="com.example.xavier.projectxavier.TopicsList" >
-        </activity>
-        <activity android:name=".Settings"
-            android:parentActivityName="com.example.xavier.projectxavier.TopicsList" />
+        <activity
+            android:name=".QuestionList"
+            android:parentActivityName=".TopicsList"></activity>
+        <activity
+            android:name=".Settings"
+            android:parentActivityName=".TopicsList" />
         <activity android:name=".TopicsList" />
         <activity android:name=".Profile" />
         <!--
@@ -50,6 +50,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".FavoriteList" />
+        <activity android:name=".main"></activity>
     </application>
 
 </manifest>

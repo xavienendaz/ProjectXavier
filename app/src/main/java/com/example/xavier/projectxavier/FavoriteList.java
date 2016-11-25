@@ -1,11 +1,13 @@
 package com.example.xavier.projectxavier;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -66,17 +68,34 @@ public class FavoriteList extends AppCompatActivity {
                 if(questionListDataAdapter.isEmpty()){
                     Toast.makeText(getBaseContext(), R.string.NofavoriDeleted, Toast.LENGTH_SHORT).show();
                 }else{
+                    // ask the user if he is sure to delete all his favorites
+                    new AlertDialog.Builder(FavoriteList.this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle(R.string.deleteAllFavorites)
+                            .setMessage(R.string.deleteAllFavoriteMessage)
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    // delete all use favorites
-                    dbHelper.deleteAllFavorites(usernameSharedPref);
-                    Toast.makeText(getBaseContext(), R.string.favoriDeleted, Toast.LENGTH_SHORT).show();
+                                    // delete all user favorites
+                                    dbHelper.deleteAllFavorites(usernameSharedPref);
+                                    Toast.makeText(getBaseContext(), R.string.favoriDeleted, Toast.LENGTH_SHORT).show();
 
-                    // clear and notify the ListAdapter
-                    questionListDataAdapter.clear();
-                    questionListDataAdapter.notifyDataSetChanged();
+                                    // clear and notify the ListAdapter
+                                    questionListDataAdapter.clear();
+                                    questionListDataAdapter.notifyDataSetChanged();
 
-                    // show emptyList message
-                    textView.setText(R.string.emptyList);
+                                    // show emptyList message
+                                    textView.setText(R.string.emptyList);
+
+                                }
+
+                            })
+                            .setNegativeButton(R.string.no, null)
+                            .show();
+
+
+
                 }
             }
         });

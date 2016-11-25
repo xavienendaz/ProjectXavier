@@ -33,7 +33,7 @@
         android:layout_marginRight="25dp"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:orientation="vertical"
-        android:layout_marginTop="10pt"
+        android:layout_marginTop="15pt"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
         android:background="@drawable/linear_border">

@@ -3,7 +3,7 @@
     <string name="app_name">Nutrition</string>
     <string name="titleTopics">Topics</string>
     <string name="titleQuestionsList">Questions</string>
-    <string name="favorite">Favorite</string>
+    <string name="favorite">Favorites</string>
     <string name="addQuestion">Add a question</string>
     <string name="profile">Profile</string>
     <string name="Settings">Settings</string>
@@ -92,6 +92,8 @@
     <string name="loginSuccess">Login successfull</string>
     <string name="favoriDeleted">All favorites deleted</string>
     <string name="NofavoriDeleted">No favorites in list</string>
+    <string name="deleteAllFavorites">Delete all favorites</string>
+    <string name="deleteAllFavoriteMessage">Are you sure to delete all your favorites?</string>
 
 </resources>
 

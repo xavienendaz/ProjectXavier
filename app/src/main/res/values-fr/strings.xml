@@ -89,4 +89,5 @@
     <string name="french">FR</string>
     <string name="confirmPassword">Confirmer le mot de passe</string>
     <string name="loginSuccess">Identification réussie</string>
+    <string name="deleteAllFavoriteMessage">Voulez-vous vraiment supprimer tous les favoris?</string>
 </resources>
