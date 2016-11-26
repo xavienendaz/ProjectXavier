@@ -62,7 +62,17 @@ public class QuestionList extends AppCompatActivity {
         currentLanguage = languageLocalHelper.getLanguage(QuestionList.this).toString();
 
 
-        setQuestionListFromDate();
+
+        if(myValueTopicSelected.equalsIgnoreCase("All questions") ||
+                myValueTopicSelected.equalsIgnoreCase("Toutes les questions")){
+            //display all questions
+            setAllQuestions();
+
+        }else{
+            //display all questions from selected topic
+            setQuestionListFromDate();
+        }
+
 
 
 
@@ -80,6 +90,36 @@ public class QuestionList extends AppCompatActivity {
 
 
 
+    }
+
+
+    private void setAllQuestions(){
+        cursor = dbHelper.getAllQuestions();
+        if (cursor.moveToLast()) {
+            do {
+                int id;
+                String topic, title, content, username, nbLike, date;
+                byte[] image;
+                id = cursor.getInt(0);
+                topic = cursor.getString(1);
+                title = cursor.getString(2);
+                content = cursor.getString(3);
+                username = cursor.getString(4);
+                image = cursor.getBlob(5);
+                date = cursor.getString(6);
+
+                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                questionListDataAdapter.add(c);
+
+            } while (cursor.moveToPrevious());
+        }
+
+
+        listViewOnClickListener();
+
+        listViewOnLongClickListener();
     }
 
 
@@ -191,6 +231,11 @@ public class QuestionList extends AppCompatActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
 
             switch (item.getItemId()) {
+
+                case R.id.menu_add_question:
+                    Intent goHome = new Intent(this, QuestionAdd.class);
+                    startActivity(goHome);
+                    return true;
 
                 case R.id.menu_sortTime:
                     questionListDataAdapter.clear();

@@ -12,7 +12,7 @@
     <string name="register">Register</string>
 
     <string-array name="topics_array">
-        <item>General culture</item>
+        <item>All questions</item>
         <item>Fruits</item>
         <item>Vegetables</item>
         <item>Proteins</item>
@@ -22,6 +22,20 @@
         <item>Drinks</item>
         <item>Desserts</item>
         <item>Candies</item>
+        <item>General culture</item>
+    </string-array>
+
+    <string-array name="topics_array_spinner">
+        <item>Fruits</item>
+        <item>Vegetables</item>
+        <item>Proteins</item>
+        <item>Starchy food</item>
+        <item>Vegan</item>
+        <item>Fastfood</item>
+        <item>Drinks</item>
+        <item>Desserts</item>
+        <item>Candies</item>
+        <item>General culture</item>
     </string-array>
 
 

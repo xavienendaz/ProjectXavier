@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -68,6 +69,8 @@ public class Profile extends AppCompatActivity{
         textViewUsername.setText(usernameSharedPref);
 
 
+        // user can change his photo on click on linearlayout or photo
+
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearChangeUserPhoto);
         linearLayout.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -77,6 +80,8 @@ public class Profile extends AppCompatActivity{
                 startActivityForResult(galleryIntent, SELECTED_IMAGE);
             }
         });
+
+
 
         readUserFromDatabase();
 
@@ -88,15 +93,7 @@ public class Profile extends AppCompatActivity{
 
     }
 
-  /*  private void updateTexts() {
-        textViewUsername.setText(usernameSharedPref);
-        tvChangePhoto.setText(R.string.changePhoto);
-        tvNbQuestionsInfo.setText(R.string.nb_posts);
-        tvEmptyUserCurrentList.setText(R.string.yourPosts);
-        setTitle(R.string.profile);
 
-    }
-*/
 
 
     public static boolean setListViewHeight(ListView listView) {

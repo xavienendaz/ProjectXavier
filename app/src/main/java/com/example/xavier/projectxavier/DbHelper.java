@@ -351,6 +351,25 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
 
+    /* Return all questions from selected topic by date */
+    public Cursor getAllQuestions() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor  cursor;
+        String[] projectionsQuestion = {
+                DB_Contract.Questions.KEY_ID,
+                DB_Contract.Questions.TOPIC,
+                DB_Contract.Questions.TITLE,
+                DB_Contract.Questions.CONTENT,
+                DB_Contract.Questions.USERNAME,
+                DB_Contract.Questions.QUESTION_IMAGE,
+                DB_Contract.Questions.QUESTION_DATE
+        };
+
+
+        cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,null,null,null,null,null,null);
+
+        return cursor;
+    }
 
      /* Return all questions from selected topic by date */
     public Cursor getQuestionInfoFromTopic(String topicSelected) {

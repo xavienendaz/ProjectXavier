@@ -65,19 +65,19 @@ public class QuestionAdd extends AppCompatActivity {
         final ImageView im = (ImageView) findViewById(R.id.imChoose);
         im.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-
-
-            Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 galleryIntent.getAction();
                 startActivityForResult(galleryIntent, SELECTED_IMAGE);
 
-            /*    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+
+            /*
+      Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, SELECTED_IMAGE);
                 }
-      */
-
+*/
 
 
             }
@@ -96,7 +96,7 @@ public class QuestionAdd extends AppCompatActivity {
         // Spinner click listener
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter =
-                ArrayAdapter.createFromResource(this, R.array.topics_array, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(this, R.array.topics_array_spinner, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner

@@ -141,37 +141,7 @@ public class QuestionDisplay extends AppCompatActivity {
         share.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Bitmap bitmap = null;
-                View rootView = findViewById(android.R.id.content).getRootView();
-                rootView.setDrawingCacheEnabled(true);
 
-                File imagePath = new File(Environment.getExternalStorageDirectory() + "/screenshot.png");
-
-                FileOutputStream fos;
-                try {
-                    fos = new FileOutputStream(imagePath);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                    fos.flush();
-                    fos.close();
-                   // Log.e("GREC", e.getMessage(), e);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-                Uri uri = Uri.fromFile(imagePath);
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("image/*");
-                String shareBody = "In Tweecher, My highest score with screen shot";
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "My Tweecher score");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
-
-                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-
-            /*
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
@@ -182,11 +152,11 @@ public class QuestionDisplay extends AppCompatActivity {
 
                 /********** PPROBLEM HERE NOTHING SHARE***********/
 
-             /*   sendIntent.putExtra(Intent.EXTRA_TEXT, title);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, title);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, content);
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
-                */
+
             }
         });
 

@@ -19,12 +19,7 @@
 
 
 
-    <ImageView
-        android:layout_width="138dp"
-        android:layout_height="134dp"
-        android:layout_gravity="center_horizontal"
-        app:srcCompat="@drawable/profile"
-        android:id="@+id/imvAddUserPhoto" />
+
 
 
 
@@ -32,27 +27,28 @@
         android:id="@+id/linearChangeUserPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5pt"
         android:layout_marginBottom="5pt">
 
         <ImageView
+            android:layout_width="138dp"
+            android:layout_height="134dp"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@drawable/profile"
+            android:id="@+id/imvAddUserPhoto" />
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="2pt"
+            android:textSize="5pt"
+            android:layout_gravity="center_horizontal"
             app:srcCompat="@drawable/ic_add_a_photo"
             android:id="@+id/imvLoggOff" />
 
 
-        <TextView
-            android:id="@+id/tvChangePhoto"
-            android:text="@string/changePhoto"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/blueFont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+
     </LinearLayout>
 
 

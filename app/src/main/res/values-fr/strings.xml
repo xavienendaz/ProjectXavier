@@ -12,7 +12,7 @@
     <string name="register">S\'enregistrer</string>
 
     <string-array name="topics_array">
-        <item>Culture générale</item>
+        <item>Toutes les questions</item>
         <item>Fruits</item>
         <item>Légumes</item>
         <item>Protéines</item>
@@ -22,6 +22,20 @@
         <item>Boissons</item>
         <item>Desserts</item>
         <item>Friandises</item>
+        <item>Culture générale</item>
+    </string-array>
+
+    <string-array name="topics_array_spinner">
+        <item>Fruits</item>
+        <item>Légumes</item>
+        <item>Protéines</item>
+        <item>Féculents</item>
+        <item>Végétarien</item>
+        <item>Fastfood</item>
+        <item>Boissons</item>
+        <item>Desserts</item>
+        <item>Friandises</item>
+        <item>Culture générale</item>
     </string-array>
 
 

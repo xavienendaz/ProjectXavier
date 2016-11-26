@@ -46,7 +46,8 @@
             <ImageButton
                 android:layout_width="150px"
                 android:layout_height="150px"
-                android:layout_marginLeft="10pt"
+                android:layout_marginLeft="20pt"
+                android:layout_marginBottom="8pt"
                 app:srcCompat="@drawable/flagfrance"
                 android:id="@+id/imbFlagFrance"/>
 

@@ -16,7 +16,7 @@ public class TopicsList extends AppCompatActivity {
     TopicsCustomList adapter;
 
     Integer[] imgTopicsId = {
-            R.drawable.topic_general,
+            R.drawable.topic_all,
             R.drawable.topic_fruit,
             R.drawable.topic_vegetable,
             R.drawable.topic_protein,
@@ -25,7 +25,8 @@ public class TopicsList extends AppCompatActivity {
             R.drawable.topic_fastfood,
             R.drawable.topic_drink,
             R.drawable.topic_dessert,
-            R.drawable.topic_candies
+            R.drawable.topic_candies,
+            R.drawable.topic_general,
     };
 
     @Override
