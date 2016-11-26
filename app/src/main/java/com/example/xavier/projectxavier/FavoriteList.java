@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +23,8 @@ public class FavoriteList extends AppCompatActivity {
 
 
 
-
+    int idFavorite;
+    int id_question_click;
     TextView textView;
     ListView listView;
     SQLiteDatabase sqLiteDatabase;
@@ -33,6 +35,7 @@ public class FavoriteList extends AppCompatActivity {
     FloatingActionButton favDelete;
     String usernameSharedPref;
     SharedPreferences sharedPref;
+    Question q;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +105,43 @@ public class FavoriteList extends AppCompatActivity {
 
 
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
+                // create object Question for get id_questin
+                q = (Question) questionListDataAdapter.getItem(position);
 
+                // instantiate an AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(FavoriteList.this);
 
+                // set dialog message
+                builder.setTitle(R.string.areysure);
+                builder.setMessage(R.string.messageDelete1Favorite)
+                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        // delete favorite from current Username and question_id
+                        dbHelper.deleteFavorite(usernameSharedPref, q.getId());
+                        Toast.makeText(getBaseContext(), R.string.favoriteDeleted, Toast.LENGTH_SHORT).show();
+
+                        // clear and notify the ListAdapter
+                        questionListDataAdapter.clear();
+                        questionListDataAdapter.notifyDataSetChanged();
+
+                        setFavoritesList();
+                    }
+                })
+                .setNegativeButton(R.string.cancelling, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                return true; // true because I dont want to be redirected on the activity Quetiondisplay
+            }
+        });
 
     }
 

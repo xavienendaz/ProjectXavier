@@ -14,7 +14,6 @@ public class TopicsList extends AppCompatActivity {
     ListView list;
     String [] topics;
     TopicsCustomList adapter;
-    LanguageLocalHelper languageLocalHelper;
 
     Integer[] imgTopicsId = {
             R.drawable.topic_general,

@@ -1,6 +1,7 @@
 package com.example.xavier.projectxavier;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -43,7 +45,7 @@ public class Profile extends AppCompatActivity{
     byte imageInByte[];
     ImageView chooseImage;
     ByteArrayInputStream imageStream;
-
+   Question q;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +62,6 @@ public class Profile extends AppCompatActivity{
         /* Read username from sharedPreferences */
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         usernameSharedPref = sharedPref.getString("username", "");
-        String currentLanguage = sharedPref.getString("language", "");
-        languageLocalHelper.onCreate(this, currentLanguage);
 
 
         textViewUsername = (TextView) findViewById(R.id.tvUsername);
@@ -253,8 +253,49 @@ public class Profile extends AppCompatActivity{
                 Profile.this.startActivity(i);
             }
         });
+
+        listViewOnLongClickListener();
+
     }
 
+
+    public void listViewOnLongClickListener(){
+        listViewProfileQuestions.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                q = (Question) questionListDataAdapter.getItem(position);
+
+                // count nb comment for selected question
+                int nbComment = dbHelper.countQuestionComments(q.getId());
+
+                // count nb question for selected question author
+                int nbUserQuestion = dbHelper.countUserQuestions(q.getUsername());
+
+                // instantiate an AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+
+                // set dialog message
+                builder.setTitle(q.getTopic());
+                builder.setMessage(
+                        R.string.comment+" "+nbComment+
+                                "\n"+
+                                "\n"+
+                                R.string.author +"  "+q.getUsername()+
+                                "\n"+ R.string.nb_posts +"  "+nbUserQuestion)
+                        .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                return true; // true because I dont want to be redirected on the activity Quetiondisplay
+            }
+        });
+
+    }
 
     private void countUserPosts() {
         dbHelper = new DbHelper(context);

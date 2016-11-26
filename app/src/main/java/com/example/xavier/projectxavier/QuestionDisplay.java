@@ -115,12 +115,12 @@ public class QuestionDisplay extends AppCompatActivity {
                 if (dbHelper.verifyFavorite(usernameSharedPref, myValueKeyIdQuestion) == true) {
                     /* If the question is in favorites, we delete the row from table */
                     dbHelper.deleteFavorite(usernameSharedPref, myValueKeyIdQuestion);
-                    Toast.makeText(getBaseContext(), "Favorite delete", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.favoriteDeleted, Toast.LENGTH_SHORT).show();
 
                 } else {
                     /* If the question is not in favorites */
                     dbHelper.addFavorite(usernameSharedPref, myValueKeyIdQuestion);
-                    Toast.makeText(getBaseContext(), "Favorite added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.favoriteAdded, Toast.LENGTH_SHORT).show();
                     dbHelper.close();
                 }
                 setFabImage();

@@ -59,7 +59,6 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         setTitle(R.string.Settings);
-        languageLocalHelper.onCreate(this);
 
         deleteAccount = (TextView) findViewById(R.id.tvDeleteAccount);
         logOff = (TextView) findViewById(R.id.tvLogOff);
@@ -71,21 +70,17 @@ public class Settings extends AppCompatActivity {
         final ImageButton flagEnglish = (ImageButton) findViewById(R.id.imbFlagEnglish);
         flagEnglish.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-
+                // change app language in LanguageLocalHelper and save data in SharePreferences
                 languageLocalHelper.setLocale(Settings.this, "en");
                 updateTexts();
-
-
             }
         });
+
 
         final ImageButton flagFrance = (ImageButton) findViewById(R.id.imbFlagFrance);
         flagFrance.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                //open the registerActivity when user click on registerLink
-               // PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LANG", "fr").commit();
-                // setLangRecreate("fr");
-
+                // change app language in LanguageLocalHelper and save data in SharePreferences
                 languageLocalHelper.setLocale(Settings.this, "fr");
                 updateTexts();
 
@@ -96,17 +91,12 @@ public class Settings extends AppCompatActivity {
 
 
     private void updateTexts() {
-
         deleteAccount.setText(R.string.deletAccount);
         logOff.setText(R.string.loggOff);
         tvAccount.setText(R.string.Account);
         tvLanguages.setText(R.string.Languages);
         setTitle(R.string.Settings);
-
-
-
     }
-
 
 
     public void logOff(View view) {

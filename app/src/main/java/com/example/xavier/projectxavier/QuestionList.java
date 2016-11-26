@@ -2,10 +2,14 @@ package com.example.xavier.projectxavier;
 
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.ByteArrayInputStream;
 
 public class QuestionList extends AppCompatActivity {
 
@@ -24,10 +33,15 @@ public class QuestionList extends AppCompatActivity {
     DbHelper dbHelper;
     Cursor cursor, cursorEN, cursorFR;
     QuestionListDataAdapter questionListDataAdapter;
-    String myValueTopicSelected, topicFromListView;
+    String myValueTopicSelected, topicFromListView,  questionClickUsername;
     Button b1, b2;
     LanguageLocalHelper languageLocalHelper;
     String currentLanguage;
+    TextView tvCurrentTopic, tvCommentCpt,tvQuestionAuthor;
+    Context context = this;
+    ByteArrayInputStream imageStream;
+    ImageView imageView, imageAuthor;
+    Question q;
 
 
     @Override
@@ -47,6 +61,7 @@ public class QuestionList extends AppCompatActivity {
 
         currentLanguage = languageLocalHelper.getLanguage(QuestionList.this).toString();
 
+
         setQuestionListFromDate();
 
 
@@ -54,6 +69,7 @@ public class QuestionList extends AppCompatActivity {
 
         /* Set title and count nb questions */
         setTitle(myValueTopicSelected + " ("+ questionListDataAdapter.getCount()+")");
+
 
 
 
@@ -74,7 +90,7 @@ public class QuestionList extends AppCompatActivity {
             do {
                 int id;
                 String topic, title, content, username, nbLike, date;
-                byte [] image;
+                byte[] image;
                 id = cursor.getInt(0);
                 topic = cursor.getString(1);
                 title = cursor.getString(2);
@@ -94,33 +110,50 @@ public class QuestionList extends AppCompatActivity {
 
         listViewOnClickListener();
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                // 1. Instantiate an AlertDialog.Builder with its constructor
-                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionList.this);
-                LayoutInflater inflater = QuestionList.this.getLayoutInflater();
-
-                // setView with a layout dialog.xml
-                builder.setView(inflater.inflate(R.layout.dialog, null));
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                return true; // true because I dont want to be redirected on the activity Quetiondisplay
-            }
-
-
-        });
+        listViewOnLongClickListener();
 
     }
 
 
+    public void listViewOnLongClickListener(){
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
+                q = (Question) questionListDataAdapter.getItem(position);
 
+                // count nb comment for selected question
+                int nbComment = dbHelper.countQuestionComments(q.getId());
+
+                // count nb question for selected question author
+                int nbUserQuestion = dbHelper.countUserQuestions(q.getUsername());
+
+                // instantiate an AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionList.this);
+
+                // set dialog message
+                builder.setTitle(q.getTopic());
+                builder.setMessage(
+                        R.string.comment+" "+nbComment+
+                                "\n"+
+                                "\n"+
+                                R.string.author +"  "+q.getUsername()+
+                                "\n"+ R.string.nb_posts +"  "+nbUserQuestion)
+                        .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                return true; // true because I dont want to be redirected on the activity Quetiondisplay
+            }
+        });
+
+    }
 
     public void listViewOnClickListener(){
-            /* ListeView handler: Display the selected question */
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
         @Override
@@ -130,7 +163,7 @@ public class QuestionList extends AppCompatActivity {
             Question item = (Question) questionListDataAdapter.getItem(position);
 
             Intent i = new Intent(QuestionList.this, QuestionDisplay.class);
-                /* put an Extra in the intent to use Title on the question activity */
+            /* put Extra in the intent for displaying question in QuestionDisplay*/
             i.putExtra("myValueKeyTitle", item.getTitle());
             i.putExtra("myValueKeyContent", item.getContent());
             i.putExtra("myValueKeyIdQuestion", item.getId());
@@ -146,14 +179,10 @@ public class QuestionList extends AppCompatActivity {
 }
 
 
-
-
   /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_question_list, menu);
-
         return true;
     }
 
@@ -163,13 +192,10 @@ public class QuestionList extends AppCompatActivity {
 
             switch (item.getItemId()) {
 
-
-
                 case R.id.menu_sortTime:
                     questionListDataAdapter.clear();
                     setQuestionListFromDate();
                     return true;
-
 
                 case R.id.menu_sortTimeOld:
                     questionListDataAdapter.clear();
@@ -196,7 +222,6 @@ public class QuestionList extends AppCompatActivity {
                     listViewOnClickListener();
                     return true;
 
-
                 case R.id.menu_sortASC:
                     questionListDataAdapter.clear();
                     cursor = dbHelper.getQuestionInfoFromTopicASC(myValueTopicSelected);
@@ -221,7 +246,6 @@ public class QuestionList extends AppCompatActivity {
                     }
                     listViewOnClickListener();
                     return true;
-
 
                 case R.id.menu_sortDESC:
                     questionListDataAdapter.clear();
@@ -248,14 +272,11 @@ public class QuestionList extends AppCompatActivity {
                     listViewOnClickListener();
                     return true;
 
-
                 default:
                     return super.onOptionsItemSelected(item);
 
             }
-
         }
-
     }
 
 

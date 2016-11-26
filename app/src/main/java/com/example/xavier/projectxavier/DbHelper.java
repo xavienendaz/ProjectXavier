@@ -225,6 +225,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
 
+
+
+
+
+
     /**************** QUESTIONS PART ****************/
 
 
@@ -262,6 +267,25 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
+    public int countQuestionComments(int id_question) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor= db.rawQuery("SELECT COUNT (*) FROM " + DB_Contract.Comments.TABLE_NAME +
+                        " WHERE " + DB_Contract.Comments.KEY_QUESTION_ID  + "=?",
+                new String[] { String.valueOf(id_question) });
+        int count = 0;
+        if(null != cursor)
+            if(cursor.getCount() > 0){
+                cursor.moveToFirst();
+                count = cursor.getInt(0);
+            }
+        cursor.close();
+
+        db.close();
+        return count;
+    }
+
+
+
     /* Displaying all questions */
     public Cursor getQuestionInfo() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -277,6 +301,55 @@ public class DbHelper extends SQLiteOpenHelper {
         cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,null,null,null,null,null,null);
         return cursor;
     }
+
+
+    public Cursor getQuestionInfoFromId(String question_id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor  cursor;
+        String[] projectionsQuestion = {
+                DB_Contract.Questions.KEY_ID,
+                DB_Contract.Questions.TOPIC,
+                DB_Contract.Questions.TITLE,
+                DB_Contract.Questions.CONTENT,
+                DB_Contract.Questions.USERNAME,
+                DB_Contract.Questions.QUESTION_IMAGE,
+                DB_Contract.Questions.QUESTION_DATE};
+        String selection =  DB_Contract.Questions.KEY_ID+" LIKE ? ";
+        String [] id = {question_id};
+        cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,id,null,null,null,null);
+        return cursor;
+    }
+
+
+
+    public String getUsernameFromQuestion(String question_id) {
+
+        String query = "Select * FROM "
+                + DB_Contract.Questions.TABLE_NAME
+                + " WHERE " + DB_Contract.Questions.USERNAME + " =  '" + question_id  + "'";
+
+      /*  String selection =  DB_Contract.User.USER_NAME+" LIKE ? " + " AND " + DB_Contract.Questions.KEY_ID+" LIKE ?";
+        String [] selectionArg = {DB_Contract.Questions.USERNAME, question_id};
+        cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,topics,null,null,null,null);
+*/
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        Question u = new Question();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            u.setUsername(cursor.getString(0));
+            cursor.close();
+        } else {
+        }
+        db.close();
+
+        return u.getUsername();
+    }
+
+
+
 
 
      /* Return all questions from selected topic by date */
@@ -612,5 +685,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
         return count;
     }
+
+
 
 }

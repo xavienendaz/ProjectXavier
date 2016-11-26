@@ -94,6 +94,16 @@
     <string name="NofavoriDeleted">No favorites in list</string>
     <string name="deleteAllFavorites">Delete all favorites</string>
     <string name="deleteAllFavoriteMessage">Are you sure to delete all your favorites?</string>
+    <string name="topic">Topic</string>
+    <string name="areysure">Are you sure?</string>
+    <string name="messageDelete1Favorite">You will delete this favorite</string>
+    <string name="delete">delete</string>
+    <string name="favoriteDeleted">Favorite delete</string>
+    <string name="favoriteAdded">Favorite added</string>
+    <string name="cancelling">cancel</string>
+    <string name="view">view</string>
+    <string name="comment">Comments</string>
+    <string name="close">close</string>
 
 </resources>
 
