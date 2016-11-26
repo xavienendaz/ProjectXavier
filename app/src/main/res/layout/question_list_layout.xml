@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/question_list_layout">
-
-
 
 
     <ImageView
@@ -15,8 +12,7 @@
         android:layout_marginTop="3pt"
         android:layout_marginBottom="3pt"
         android:layout_width="30pt"
-        android:layout_height="30pt"
-        />
+        android:layout_height="30pt"/>
 
     <TextView
         android:id="@+id/question_title"
@@ -40,8 +36,8 @@
         android:textColor="#706f6f"
         android:textSize="11sp"
         android:layout_marginRight="9pt"
-        android:layout_alignTop="@+id/nbLike"
-        android:layout_alignParentBottom="@+id/question_title"
+        android:layout_marginTop="34pt"
+        android:layout_marginBottom="2pt"
         android:layout_alignParentRight="true" />
 
     <TextView
@@ -49,10 +45,11 @@
         android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5pt"
+        android:layout_marginTop="34pt"
+        android:layout_marginBottom="2pt"
+        android:layout_marginRight="3pt"
         android:layout_marginLeft="3pt"
         android:textSize="11sp"
-        android:layout_alignBottom="@+id/imvQuestionList"
         android:layout_alignParentRight="true"
         android:textColor="@color/blueFont"/>
 
@@ -62,8 +59,9 @@
         android:layout_height="wrap_content"
         android:textColor="#706f6f"
         android:layout_marginRight="5pt"
+        android:layout_marginTop="34pt"
+        android:layout_marginBottom="2pt"
         android:textSize="10sp"
-        android:layout_alignBottom="@+id/nbLikeInfo"
         android:layout_toLeftOf="@+id/nbLikeInfo"
         android:layout_toStartOf="@+id/nbLikeInfo" />
 

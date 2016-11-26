@@ -11,12 +11,15 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -37,7 +40,7 @@ public class QuestionAdd extends AppCompatActivity {
     int SELECTED_IMAGE;
     ImageView chooseImage;
     byte imageInByte[];
-    TextView tvImgError, tvImgSelected;
+    TextView tvImgError;
     int cpt;
     LanguageLocalHelper languageLocalHelper;
     String currentLanguage;
@@ -63,17 +66,27 @@ public class QuestionAdd extends AppCompatActivity {
         im.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
 
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                galleryIntent.getAction();
                 startActivityForResult(galleryIntent, SELECTED_IMAGE);
+
+            /*    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, SELECTED_IMAGE);
+                }
+      */
+
 
 
             }
         });
 
 
-
         spinnerTopics();
+
+
 
     }
 
@@ -197,9 +210,9 @@ public class QuestionAdd extends AppCompatActivity {
             }
         } else {
 
+            if(etTitle.length()<5 || etTitle.length()>80){
 
-            if(etTitle.length()<5 || etTitle.length()>65){
-                etTitle.setError("characters: min 5, max 65");
+                etTitle.setError("characters: min 5, max 80");
                 return;
             }
             if(etContent.length()<50){

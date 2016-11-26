@@ -7,7 +7,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -15,6 +17,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -28,6 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -133,6 +140,39 @@ public class QuestionDisplay extends AppCompatActivity {
         share = (ImageView) findViewById(R.id.imvShare);
         share.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                Bitmap bitmap = null;
+                View rootView = findViewById(android.R.id.content).getRootView();
+                rootView.setDrawingCacheEnabled(true);
+
+                File imagePath = new File(Environment.getExternalStorageDirectory() + "/screenshot.png");
+
+                FileOutputStream fos;
+                try {
+                    fos = new FileOutputStream(imagePath);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    fos.flush();
+                    fos.close();
+                   // Log.e("GREC", e.getMessage(), e);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                Uri uri = Uri.fromFile(imagePath);
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("image/*");
+                String shareBody = "In Tweecher, My highest score with screen shot";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "My Tweecher score");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+
+            /*
+
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
 
@@ -142,10 +182,11 @@ public class QuestionDisplay extends AppCompatActivity {
 
                 /********** PPROBLEM HERE NOTHING SHARE***********/
 
-                sendIntent.putExtra(Intent.EXTRA_TEXT, title);
+             /*   sendIntent.putExtra(Intent.EXTRA_TEXT, title);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, content);
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
+                */
             }
         });
 

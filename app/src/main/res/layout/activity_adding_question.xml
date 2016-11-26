@@ -34,6 +34,7 @@
         <ImageView
             android:id="@+id/imChoose"
             android:layout_width="match_parent"
+            android:layout_marginTop="10pt"
             android:layout_height="250dp"
             android:layout_gravity="center_horizontal"
             app:srcCompat="@drawable/image_add">
@@ -58,8 +59,9 @@
             android:id="@+id/tvChooseTopic"
             android:textColor="@color/darkGray"/>
 
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
@@ -124,14 +126,22 @@
             android:hint="@string/content"
             android:background="@drawable/linear_border"/>
 
+
+
+
         <Button
+            android:id="@+id/btSave"
             android:text="@string/save"
+            android:layout_gravity="center"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btSave"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
             android:onClick="saveQuestion"/>
+
+
 
 
     </LinearLayout>
