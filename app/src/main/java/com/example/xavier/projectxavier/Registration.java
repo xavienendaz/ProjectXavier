@@ -173,11 +173,13 @@ public class Registration extends AppCompatActivity {
             case R.id.language_english:
                 languageLocalHelper.setLocale(Registration.this, "en");
                 updateTexts();
+                Toast.makeText(getBaseContext(), R.string.languageEnSelected, Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.language_french:
                 languageLocalHelper.setLocale(Registration.this, "fr");
                 updateTexts();
+                Toast.makeText(getBaseContext(), R.string.languageFRSelected, Toast.LENGTH_SHORT).show();
                 return true;
 
 

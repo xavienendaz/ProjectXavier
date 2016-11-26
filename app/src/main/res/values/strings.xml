@@ -104,6 +104,8 @@
     <string name="view">view</string>
     <string name="comment">Comments</string>
     <string name="close">close</string>
+    <string name="languageEnSelected">English</string>
+    <string name="languageFRSelected">French</string>
 
 </resources>
 

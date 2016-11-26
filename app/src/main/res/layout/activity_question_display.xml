@@ -86,7 +86,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tvTitle"
                     tools:height="50dp"
-                    android:layout_marginLeft="3pt"
+                    android:layout_marginLeft="5pt"
+                    android:layout_marginRight="5pt"
                     android:textStyle="bold"
                     android:layout_marginTop="8pt"
                     android:textSize="10pt"
@@ -257,7 +258,7 @@
                                     android:text="@string/Comments"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
+                                    android:layout_marginTop="10dp"
                                     android:textSize="9pt"
                                     android:textColor="@color/black"
                                     />
@@ -268,7 +269,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:textSize="9pt"
-                                    android:layout_marginTop="5dp"
+                                    android:layout_marginTop="10dp"
                                     android:layout_marginLeft="5pt"
                                     android:textStyle="bold"
                                     />

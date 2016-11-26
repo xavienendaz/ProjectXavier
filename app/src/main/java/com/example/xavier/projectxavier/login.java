@@ -33,6 +33,7 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        languageLocalHelper.onCreate(this);
 
         //Create variables
         etUsername = (EditText) findViewById(R.id.etUsername);
@@ -155,11 +156,13 @@ public class login extends AppCompatActivity {
             case R.id.language_english:
                 languageLocalHelper.setLocale(login.this, "en");
                 updateTexts();
+                Toast.makeText(getBaseContext(), R.string.languageEnSelected, Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.language_french:
                 languageLocalHelper.setLocale(login.this, "fr");
                 updateTexts();
+                Toast.makeText(getBaseContext(), R.string.languageFRSelected, Toast.LENGTH_SHORT).show();
                 return true;
 
 

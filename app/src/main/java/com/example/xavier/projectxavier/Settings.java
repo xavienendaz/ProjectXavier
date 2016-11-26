@@ -73,6 +73,7 @@ public class Settings extends AppCompatActivity {
                 // change app language in LanguageLocalHelper and save data in SharePreferences
                 languageLocalHelper.setLocale(Settings.this, "en");
                 updateTexts();
+                Toast.makeText(getBaseContext(), R.string.languageEnSelected, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -83,6 +84,7 @@ public class Settings extends AppCompatActivity {
                 // change app language in LanguageLocalHelper and save data in SharePreferences
                 languageLocalHelper.setLocale(Settings.this, "fr");
                 updateTexts();
+                Toast.makeText(getBaseContext(), R.string.languageFRSelected, Toast.LENGTH_SHORT).show();
 
 
             }
