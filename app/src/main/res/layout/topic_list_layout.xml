@@ -6,7 +6,6 @@
     android:orientation="horizontal"
     android:padding="4dp" >
 
-
     <ListView
         android:id="@+id/listviewTopics"
         android:layout_width="fill_parent"

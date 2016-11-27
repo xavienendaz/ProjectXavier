@@ -16,7 +16,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +33,6 @@
             android:layout_height="wrap_content"
             />
 
-
         <LinearLayout
             android:id="@+id/layoutEnglish"
             android:layout_width="wrap_content"
@@ -49,7 +47,6 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_action_globe"
                 />
-
 
             <TextView
                 android:text="@string/English"
@@ -76,7 +73,6 @@
                 app:srcCompat="@drawable/ic_action_globe"
                 />
 
-
             <TextView
                 android:text="@string/French"
                 android:layout_gravity="center_vertical"
@@ -85,7 +81,6 @@
                 android:layout_height="wrap_content"
                 />
         </LinearLayout>
-
 
     </LinearLayout>
 
@@ -105,7 +100,6 @@
             android:id="@+id/tvAccount"/>
 
 
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,7 +113,6 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_action_import"
                 android:id="@+id/imvLoggOff" />
-
 
             <TextView
                 android:text="@string/loggOff"
@@ -154,12 +147,6 @@
                 android:id="@+id/tvDeleteAccount"
              />
         </LinearLayout>
-
-
     </LinearLayout>
-
-
-
-
 </LinearLayout>
-    </ScrollView>
+</ScrollView>

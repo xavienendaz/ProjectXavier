@@ -38,16 +38,13 @@
         <item>Culture générale</item>
     </string-array>
 
-
     <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
     <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
-
     <string name="Favorite">Favoris</string>
     <string name="registration">Inscription</string>
     <string name="newQuestion">Nouvelle Question</string>
     <string name="saved_high_score_default">1</string>
     <string name="emptyList">Liste vide</string>
-
     <string name="enterTitle">Entrer un titre</string>
     <string name="author">Auteur: </string>
     <string name="nb_posts">Questions: </string>
@@ -89,16 +86,13 @@
     <string name="cancel">Effacer</string>
     <string name="commentAdded">Commentaire ajouté</string>
     <string name="enterComment">Entrer un commentaire</string>
-
     <string name="nbLike">Aime: </string>
     <string name="sortASC">Ascendant</string>
     <string name="sortTime">Nouveau</string>
     <string name="addedDate">Ajoutée: </string>
     <string name="deletAccount">Supprimer mon compte</string>
-    <!-- Add Question List-->
     <string name="sortTimeOld">Ancien</string>
     <string name="sortDESC">Descendant</string>
-
     <string name="english">EN</string>
     <string name="french">FR</string>
     <string name="confirmPassword">Confirmer le mot de passe</string>

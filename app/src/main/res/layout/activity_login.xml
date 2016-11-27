@@ -15,7 +15,6 @@
         android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
-
             <EditText
                 android:id="@+id/etUsername"
                 android:paddingLeft="5pt"
@@ -69,10 +68,6 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/mediumSize"
                 android:layout_marginTop="25dp" />
-
-
-
-
 
 
     </LinearLayout>

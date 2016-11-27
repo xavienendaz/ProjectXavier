@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:id="@+id/question_list_layout">
 
-
     <ImageView
         android:id="@+id/imvQuestionList"
         android:layout_centerVertical="true"
@@ -26,7 +25,6 @@
         android:textSize="17sp"
         android:textStyle="bold"
         android:textColor="@color/darkGray"/>
-
 
     <TextView
         android:id="@+id/nbLikeInfo"
@@ -64,6 +62,4 @@
         android:textSize="10sp"
         android:layout_toLeftOf="@+id/nbLikeInfo"
         android:layout_toStartOf="@+id/nbLikeInfo" />
-
-
 </RelativeLayout>

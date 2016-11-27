@@ -16,7 +16,6 @@
         app:elevation="0dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,7 +30,6 @@
                 android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
                 android:id="@+id/iv_toolbar_detail"
-                android:src="@drawable/flagenglish"
                 app:layout_collapseMode="parallax"/>
 
             <android.support.v7.widget.Toolbar
@@ -42,7 +40,6 @@
                 app:layout_collapseMode="pin"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
-
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -58,7 +55,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
 
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -79,7 +75,6 @@
                 android:focusable="false"
                 android:focusableInTouchMode="true">
 
-
                 <TextView
                     android:text="Title"
                     android:layout_width="match_parent"
@@ -93,16 +88,12 @@
                     android:textSize="10pt"
                     android:textColor="@color/black"/>
 
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="10pt"
                     android:background="@drawable/linear_border_square">
-
-
 
                     <TextView
                         android:id="@+id/tvQuestionContent"
@@ -118,13 +109,11 @@
                         android:textSize="9pt"/>
 
 
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_gravity="center_vertical">
-
 
                         <TableLayout
                             android:layout_width="match_parent"
@@ -143,14 +132,12 @@
                                     android:textSize="12sp"
                                     />
 
-
                                 <ImageView
                                     android:id="@+id/imvVotePositive"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="12pt"
                                     app:srcCompat="@drawable/ic_action_like_gray"
-
                                     />
 
                                 <TextView
@@ -179,20 +166,14 @@
                                     android:layout_gravity="center_vertical"
                                     />
 
-
-
-
                             </TableRow>
                         </TableLayout>
-
 
                         <TextView
                             android:text=""
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/linear_up_border"/>
-
-
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -232,7 +213,6 @@
                                 android:id="@+id/nbPosts" />
 
                         </LinearLayout>
-
 
                         <TextView
                             android:text=""
@@ -281,18 +261,14 @@
                             android:layout_alignBottom="@+id/tvComments"
                             android:textSize="7pt"
                             android:hint="@string/addComment"
-
                             />
-
-
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="right"
-                            android:layout_marginTop="3dp"
-                            >
+                            android:layout_marginTop="3dp">
 
                             <Button
                                 android:text="@string/cancel"
@@ -307,7 +283,6 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/btSaveComment"
                                 android:textSize="7pt"/>
-
                         </LinearLayout>
 
 
@@ -324,23 +299,9 @@
                             android:dividerHeight="1dp"
                             android:layout_marginTop="5pt"
                             android:layout_marginBottom="10pt"></ListView>
-
-
-
-
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
-
-
-
-
-
-
         </ScrollView>
-
-
-
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

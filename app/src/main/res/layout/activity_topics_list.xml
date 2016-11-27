@@ -9,7 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.xavier.projectxavier.TopicsList">
 
-
     <TableRow>
         <ImageView
             android:id="@+id/img"
@@ -28,5 +27,4 @@
             android:textColor="@color/darkGray"/>
 
     </TableRow>
-
 </TableLayout>

@@ -15,13 +15,6 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-
-
-
-
-
-
-
     <LinearLayout
         android:id="@+id/linearChangeUserPhoto"
         android:layout_width="wrap_content"
@@ -46,11 +39,7 @@
             app:srcCompat="@drawable/ic_add_a_photo"
             android:id="@+id/imvLoggOff" />
 
-
-
     </LinearLayout>
-
-
 
 
     <LinearLayout
@@ -72,7 +61,6 @@
             android:textStyle="bold"
             android:textSize="10pt"
             android:textColor="@color/darkGray"/>
-
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -128,14 +116,8 @@
                 android:textColor="@color/blueFont"
                 android:layout_marginLeft="3pt" />
 
-
-        </LinearLayout>
-
-
-
-
+       </LinearLayout>
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -144,7 +126,6 @@
         android:layout_marginTop="25dp"
         android:id="@+id/profile_list_layout"
         android:background="@drawable/linear_border_square">
-
 
         <TextView
             android:id="@+id/tvEmptyUserCurrentList"
@@ -164,10 +145,6 @@
             android:layout_gravity="center_horizontal">
         </ListView>
 
-
     </LinearLayout>
-
-
-
 </LinearLayout>
 </ScrollView>

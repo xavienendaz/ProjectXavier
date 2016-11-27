@@ -41,13 +41,11 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="Favorite">Favorites</string>
     <string name="registration">Registration</string>
     <string name="newQuestion">New Question</string>
     <string name="saved_high_score_default">1</string>
     <string name="emptyList">Empty list</string>
-
     <string name="enterTitle">Enter a title</string>
     <string name="author">Author: </string>
     <string name="nb_posts">Questions: </string>
@@ -89,16 +87,13 @@
     <string name="cancel">Cancel</string>
     <string name="commentAdded">Comment added</string>
     <string name="enterComment">Enter a comment</string>
-
     <string name="nbLike">Like: </string>
     <string name="sortASC">ASC</string>
     <string name="sortTime">New</string>
     <string name="addedDate">Added: </string>
     <string name="deletAccount">Delete my account</string>
-    <!-- Add Question List-->
     <string name="sortTimeOld">Old</string>
     <string name="sortDESC">DESC</string>
-
     <string name="english">EN</string>
     <string name="french">FR</string>
     <string name="confirmPassword">Confirm Password</string>
@@ -123,6 +118,5 @@
     <string name="English">English</string>
     <string name="French">French</string>
     <string name="loginWrong">Username or password does not match</string>
-
 </resources>
 

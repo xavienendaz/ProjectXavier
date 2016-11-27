@@ -29,8 +29,6 @@
             android:id="@+id/tvSelectImage"
             android:textColor="@color/darkGray"/>
 
-
-
         <ImageView
             android:id="@+id/imChoose"
             android:layout_width="match_parent"
@@ -46,8 +44,7 @@
             android:textColor="@color/redError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            />
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:text="@string/chooseTopic"
@@ -69,16 +66,14 @@
         android:background="@drawable/linear_border">
 
 
-
         <Spinner
             android:id="@+id/spinnerTopics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/topics_array"
-            android:layout_alignParentTop="true"
-            ></Spinner>
-    </LinearLayout>
+            android:layout_alignParentTop="true"/>
 
+    </LinearLayout>
 
 
         <TextView
@@ -101,10 +96,6 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/linear_border"/>
 
-
-
-
-
         <TextView
             android:text="@string/editContent"
             android:layout_width="wrap_content"
@@ -115,7 +106,6 @@
             android:textSize="9pt"
             android:textColor="@color/darkGray"/>
 
-
         <EditText
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
@@ -125,9 +115,6 @@
             android:id="@+id/etContent"
             android:hint="@string/content"
             android:background="@drawable/linear_border"/>
-
-
-
 
         <Button
             android:id="@+id/btSave"
@@ -142,12 +129,6 @@
             android:onClick="saveQuestion"/>
 
 
-
-
     </LinearLayout>
-
-
-
-
 </ScrollView>
 
