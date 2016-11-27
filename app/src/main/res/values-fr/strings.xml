@@ -4,7 +4,7 @@
     <string name="titleTopics">Thèmes</string>
     <string name="titleQuestionsList">Questions</string>
     <string name="favorite">Favoris</string>
-    <string name="addQuestion">Ajouter une Question</string>
+    <string name="addQuestion">Ajouter une question</string>
     <string name="profile">Profile</string>
     <string name="Settings">Réglages</string>
     <string name="username">Nom d\'utilisateur</string>
@@ -12,10 +12,11 @@
     <string name="register">S\'inscrire</string>
 
     <string-array name="topics_array">
-        <item>Toutes les questions</item>
-        <item>Fruits et agrumes</item>
+        <item>Tout</item>
+        <item>Fruits</item>
         <item>Légumes</item>
         <item>Protéines</item>
+        <item>Produits laitiers</item>
         <item>Féculents</item>
         <item>Végétarien</item>
         <item>Fast Food</item>
@@ -26,9 +27,10 @@
     </string-array>
 
     <string-array name="topics_array_spinner">
-        <item>Fruits et agrumes</item>
+        <item>Fruits</item>
         <item>Légumes</item>
         <item>Protéines</item>
+        <item>Produits laitiers</item>
         <item>Féculents</item>
         <item>Végétarien</item>
         <item>Fast Food</item>
@@ -45,7 +47,7 @@
     <string name="newQuestion">Nouvelle Question</string>
     <string name="saved_high_score_default">1</string>
     <string name="emptyList">Liste vide</string>
-    <string name="enterTitle">Entrer un titre</string>
+    <string name="enterTitle">Ecrire un titre</string>
     <string name="author">Auteur: </string>
     <string name="nb_posts">Questions: </string>
     <string name="save">sauvegarder</string>
@@ -58,7 +60,7 @@
     <string name="photochange">photo changée</string>
     <string name="imgSelected">image sélectionnée</string>
     <string name="selectimage">Sélectionner une image</string>
-    <string name="createAccount">Nouveau compte</string>
+    <string name="createAccount">Créer un compte</string>
     <string name="login">S\'identifier</string>
     <string name="topicselected">Thème sélectionné: </string>
     <string name="topicChoose">Thème sélectionné</string>
@@ -76,7 +78,7 @@
     <string name="Account">Compte</string>
     <string name="DeletAccount">supprimer mon compte</string>
     <string name="loggOff">Se déconnecter</string>
-    <string name="Loggof">se déconnecter</string>
+    <string name="Loggof">Déconnection</string>
     <string name="deleteAccountConfirm">Etes-vous sûr de vouloir supprimer votre compte?</string>
     <string name="accountDelete">Compte supprimé</string>
     <string name="no">Non</string>
@@ -104,9 +106,9 @@
     <string name="topic">Thème</string>
     <string name="areysure">Etes-vous sûr?</string>
     <string name="messageDelete1Favorite">Vous allez supprimer ce favoris</string>
-    <string name="delete">supprimer</string>
-    <string name="favoriteDeleted">Favoris supprimé</string>
-    <string name="favoriteAdded">Favoris ajouté</string>
+    <string name="delete">Supprimer</string>
+    <string name="favoriteDeleted">Favori supprimé</string>
+    <string name="favoriteAdded">Favori ajouté</string>
     <string name="cancelling">Annuler</string>
     <string name="view">vue</string>
     <string name="comment">Commentaires</string>
@@ -117,4 +119,9 @@
     <string name="English">Anglais</string>
     <string name="French">Français</string>
     <string name="loginWrong">Le nom d\'utilisateur et le mot de passe ne correspondent pas</string>
+    <string name="saveComent">ajouter</string>
+    <string name="commentInfo">Commentaires: </string>
+    <string name="enterContent">Ecrire un contenu</string>
+    <string name="characMinMax">lettres: min 5, max 80</string>
+    <string name="characMin">lettres: min 50</string>
 </resources>

@@ -15,6 +15,13 @@
         android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="50pt"
+            android:layout_height="50pt"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20pt"
+            android:src="@drawable/login_logo"/>
+
             <EditText
                 android:id="@+id/etUsername"
                 android:paddingLeft="5pt"

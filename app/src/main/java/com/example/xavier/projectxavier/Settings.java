@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +23,7 @@ public class Settings extends AppCompatActivity {
     DbHelper dbHelper;
     SharedPreferences sharedPref;
     String usernameSharedPref;
-    TextView deleteAccount, logOff, tvAccount, tvLanguages;
+    TextView deleteAccount, logOff, tvAccount, tvLanguages, tvEnglish, tvFrench;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class Settings extends AppCompatActivity {
         logOff = (TextView) findViewById(R.id.tvLogOff);
         tvAccount = (TextView) findViewById(R.id.tvAccount);
         tvLanguages = (TextView) findViewById(R.id.tvLanguages);
+        tvEnglish = (TextView) findViewById(R.id.tvEnglishInfo);
+        tvFrench = (TextView) findViewById(R.id.tvFrenchInfo);
 
         final LinearLayout flagEnglish = (LinearLayout) findViewById(R.id.layoutEnglish);
         flagEnglish.setOnClickListener(new View.OnClickListener(){
@@ -62,6 +66,8 @@ public class Settings extends AppCompatActivity {
         logOff.setText(R.string.loggOff);
         tvAccount.setText(R.string.Account);
         tvLanguages.setText(R.string.Languages);
+        tvEnglish.setText(R.string.English);
+        tvFrench.setText(R.string.French);
         setTitle(R.string.Settings);
     }
 
@@ -110,7 +116,44 @@ public class Settings extends AppCompatActivity {
                 .setNegativeButton(R.string.no, null)
                 .show();
     }
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.action_topics:
+                Intent goHome = new Intent(this, TopicsList.class);
+                startActivity(goHome);
+                return true;
+
+            case R.id.action_favorite:
+                Intent goFavorite = new Intent(this, FavoriteList.class);
+                startActivity(goFavorite);
+                return true;
+
+            case R.id.action_add_question:
+                Intent goAdd = new Intent(this, QuestionAdd.class);
+                startActivity(goAdd);
+                return true;
+
+            case R.id.action_profile:
+                Intent goProfile = new Intent(this, Profile.class);
+                startActivity(goProfile);
+                return true;
+
+            case R.id.action_settings:
+                Intent goSettings = new Intent(this, Settings.class);
+                startActivity(goSettings);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
-
-
 

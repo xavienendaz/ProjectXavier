@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,7 +29,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -62,6 +62,10 @@ public class QuestionDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_display);
+
+        // with this line the keyboard doesn't open automatically
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
@@ -126,7 +130,6 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
         // clear the EditText when user click on clear
-
         clearComment = (Button) findViewById(R.id.btCancelComment);
         clearComment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -137,7 +140,6 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
         //save a comment when user click on save
-
         saveComment = (Button) findViewById(R.id.btSaveComment);
         saveComment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

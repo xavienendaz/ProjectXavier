@@ -12,30 +12,32 @@
     <string name="register">Register</string>
 
     <string-array name="topics_array">
-        <item>All questions</item>
-        <item>Fruits and agrumes</item>
+        <item>All</item>
+        <item>Fruit</item>
         <item>Vegetables</item>
         <item>Proteins</item>
-        <item>Starchy food</item>
+        <item>Dairy</item>
+        <item>Grains</item>
         <item>Vegan</item>
         <item>Fastfood</item>
         <item>Drinks</item>
         <item>Desserts and cakes</item>
         <item>Candies</item>
-        <item>General culture</item>
+        <item>General knowledge</item>
     </string-array>
 
     <string-array name="topics_array_spinner">
-        <item>Fruits and agrumes</item>
+        <item>Fruit</item>
         <item>Vegetables</item>
         <item>Proteins</item>
-        <item>Starchy food</item>
+        <item>Dairy</item>
+        <item>Grains</item>
         <item>Vegan</item>
         <item>Fastfood</item>
         <item>Drinks</item>
         <item>Desserts and cakes</item>
         <item>Candies</item>
-        <item>General culture</item>
+        <item>General knowledge</item>
     </string-array>
 
 
@@ -118,5 +120,10 @@
     <string name="English">English</string>
     <string name="French">French</string>
     <string name="loginWrong">Username or password does not match</string>
+    <string name="saveComent">add</string>
+    <string name="commentInfo">Comments: </string>
+    <string name="enterContent">Enter content</string>
+    <string name="characMinMax">characters: min 5, max 80</string>
+    <string name="characMin">characters: min 50</string>
 </resources>
 

@@ -14,28 +14,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import java.io.ByteArrayInputStream;
 
 public class QuestionList extends AppCompatActivity {
 
     ListView listView;
-    SQLiteDatabase sqLiteDatabase;
     DbHelper dbHelper;
-    Cursor cursor, cursorEN, cursorFR;
+    Cursor cursor;
     QuestionListDataAdapter questionListDataAdapter;
-    String myValueTopicSelected, topicFromListView,  questionClickUsername;
-    Button b1, b2;
+    String myValueTopicSelected;
     LanguageLocalHelper languageLocalHelper;
     String currentLanguage;
-    TextView tvCurrentTopic, tvCommentCpt,tvQuestionAuthor;
     Context context = this;
-    ByteArrayInputStream imageStream;
-    ImageView imageView, imageAuthor;
     Question q;
+    AlertDialog.Builder builder;
 
 
     @Override
@@ -57,8 +49,8 @@ public class QuestionList extends AppCompatActivity {
 
 
         // if the user is in all questions
-        if(myValueTopicSelected.equalsIgnoreCase("All questions") ||
-                myValueTopicSelected.equalsIgnoreCase("Toutes les questions")){
+        if(myValueTopicSelected.equalsIgnoreCase("All") ||
+                myValueTopicSelected.equalsIgnoreCase("Tout")){
             //display all questions
             setAllQuestions();
 
@@ -91,7 +83,7 @@ public class QuestionList extends AppCompatActivity {
     private void setAllQuestions() {
 
             //if the user has selected all questions
-            if (myValueTopicSelected.equalsIgnoreCase("All questions")) {
+            if (myValueTopicSelected.equalsIgnoreCase("All")) {
                 // if the app is in English, we want only the english questions
                 cursor = dbHelper.getAllQuestionsEN();
                 if (cursor.moveToLast()) {
@@ -115,7 +107,7 @@ public class QuestionList extends AppCompatActivity {
                     } while (cursor.moveToPrevious());
                 }
 
-            } else if (myValueTopicSelected.equalsIgnoreCase("Toutes les questions")) {
+            } else if (myValueTopicSelected.equalsIgnoreCase("Tout")) {
                 // if the app is in french
                 cursor = dbHelper.getAllQuestionsFR();
                 if (cursor.moveToLast()) {
@@ -196,16 +188,17 @@ public class QuestionList extends AppCompatActivity {
                 int nbUserQuestion = dbHelper.countUserQuestions(q.getUsername());
 
                 // instantiate an AlertDialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionList.this);
+                builder = new AlertDialog.Builder(QuestionList.this);
 
                 // set dialog message
                 builder.setTitle(q.getTopic());
                 builder.setMessage(
-                        R.string.comment+" "+nbComment+
+                        context.getResources().getString(R.string.commentInfo)+" "+nbComment+
                                 "\n"+
                                 "\n"+
-                                R.string.author +"  "+q.getUsername()+
-                                "\n"+ R.string.nb_posts +"  "+nbUserQuestion)
+                                context.getResources().getString(R.string.author) +"  "+q.getUsername()+
+                                "     "+
+                                context.getResources().getString(R.string.nb_posts) +"  "+nbUserQuestion)
                         .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
@@ -306,7 +299,7 @@ public class QuestionList extends AppCompatActivity {
                     questionListDataAdapter.clear();
 
                     // if the user is in all questions
-                    if (myValueTopicSelected.equalsIgnoreCase("All questions")) {
+                    if (myValueTopicSelected.equalsIgnoreCase("All")) {
                         // if the app is in English, we want only the english questions
                         cursor = dbHelper.getAllQuestionsEN();
                         if (cursor.moveToFirst()) {
@@ -331,7 +324,7 @@ public class QuestionList extends AppCompatActivity {
                         }
                         listViewOnClickListenerAllQuestions();
 
-                    } else if (myValueTopicSelected.equalsIgnoreCase("Toutes les questions")) {
+                    } else if (myValueTopicSelected.equalsIgnoreCase("Tout")) {
                         // if the app is in french
                         cursor = dbHelper.getAllQuestionsFR();
                         if (cursor.moveToFirst()) {
@@ -391,7 +384,7 @@ public class QuestionList extends AppCompatActivity {
                     questionListDataAdapter.clear();
 
                     // if the user is in all questions
-                    if (myValueTopicSelected.equalsIgnoreCase("All questions")) {
+                    if (myValueTopicSelected.equalsIgnoreCase("All")) {
                         // if the app is in English, we want only the english questions
                         cursor = dbHelper.getAllQuestionsFromTopicSortASCEN();
                         if (cursor.moveToFirst()) {
@@ -416,7 +409,7 @@ public class QuestionList extends AppCompatActivity {
                         }
                         listViewOnClickListenerAllQuestions();
 
-                    } else if (myValueTopicSelected.equalsIgnoreCase("Toutes les questions")) {
+                    } else if (myValueTopicSelected.equalsIgnoreCase("Tout")) {
                         // if the app is in french
                         cursor = dbHelper.getAllQuestionsFromTopicSortASCFR();
                         if (cursor.moveToFirst()) {
@@ -474,7 +467,7 @@ public class QuestionList extends AppCompatActivity {
                     questionListDataAdapter.clear();
 
                     // if the user is in all questions
-                    if (myValueTopicSelected.equalsIgnoreCase("All questions")) {
+                    if (myValueTopicSelected.equalsIgnoreCase("All")) {
                         // if the app is in English, we want only the english questions
                         cursor = dbHelper.getAllQuestionsFromTopicSortDESCEN();
                         if (cursor.moveToFirst()) {
@@ -499,7 +492,7 @@ public class QuestionList extends AppCompatActivity {
                         }
                         listViewOnClickListenerAllQuestions();
 
-                    } else if (myValueTopicSelected.equalsIgnoreCase("Toutes les questions")) {
+                    } else if (myValueTopicSelected.equalsIgnoreCase("Tout")) {
                         // if the app is in french
                         cursor = dbHelper.getAllQuestionsFromTopicSortDESCFR();
                         if (cursor.moveToFirst()) {

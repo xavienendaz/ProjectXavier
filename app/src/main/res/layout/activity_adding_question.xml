@@ -63,7 +63,7 @@
         android:orientation="vertical"
         android:layout_marginTop="10dp"
         android:id="@+id/profile_list_layout"
-        android:background="@drawable/linear_border">
+        android:background="@drawable/linear_line">
 
 
         <Spinner
@@ -89,12 +89,12 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
+            android:inputType="textCapSentences"
             android:ems="10"
             android:id="@+id/etTitle"
             android:hint="@string/title"
             android:layout_marginTop="10dp"
-            android:background="@drawable/linear_border"/>
+            android:background="@drawable/linear_line"/>
 
         <TextView
             android:text="@string/editContent"
@@ -110,21 +110,20 @@
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
+            android:inputType="textCapSentences|textMultiLine"
             android:ems="10"
             android:id="@+id/etContent"
             android:hint="@string/content"
-            android:background="@drawable/linear_border"/>
+            android:background="@drawable/linear_line"/>
 
         <Button
             android:id="@+id/btSave"
             android:text="@string/save"
-            android:layout_gravity="center"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:background="@color/greenDarkTransparent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="5dp"
             android:onClick="saveQuestion"/>
 

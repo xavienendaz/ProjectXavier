@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.preference.PreferenceManager;
@@ -140,7 +139,7 @@ public class QuestionAdd extends AppCompatActivity {
     }
 
 
-    public void verifySelectedImaage(){
+    public void verifySelectedImage(){
 
         if(chooseImage.isSelected()==false){
             tvImgError.setText(R.string.imgErro);
@@ -161,32 +160,32 @@ public class QuestionAdd extends AppCompatActivity {
           /* Say to user that he needs to select an image
           *  If cpt = 1, he has already selected an image*/
         if(cpt<1){
-            verifySelectedImaage();
+            verifySelectedImage();
             return;
         }
 
         /* display an error if the user let one field empty */
         if (TextUtils.isEmpty(verifyTitle) || TextUtils.isEmpty(verifyContent)) {
             if (TextUtils.isEmpty(verifyTitle) && TextUtils.isEmpty(verifyContent)) {
-                etTitle.setError("Enter a title");
-                etContent.setError("Enter a content");
+                etTitle.setError(context.getResources().getString(R.string.enterTitle));
+                etContent.setError(context.getResources().getString(R.string.enterContent));
                 return;
             } else if (TextUtils.isEmpty(verifyContent)) {
-                etContent.setError("Enter a content");
+                etContent.setError(context.getResources().getString(R.string.enterContent));
                 return;
             } else if (TextUtils.isEmpty(verifyTitle)) {
-                etTitle.setError("Enter a title");
+                etTitle.setError(context.getResources().getString(R.string.enterTitle));
                 return;
             }
         } else {
 
             if(etTitle.length()<5 || etTitle.length()>80){
 
-                etTitle.setError("characters: min 5, max 80");
+                etTitle.setError(context.getResources().getString(R.string.characMinMax));
                 return;
             }
             if(etContent.length()<50){
-                etContent.setError("characters: min 50");
+                etContent.setError(context.getResources().getString(R.string.characMin));
                 return;
             }
 

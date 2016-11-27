@@ -81,28 +81,28 @@ public class Registration extends AppCompatActivity {
         //show error message if the user let one field empty
         if (TextUtils.isEmpty(verifyPassword) || TextUtils.isEmpty(verifyUsername)) {
             if(TextUtils.isEmpty(verifyPassword) && TextUtils.isEmpty(verifyUsername)){
-                etPassword.setError(""+R.string.enterPassword);
-                etUsername.setError(""+R.string.enterUsername);
+                etPassword.setError(context.getResources().getString(R.string.enterPassword));
+                etUsername.setError(context.getResources().getString(R.string.enterUsername));
                 return;
             } else if (TextUtils.isEmpty(verifyUsername)) {
-                etUsername.setError(""+R.string.enterUsername);
+                etUsername.setError(context.getResources().getString(R.string.enterUsername));
                 return;
             } else  if (TextUtils.isEmpty(verifyPassword)) {
-                etPassword.setError(""+R.string.enterPassword);
+                etPassword.setError(context.getResources().getString(R.string.enterPassword));
                 return;
             }
         }else {
 
             /* verify characters size tu username and password*/
             if(etUsername.length()<3){
-                etUsername.setError(""+R.string.unameResctriction);
+                etUsername.setError(context.getResources().getString(R.string.unameResctriction));
                 return;
             }
 
              /*Verify if password and confirm password are equals*/
             if (!verifyPassword.equals(confirmPassword)) {
                 Toast.makeText(getApplicationContext(),
-                        R.string.passwordWrong, Toast.LENGTH_SHORT).show();
+                        context.getResources().getString(R.string.passwordWrong), Toast.LENGTH_SHORT).show();
                 return;
             } else {
 
@@ -141,7 +141,7 @@ public class Registration extends AppCompatActivity {
                     Registration.this.startActivity(i);
                 }else{
                     //if the username is already in database
-                    Toast.makeText(getBaseContext(), R.string.usernameExist, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), context.getResources().getString(R.string.usernameExist), Toast.LENGTH_SHORT).show();
                 }
             }
         }

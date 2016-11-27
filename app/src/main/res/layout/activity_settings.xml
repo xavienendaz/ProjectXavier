@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10pt"
-        android:background="@drawable/linear_border">
+        android:background="@drawable/linear_line">
 
         <TextView
             android:id="@+id/tvLanguages"
@@ -43,12 +43,13 @@
             android:onClick="logOff">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_action_globe"
+                android:layout_width="12pt"
+                android:layout_height="12pt"
+                app:srcCompat="@drawable/flag_usa"
                 />
 
             <TextView
+                android:id="@+id/tvEnglishInfo"
                 android:text="@string/English"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10pt"
@@ -68,12 +69,13 @@
             android:onClick="deleteUser"
             >
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_action_globe"
+                android:layout_width="12pt"
+                android:layout_height="12pt"
+                app:srcCompat="@drawable/flag_french"
                 />
 
             <TextView
+                android:id="@+id/tvFrenchInfo"
                 android:text="@string/French"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10pt"
@@ -89,7 +91,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10pt"
-        android:background="@drawable/linear_border">
+        android:background="@drawable/linear_line">
         <TextView
             android:text="@string/Account"
             android:textStyle="bold"

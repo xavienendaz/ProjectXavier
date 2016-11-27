@@ -20,6 +20,7 @@ public class TopicsList extends AppCompatActivity {
             R.drawable.topic_fruit,
             R.drawable.topic_vegetable,
             R.drawable.topic_protein,
+            R.drawable.topic_dairy,
             R.drawable.topic_bred,
             R.drawable.topic_vegan,
             R.drawable.topic_fastfood,

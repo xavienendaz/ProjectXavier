@@ -140,19 +140,6 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
-    /* read User info for listview . TO DELETE AFTER*/
-    public Cursor getInfo()
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor  cursor;
-        String[] projections = {
-                DB_Contract.User.USER_NAME,
-                DB_Contract.User.USER_PASSWORD};
-        cursor = db.query(DB_Contract.User.TABLE_NAME,projections,null,null,null,null,null);
-        return cursor;
-    }
-
-
     public Cursor getOneUser(String username){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor  cursor;

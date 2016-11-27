@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:windowSoftInputMode="adjustResize|stateHidden"
     tools:context="com.example.xavier.projectxavier.QuestionDisplay">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -62,7 +63,9 @@
             xmlns:tools="http://schemas.android.com/tools"
             tools:context="com.example.xavier.projectxavier.QuestionDisplay"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:windowSoftInputMode="adjustResize"
+            >
 
             <LinearLayout
                 android:id="@+id/activity_question_display"
@@ -253,12 +256,12 @@
 
                         <EditText
                             android:id="@+id/etAddComment"
-                            android:background="@drawable/linear_border"
+                            android:background="@drawable/linear_line"
                             android:layout_width="match_parent"
                             android:layout_height="30pt"
                             android:layout_marginTop="10pt"
-                            android:layout_marginBottom="3pt"
-                            android:layout_alignBottom="@+id/tvComments"
+                            android:layout_marginBottom="10pt"
+                            android:inputType="textCapSentences|textMultiLine"
                             android:textSize="7pt"
                             android:hint="@string/addComment"
                             />
@@ -272,22 +275,28 @@
 
                             <Button
                                 android:text="@string/cancel"
+                                android:textColor="@color/white"
+                                android:background="@color/greenDarkTransparent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/btCancelComment"
                                 android:textSize="7pt"/>
 
                             <Button
-                                android:text="@string/save"
+                                android:id="@+id/btSaveComment"
+                                android:textColor="@color/white"
+                                android:background="@color/greenDarkTransparent"
+                                android:text="@string/saveComent"
+                                android:layout_marginLeft="10pt"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/btSaveComment"
                                 android:textSize="7pt"/>
                         </LinearLayout>
 
 
                         <TextView
                             android:text=""
+                            android:layout_marginTop="10pt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/linear_up_border"/>
