@@ -69,14 +69,13 @@ public class CommentAdapter extends ArrayAdapter {
             row.setTag(layoutHandler);
         }
         else{
-            //if the row is already existing
-            layoutHandler = (CommentAdapter.LayoutHandler)row.getTag();
+             layoutHandler = (CommentAdapter.LayoutHandler)row.getTag();
 
         }
 
         Comment c = (Comment)this.getItem(position);
 
-         /* set image in list */
+        // display the image in list
 
         byte[] img = c.getImage();
         ImageView imageView = (ImageView) row.findViewById(R.id.imvCommentAuthor );
@@ -93,5 +92,4 @@ public class CommentAdapter extends ArrayAdapter {
 
         return row;
     }
-
 }

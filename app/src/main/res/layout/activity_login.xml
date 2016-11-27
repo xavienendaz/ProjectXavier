@@ -1,90 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.xavier.projectxavier.login"
+    tools:context="com.example.xavier.projectxavier.Login"
+    android:background="@color/greenLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-<LinearLayout
-    android:id="@+id/activity_login"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:layout_centerHorizontal="true"
-    android:orientation="vertical">
-
-
-    <ImageView
-        android:id="@+id/imageLogin"
-        android:layout_width="386dp"
-        android:layout_height="155dp"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp"
-        android:scaleType="center"
-        android:src="@drawable/loginimage"
-        android:layout_gravity="fill_horizontal"
-        android:adjustViewBounds="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:orientation="vertical"
-        android:layout_marginTop="15pt"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true"
-        android:background="@drawable/linear_border">
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:hint="@string/username"
-            android:layout_marginTop="6pt" />
 
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:hint="@string/Password" />
+            <EditText
+                android:id="@+id/etUsername"
+                android:paddingLeft="5pt"
+                android:background="@color/white"
+                android:layout_height="20pt"
+                android:layout_width="match_parent"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:hint="@string/username" />
 
-        <CheckBox
-            android:id="@+id/cbRememberLogin"
-            android:text="@string/rememberLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:checked="false" />
+            <EditText
+                android:id="@+id/etPassword"
+                android:paddingLeft="5pt"
+                android:layout_marginTop="5pt"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="20pt"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:hint="@string/Password" />
 
-        <Button
-            android:id="@+id/bLogin"
-            android:text="@string/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="buttonLogin"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5pt"/>
+            <CheckBox
+                android:id="@+id/cbRememberLogin"
+                android:layout_marginTop="5pt"
+                android:textColor="@color/white"
+                android:text="@string/rememberLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:checked="false" />
+
+            <Button
+                android:id="@+id/bLogin"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:background="@color/greenDarkTransparent"
+                android:layout_height="wrap_content"
+                android:onClick="buttonLogin"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5pt"/>
+
+
+            <TextView
+                android:id="@+id/tvRegister"
+                android:text="@string/createAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/mediumSize"
+                android:layout_marginTop="25dp" />
+
+
+
+
+
 
     </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/tvRegister"
-        android:text="@string/createAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/blueFont"
-        android:textSize="@dimen/mediumSize"
-        android:layout_marginTop="26dp" />
-
-</LinearLayout>
 </ScrollView>

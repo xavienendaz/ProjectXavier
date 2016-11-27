@@ -8,6 +8,7 @@ import android.provider.BaseColumns;
 
 public class DB_Contract {
 
+
     public static abstract class User implements BaseColumns
     {
         public static final String TABLE_NAME = "user_info";
@@ -57,7 +58,9 @@ public class DB_Contract {
         public static final String TABLE_NAME = "vote";
         public static final String KEY_ID = "id";
         public static final String USER_NAME = "user_name";
-        public static final String VOTE = "positif_negatif";
+        public static final String VOTE = "positive_newgative";
         public static final String KEY_QUESTION_ID = "id_question";
     }
+
+
 }

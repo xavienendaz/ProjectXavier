@@ -10,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,13 +20,8 @@ import android.widget.Toast;
 
 public class FavoriteList extends AppCompatActivity {
 
-
-
-    int idFavorite;
-    int id_question_click;
     TextView textView;
     ListView listView;
-    SQLiteDatabase sqLiteDatabase;
     DbHelper dbHelper;
     Cursor cursor;
     QuestionListDataAdapter questionListDataAdapter;
@@ -42,31 +36,22 @@ public class FavoriteList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_list);
         setTitle(R.string.Favorite);
-     /* Recover Object Question from activity_question_list */
-
 
         textView = (TextView) findViewById(R.id.tvEmptyFavList);
-
         listView = (ListView) findViewById(R.id.listview_questionList_favorite);
         questionListDataAdapter = new QuestionListDataAdapter(getApplicationContext(), R.id.question_list_layout);
         listView.setAdapter(questionListDataAdapter);
         dbHelper = new DbHelper(getApplicationContext());
 
-
-
          /* Read username from sharedPreferences */
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         usernameSharedPref = sharedPref.getString("username", "");
 
-
         setFavoritesList();
-
-
 
         favDelete = (FloatingActionButton) findViewById(R.id.fabDeleteAllFavorite);
         favDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 // Verify if the user has some favorites
                 if(questionListDataAdapter.isEmpty()){
                     Toast.makeText(getBaseContext(), R.string.NofavoriDeleted, Toast.LENGTH_SHORT).show();
@@ -96,19 +81,14 @@ public class FavoriteList extends AppCompatActivity {
                             })
                             .setNegativeButton(R.string.no, null)
                             .show();
-
-
-
                 }
             }
         });
 
 
-
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
                 // create object Question for get id_questin
                 q = (Question) questionListDataAdapter.getItem(position);
 
@@ -142,10 +122,7 @@ public class FavoriteList extends AppCompatActivity {
                 return true; // true because I dont want to be redirected on the activity Quetiondisplay
             }
         });
-
     }
-
-
 
 
     private void setFavoritesList() {
@@ -167,7 +144,6 @@ public class FavoriteList extends AppCompatActivity {
 
                 Question c = new Question(id, topic, title, content, username, image, nbLike, date);
 
-
                 /*  Here we need to verify if the user has put the question, c, in his favorites */
                 if(dbHelper.verifyFavorite(usernameSharedPref, c.getId()) == true){
                     questionListDataAdapter.add(c);
@@ -180,8 +156,6 @@ public class FavoriteList extends AppCompatActivity {
         if(cpt==0){
             textView.setText(R.string.emptyList);
         }
-
-
 
 
         /* ListeView handler: Display the selected question */
@@ -204,32 +178,25 @@ public class FavoriteList extends AppCompatActivity {
                 i.putExtra("date", item.getDate());
                 i.putExtra("activitySelected", "favorite");
                 FavoriteList.this.startActivity(i);
-
-
             }
         });
-
-
-
     }
 
-
- /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
-    /*Actionbar's actions*/
+
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+
             case R.id.action_topics:
                 Intent goHome = new Intent(this, TopicsList.class);
                 startActivity(goHome);
                 return true;
-
 
             case R.id.action_favorite:
                 Intent goFavorite = new Intent(this, FavoriteList.class);
@@ -253,10 +220,8 @@ public class FavoriteList extends AppCompatActivity {
 
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
-
 }
 
 

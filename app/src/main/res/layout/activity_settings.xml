@@ -15,48 +15,79 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10pt"
         android:background="@drawable/linear_border">
+
         <TextView
             android:id="@+id/tvLanguages"
             android:text="@string/Languages"
+            android:layout_marginTop="5pt"
             android:textStyle="bold"
             android:textSize="9pt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
 
+
         <LinearLayout
+            android:id="@+id/layoutEnglish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10pt">
+            android:layout_marginTop="10pt"
+            android:layout_marginLeft="10pt"
+            android:onClick="logOff">
 
-            <ImageButton
-                android:layout_width="150px"
-                android:layout_height="150px"
-                app:srcCompat="@drawable/flagenglish"
-                android:id="@+id/imbFlagEnglish"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_action_globe"
+                />
 
-            <ImageButton
-                android:layout_width="150px"
-                android:layout_height="150px"
-                android:layout_marginLeft="20pt"
-                android:layout_marginBottom="8pt"
-                app:srcCompat="@drawable/flagfrance"
-                android:id="@+id/imbFlagFrance"/>
 
+            <TextView
+                android:text="@string/English"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10pt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutFrench"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10pt"
+            android:layout_marginLeft="10pt"
+            android:layout_marginBottom="10pt"
+            android:onClick="deleteUser"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_action_globe"
+                />
+
+
+            <TextView
+                android:text="@string/French"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10pt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
         </LinearLayout>
 
 
     </LinearLayout>
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,6 +99,7 @@
             android:text="@string/Account"
             android:textStyle="bold"
             android:textSize="9pt"
+            android:layout_marginTop="5pt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvAccount"/>
@@ -104,6 +136,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10pt"
+            android:layout_marginBottom="10pt"
             android:layout_marginLeft="10pt"
             android:onClick="deleteUser"
             >

@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -32,10 +31,9 @@ import java.io.ByteArrayOutputStream;
 
 public class Profile extends AppCompatActivity{
 
-    LanguageLocalHelper languageLocalHelper;
+
     Context context = this;
     DbHelper dbHelper;
-    SQLiteDatabase sqLiteDatabase;
     TextView textViewUsername, tvEmptyUserList;
     String usernameSharedPref;
     Cursor cursor;
@@ -46,35 +44,28 @@ public class Profile extends AppCompatActivity{
     byte imageInByte[];
     ImageView chooseImage;
     ByteArrayInputStream imageStream;
-   Question q;
+    Question q;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         setTitle(R.string.profile);
 
-
-        //languageLocalHelper.getPersistedData(Profile.this, "en");
-
-
         chooseImage = (ImageView) findViewById(R.id.imvAddUserPhoto);
         listViewProfileQuestions = (ListView) findViewById(R.id.listview_questionList_profile);
 
-        /* Read username from sharedPreferences */
+        // Read username from sharedPreferences
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         usernameSharedPref = sharedPref.getString("username", "");
-
 
         textViewUsername = (TextView) findViewById(R.id.tvUsername);
         textViewUsername.setText(usernameSharedPref);
 
-
-        // user can change his photo on click on linearlayout or photo
-
+        // user can change his photo on click
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearChangeUserPhoto);
         linearLayout.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                //open the registerActivity when user click on registerLink
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(galleryIntent, SELECTED_IMAGE);
@@ -84,96 +75,30 @@ public class Profile extends AppCompatActivity{
 
 
         readUserFromDatabase();
-
-        countUserPosts();
-
+        countUserQuestions();
         displayUserPostsList();
-
         setListViewHeight(listViewProfileQuestions);
 
     }
 
 
-
-
-    public static boolean setListViewHeight(ListView listView) {
-        int position =0;
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter != null) {
-
-            int numberOfItems = listAdapter.getCount();
-
-            /* height of items */
-            int totalItemsHeight = 0;
-            for ( position = 0; position < numberOfItems;position++) {
-                View item = listAdapter.getView(position, null, listView);
-                item.measure(0, 0);
-                totalItemsHeight += item.getMeasuredHeight();
-            }
-
-            // Get total height of all item dividers.
-            int totalDividersHeight = listView.getDividerHeight() *
-                    (numberOfItems - 1);
-
-            // Set list height.
-            ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = totalItemsHeight + totalDividersHeight;
-            listView.setLayoutParams(params);
-            listView.requestLayout();
-
-            return true;
-
-        } else {
-            return false;
-        }
-
-    }
-
-
-    private void readUserFromDatabase() {
-        dbHelper = new DbHelper(context);
-
-        cursor = dbHelper.getOneUser(usernameSharedPref);
-
-        if(cursor.moveToFirst())
-        {
-            do {
-                String username;
-                byte[] image;
-                username = cursor.getString(0);
-                image = cursor.getBlob(1);
-                User u = new User(username, image);
-
-                /* set profile image */
-                byte[] data = u.getImage();
-                imageStream = new ByteArrayInputStream(data);
-                Bitmap theImage = BitmapFactory.decodeStream(imageStream);
-                chooseImage.setImageBitmap(theImage);
-            }while (cursor.moveToNext());
-        }
-    }
-
-
+    // when the user click for changing his photo
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECTED_IMAGE) {
-                // Get the url from data
+                // get url from data
                 Uri selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
-                    // Get the path from the Uri
                     String path = getPathFromURI(selectedImageUri);
-                    //Log.i(TAG, "Image Path : " + path);
                     // Set the image in ImageView
                     chooseImage.setImageURI(selectedImageUri);
-
-                     /* convert bitmap to byte */
+                    // convert bitmap to byte
                     chooseImage.setDrawingCacheEnabled(true);
                     Bitmap image = Bitmap.createBitmap(chooseImage.getDrawingCache());
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     imageInByte = stream.toByteArray();
-
 
                     dbHelper.updateUser(usernameSharedPref, imageInByte);
                     Toast.makeText(getBaseContext(), R.string.photochange, Toast.LENGTH_SHORT).show();
@@ -184,7 +109,7 @@ public class Profile extends AppCompatActivity{
     }
 
 
-    /* Get the real path from the URI */
+    // path from the URI
     public String getPathFromURI(Uri contentUri) {
         String res = null;
         String[] proj = {MediaStore.Images.Media.DATA};
@@ -198,14 +123,67 @@ public class Profile extends AppCompatActivity{
     }
 
 
+    // set the list height automatically
+    public static boolean setListViewHeight(ListView listView) {
+        int position =0;
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter != null) {
+
+            int numberOfItems = listAdapter.getCount();
+
+            // height of items
+            int totalItemsHeight = 0;
+            for ( position = 0; position < numberOfItems;position++) {
+                View item = listAdapter.getView(position, null, listView);
+                item.measure(0, 0);
+                totalItemsHeight += item.getMeasuredHeight();
+            }
+
+            int totalDividersHeight = listView.getDividerHeight() *
+                    (numberOfItems - 1);
+
+            // Set list height
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = totalItemsHeight + totalDividersHeight;
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    private void readUserFromDatabase() {
+        dbHelper = new DbHelper(context);
+        cursor = dbHelper.getOneUser(usernameSharedPref);
+
+        if(cursor.moveToFirst())
+        {
+            do {
+                String username;
+                byte[] image;
+                username = cursor.getString(0);
+                image = cursor.getBlob(1);
+                User u = new User(username, image);
+
+                // set profile image
+                byte[] data = u.getImage();
+                imageStream = new ByteArrayInputStream(data);
+                Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+                chooseImage.setImageBitmap(theImage);
+            }while (cursor.moveToNext());
+        }
+    }
+
+
     private void displayUserPostsList() {
         tvEmptyUserList = (TextView) findViewById(R.id.tvEmptyUserCurrentList);
         listViewProfileQuestions = (ListView) findViewById(R.id.listview_questionList_profile);
         questionListDataAdapter = new QuestionListDataAdapter(getApplicationContext(), R.id.profile_list_layout);
         listViewProfileQuestions.setAdapter(questionListDataAdapter);
         dbHelper = new DbHelper(getApplicationContext());
-
-
 
         cursor = dbHelper.getAllQuestionsFromCurrentUser(usernameSharedPref);
         if (cursor.moveToLast()) {
@@ -238,7 +216,7 @@ public class Profile extends AppCompatActivity{
                 Question item = (Question) questionListDataAdapter.getItem(position);
 
                 Intent i = new Intent(Profile.this, QuestionDisplay.class);
-                /* put an Extra in the intent to use Title on the question activity */
+                //put an Extra in the intent to use Title on the question activity
                 i.putExtra("myValueKeyTitle", item.getTitle());
                 i.putExtra("myValueKeyContent", item.getContent());
                 i.putExtra("myValueKeyIdQuestion", item.getId());
@@ -282,7 +260,6 @@ public class Profile extends AppCompatActivity{
                                 "\n"+ R.string.nb_posts +"  "+nbUserQuestion)
                         .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-
                             }
                         });
 
@@ -291,28 +268,38 @@ public class Profile extends AppCompatActivity{
                 return true; // true because I dont want to be redirected on the activity Quetiondisplay
             }
         });
-
     }
 
-    private void countUserPosts() {
+
+    private void countUserQuestions() {
         dbHelper = new DbHelper(context);
-        TextView  textViewCount = (TextView) findViewById(R.id.tvNbQuestions);
-        int cpt = dbHelper.countUserQuestions(usernameSharedPref);
-        textViewCount.setText(""+cpt);
+
+        // count User questions
+        TextView  tvCptQuestions = (TextView) findViewById(R.id.tvNbQuestions);
+        int cptQ = dbHelper.countUserQuestions(usernameSharedPref);
+        tvCptQuestions.setText(""+cptQ);
+
+        // count User comments
+        TextView  tvCptComments = (TextView) findViewById(R.id.tvNbComments);
+        int cptC = dbHelper.countUserComments(usernameSharedPref);
+        tvCptComments.setText(""+cptC);
+
+        // count User favorites
+        TextView  tvCptFavorites = (TextView) findViewById(R.id.tvNbFavorites);
+        int cptF = dbHelper.countUserFavorites(usernameSharedPref);
+        tvCptFavorites.setText(""+cptF);
     }
 
-
-  /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
-    /*Actionbar's actions*/
-    public boolean onOptionsItemSelected(MenuItem item) {
 
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.action_topics:
                 Intent goHome = new Intent(this, TopicsList.class);
                 startActivity(goHome);
@@ -340,11 +327,8 @@ public class Profile extends AppCompatActivity{
 
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
-
-
 }
 
 

@@ -4,7 +4,7 @@
     <string name="titleTopics">Topics</string>
     <string name="titleQuestionsList">Questions</string>
     <string name="favorite">Favorites</string>
-    <string name="addQuestion">Add a question</string>
+    <string name="addQuestion">Add a Question</string>
     <string name="profile">Profile</string>
     <string name="Settings">Settings</string>
     <string name="username">Username</string>
@@ -13,27 +13,27 @@
 
     <string-array name="topics_array">
         <item>All questions</item>
-        <item>Fruits</item>
+        <item>Fruits and agrumes</item>
         <item>Vegetables</item>
         <item>Proteins</item>
         <item>Starchy food</item>
         <item>Vegan</item>
         <item>Fastfood</item>
         <item>Drinks</item>
-        <item>Desserts</item>
+        <item>Desserts and cakes</item>
         <item>Candies</item>
         <item>General culture</item>
     </string-array>
 
     <string-array name="topics_array_spinner">
-        <item>Fruits</item>
+        <item>Fruits and agrumes</item>
         <item>Vegetables</item>
         <item>Proteins</item>
         <item>Starchy food</item>
         <item>Vegan</item>
         <item>Fastfood</item>
         <item>Drinks</item>
-        <item>Desserts</item>
+        <item>Desserts and cakes</item>
         <item>Candies</item>
         <item>General culture</item>
     </string-array>
@@ -44,7 +44,7 @@
 
     <string name="Favorite">Favorites</string>
     <string name="registration">Registration</string>
-    <string name="newQuestion">New question</string>
+    <string name="newQuestion">New Question</string>
     <string name="saved_high_score_default">1</string>
     <string name="emptyList">Empty list</string>
 
@@ -61,8 +61,8 @@
     <string name="photochange">photo changed</string>
     <string name="imgSelected">image selected</string>
     <string name="selectimage">Select an image</string>
-    <string name="createAccount">New account</string>
-    <string name="login">Login</string>
+    <string name="createAccount">Create an account</string>
+    <string name="login">Log in</string>
     <string name="topicselected">Topic selected:</string>
     <string name="topicChoose">Topic selected</string>
     <string name="enterPassword">Enter a password</string>
@@ -102,7 +102,6 @@
     <string name="english">EN</string>
     <string name="french">FR</string>
     <string name="confirmPassword">Confirm Password</string>
-
     <string name="loginSuccess">Login successfull</string>
     <string name="favoriDeleted">All favorites deleted</string>
     <string name="NofavoriDeleted">No favorites in list</string>
@@ -118,8 +117,12 @@
     <string name="view">view</string>
     <string name="comment">Comments</string>
     <string name="close">close</string>
-    <string name="languageEnSelected">English</string>
-    <string name="languageFRSelected">French</string>
+    <string name="nbCommentsInfo">Comments:</string>
+    <string name="nbFavorites">Favorites:</string>
+    <string name="share">Share the question</string>
+    <string name="English">English</string>
+    <string name="French">French</string>
+    <string name="loginWrong">Username or password does not match</string>
 
 </resources>
 

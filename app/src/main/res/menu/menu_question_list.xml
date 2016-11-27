@@ -22,7 +22,7 @@
     <menu>
 
         <item
-            android:id="@+id/menu_sortTime"
+            android:id="@+id/menu_sortTimeNew"
             android:title="@string/sortTime"
             android:icon="@drawable/ic_action_clock"
             ProjectXavier:showAsAction="always"

@@ -53,18 +53,12 @@ public class TopicsList extends AppCompatActivity {
     }
 
 
-
-
-
-
-    /*Addid the actionbar*/
-
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
-    /*Actionbar's actions*/
+
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
@@ -75,7 +69,6 @@ public class TopicsList extends AppCompatActivity {
 
             case R.id.action_favorite:
                 Intent goFavorite = new Intent(this, FavoriteList.class);
-               // goFavorite.putExtra("myValueKeyUsername", myValueKeyUsername);
                 startActivity(goFavorite);
                 return true;
 
@@ -96,10 +89,8 @@ public class TopicsList extends AppCompatActivity {
 
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
-
 }
 
 

@@ -11,15 +11,12 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -34,7 +31,6 @@ public class QuestionAdd extends AppCompatActivity {
 
     Context context = this;
     DbHelper dbHelper;
-    SQLiteDatabase sqLiteDatabase;
     EditText etTitle, etContent;
     Spinner spinner;
     int SELECTED_IMAGE;
@@ -44,7 +40,6 @@ public class QuestionAdd extends AppCompatActivity {
     int cpt;
     LanguageLocalHelper languageLocalHelper;
     String currentLanguage;
-
 
 
     @Override
@@ -59,9 +54,7 @@ public class QuestionAdd extends AppCompatActivity {
         chooseImage = (ImageView) findViewById(R.id.imChoose);
         tvImgError  = (TextView) findViewById(R.id.tvImgError);
 
-
-
-        /* when the user click for add a photo */
+        // when the user click for add a photo
         final ImageView im = (ImageView) findViewById(R.id.imChoose);
         im.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -69,17 +62,6 @@ public class QuestionAdd extends AppCompatActivity {
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 galleryIntent.getAction();
                 startActivityForResult(galleryIntent, SELECTED_IMAGE);
-
-
-
-            /*
-      Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, SELECTED_IMAGE);
-                }
-*/
-
-
             }
         });
 
@@ -87,34 +69,25 @@ public class QuestionAdd extends AppCompatActivity {
         spinnerTopics();
 
 
-
     }
 
     private void spinnerTopics() {
         // topic spinner part
         spinner = (Spinner) findViewById(R.id.spinnerTopics);
-        // Spinner click listener
-        // Create an ArrayAdapter using the string array and a default spinner layout
+
         ArrayAdapter<CharSequence> adapter =
                 ArrayAdapter.createFromResource(this, R.array.topics_array_spinner, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-
-
-
         spinner.setSelection(setSelectedTopic(),true);
 
-       // spinner.setSelection(); //set topic selected
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapter, View v,
                                        int position, long id) {
-                // On selecting a spinner item
-                String topic = adapter.getItemAtPosition(position).toString();
-            }
 
+            }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -123,13 +96,10 @@ public class QuestionAdd extends AppCompatActivity {
         });
     }
 
+
     private int setSelectedTopic() {
         int val = -1;
-
-
         int tab = R.array.topics_array;
-
-
         return val;
     }
 
@@ -156,7 +126,7 @@ public class QuestionAdd extends AppCompatActivity {
     }
 
 
-    /* Get the real path from the URI */
+    // Get the real path from the URI
     public String getPathFromURI(Uri contentUri) {
         String res = null;
         String[] proj = {MediaStore.Images.Media.DATA};
@@ -169,6 +139,7 @@ public class QuestionAdd extends AppCompatActivity {
         return res;
     }
 
+
     public void verifySelectedImaage(){
 
         if(chooseImage.isSelected()==false){
@@ -176,12 +147,12 @@ public class QuestionAdd extends AppCompatActivity {
             Toast.makeText(getBaseContext(), R.string.imgErro, Toast.LENGTH_SHORT).show();
             return;
             }else{
-             /* If user select an image one time, cpt = 1 for verify in saveQuestion method*/
+             // If user select an image one time, cpt = 1 for verify in saveQuestion method
             cpt=1;
             }
     }
 
-    /* redirect to questionList and save question */
+    // redirect to questionList and save question
     public void saveQuestion(View view) {
 
         String verifyTitle = etTitle.getText().toString();
@@ -193,7 +164,6 @@ public class QuestionAdd extends AppCompatActivity {
             verifySelectedImaage();
             return;
         }
-
 
         /* display an error if the user let one field empty */
         if (TextUtils.isEmpty(verifyTitle) || TextUtils.isEmpty(verifyContent)) {
@@ -220,25 +190,18 @@ public class QuestionAdd extends AppCompatActivity {
                 return;
             }
 
-
-
-            //insert question into database
             String topic = spinner.getSelectedItem().toString();
-            //                String.valueOf(mySpinner.getSelectedItem());
-            //String topic = "SWD";
             String title = etTitle.getText().toString();
             String content = etContent.getText().toString();
 
 
-              /* Read username from sharedPreferences */
+            // read username from sharedPreferences
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
             String usernameSharedPref = sharedPref.getString("username", "");
 
-
             dbHelper = new DbHelper(context);
 
-
-            /* convert bitmap to byte */
+            // convert bitmap to byte
             chooseImage.setDrawingCacheEnabled(true);
             Bitmap image = Bitmap.createBitmap(chooseImage.getDrawingCache());
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -248,38 +211,34 @@ public class QuestionAdd extends AppCompatActivity {
             SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm");
             String currentTime = time.format(new Date());
 
-
             currentLanguage = languageLocalHelper.getLanguage(QuestionAdd.this).toString();
             dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, currentTime, currentLanguage);
-
 
             Toast.makeText(getBaseContext(), R.string.questionCreated, Toast.LENGTH_SHORT).show();
 
             dbHelper.close();
-            /* redirect to questionlist with selected topic */
+            // redirect to questionlist with selected topic
             Intent i = new Intent(QuestionAdd.this, QuestionList.class);
             i.putExtra("topicSelected", topic);
             QuestionAdd.this.startActivity(i);
-
         }
     }
 
-    /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
-    /*Actionbar's actions*/
+
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+
             case R.id.action_topics:
                 Intent goHome = new Intent(this, TopicsList.class);
                 startActivity(goHome);
                 return true;
-
 
             case R.id.action_favorite:
                 Intent goFavorite = new Intent(this, FavoriteList.class);
@@ -303,10 +262,8 @@ public class QuestionAdd extends AppCompatActivity {
 
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
-
 }
 
 

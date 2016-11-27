@@ -4,36 +4,36 @@
     <string name="titleTopics">Thèmes</string>
     <string name="titleQuestionsList">Questions</string>
     <string name="favorite">Favoris</string>
-    <string name="addQuestion">Ajouter une question</string>
+    <string name="addQuestion">Ajouter une Question</string>
     <string name="profile">Profile</string>
     <string name="Settings">Réglages</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="Password">Mot de passe</string>
-    <string name="register">S\'enregistrer</string>
+    <string name="register">S\'inscrire</string>
 
     <string-array name="topics_array">
         <item>Toutes les questions</item>
-        <item>Fruits</item>
+        <item>Fruits et agrumes</item>
         <item>Légumes</item>
         <item>Protéines</item>
         <item>Féculents</item>
         <item>Végétarien</item>
-        <item>Fastfood</item>
+        <item>Fast Food</item>
         <item>Boissons</item>
-        <item>Desserts</item>
+        <item>Desserts et gâteaux</item>
         <item>Friandises</item>
         <item>Culture générale</item>
     </string-array>
 
     <string-array name="topics_array_spinner">
-        <item>Fruits</item>
+        <item>Fruits et agrumes</item>
         <item>Légumes</item>
         <item>Protéines</item>
         <item>Féculents</item>
         <item>Végétarien</item>
-        <item>Fastfood</item>
+        <item>Fast Food</item>
         <item>Boissons</item>
-        <item>Desserts</item>
+        <item>Desserts et gâteaux</item>
         <item>Friandises</item>
         <item>Culture générale</item>
     </string-array>
@@ -43,8 +43,8 @@
     <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
 
     <string name="Favorite">Favoris</string>
-    <string name="registration">S\'enregistrer</string>
-    <string name="newQuestion">Nouvelle question</string>
+    <string name="registration">Inscription</string>
+    <string name="newQuestion">Nouvelle Question</string>
     <string name="saved_high_score_default">1</string>
     <string name="emptyList">Liste vide</string>
 
@@ -54,13 +54,13 @@
     <string name="save">sauvegarder</string>
     <string name="yourPosts">Tes questions</string>
     <string name="rememberLogin">Se rappeler de l\'identifiaction</string>
-    <string name="editContent">Ecrire un commentaire</string>
+    <string name="editContent">Ecrire un contenu</string>
     <string name="imgErro">Sélectionner une image</string>
     <string name="thanksRegistration">Inscription réussie</string>
     <string name="changePhoto">Changer la photo</string>
     <string name="photochange">photo changée</string>
     <string name="imgSelected">image sélectionnée</string>
-    <string name="selectimage">Sélectionne une image</string>
+    <string name="selectimage">Sélectionner une image</string>
     <string name="createAccount">Nouveau compte</string>
     <string name="login">S\'identifier</string>
     <string name="topicselected">Thème sélectionné: </string>
@@ -78,7 +78,7 @@
     <string name="Languages">Langues</string>
     <string name="Account">Compte</string>
     <string name="DeletAccount">supprimer mon compte</string>
-    <string name="loggOff">se déconnecter</string>
+    <string name="loggOff">Se déconnecter</string>
     <string name="Loggof">se déconnecter</string>
     <string name="deleteAccountConfirm">Etes-vous sûr de vouloir supprimer votre compte?</string>
     <string name="accountDelete">Compte supprimé</string>
@@ -103,16 +103,24 @@
     <string name="french">FR</string>
     <string name="confirmPassword">Confirmer le mot de passe</string>
     <string name="loginSuccess">Identification réussie</string>
-    <string name="deleteAllFavoriteMessage">Voulez-vous vraiment supprimer tous les favoris?</string>
-    <string name="areysure">Are you sure?</string>
-    <string name="messageDelete1Favorite">You will delete this favorite</string>
-    <string name="delete">delete</string>
-    <string name="favoriteDeleted">Favorite delete</string>
-    <string name="favoriteAdded">Favorite added</string>
-    <string name="cancelling">cancel</string>
-    <string name="view">view</string>
-    <string name="comment">Comments</string>
-    <string name="close">close</string>
-    <string name="languageEnSelected">English</string>
-    <string name="languageFRSelected">French</string>
+    <string name="favoriDeleted">Tous les favoris ont été supprimés</string>
+    <string name="NofavoriDeleted">Pas de favoris dans la liste</string>
+    <string name="deleteAllFavorites">Supprimer tous les favoris</string>
+    <string name="deleteAllFavoriteMessage">Etes-vous sûr de vouloir supprimer tous vos favoris?</string>
+    <string name="topic">Thème</string>
+    <string name="areysure">Etes-vous sûr?</string>
+    <string name="messageDelete1Favorite">Vous allez supprimer ce favoris</string>
+    <string name="delete">supprimer</string>
+    <string name="favoriteDeleted">Favoris supprimé</string>
+    <string name="favoriteAdded">Favoris ajouté</string>
+    <string name="cancelling">Annuler</string>
+    <string name="view">vue</string>
+    <string name="comment">Commentaires</string>
+    <string name="close">fermer</string>
+    <string name="nbCommentsInfo">Commentaires:</string>
+    <string name="nbFavorites">Favoris:</string>
+    <string name="share">Partager la question</string>
+    <string name="English">Anglais</string>
+    <string name="French">Français</string>
+    <string name="loginWrong">Le nom d\'utilisateur et le mot de passe ne correspondent pas</string>
 </resources>

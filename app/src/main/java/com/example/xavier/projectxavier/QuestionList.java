@@ -1,19 +1,14 @@
 package com.example.xavier.projectxavier;
 
 
-import android.app.Dialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 
@@ -62,15 +56,15 @@ public class QuestionList extends AppCompatActivity {
         currentLanguage = languageLocalHelper.getLanguage(QuestionList.this).toString();
 
 
-
+        // if the user is in all questions
         if(myValueTopicSelected.equalsIgnoreCase("All questions") ||
                 myValueTopicSelected.equalsIgnoreCase("Toutes les questions")){
             //display all questions
             setAllQuestions();
 
         }else{
-            //display all questions from selected topic
-            setQuestionListFromDate();
+            //if the user select a topic
+            displayQuestionsFromTopicSortNew();
         }
 
 
@@ -93,39 +87,72 @@ public class QuestionList extends AppCompatActivity {
     }
 
 
-    private void setAllQuestions(){
-        cursor = dbHelper.getAllQuestions();
-        if (cursor.moveToLast()) {
-            do {
-                int id;
-                String topic, title, content, username, nbLike, date;
-                byte[] image;
-                id = cursor.getInt(0);
-                topic = cursor.getString(1);
-                title = cursor.getString(2);
-                content = cursor.getString(3);
-                username = cursor.getString(4);
-                image = cursor.getBlob(5);
-                date = cursor.getString(6);
+    //by default all the questions are sorted by New in date
+    private void setAllQuestions() {
 
-                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+            //if the user has selected all questions
+            if (myValueTopicSelected.equalsIgnoreCase("All questions")) {
+                // if the app is in English, we want only the english questions
+                cursor = dbHelper.getAllQuestionsEN();
+                if (cursor.moveToLast()) {
+                    do {
+                        int id;
+                        String topic, title, content, username, nbLike, date;
+                        byte[] image;
+                        id = cursor.getInt(0);
+                        topic = cursor.getString(1);
+                        title = cursor.getString(2);
+                        content = cursor.getString(3);
+                        username = cursor.getString(4);
+                        image = cursor.getBlob(5);
+                        date = cursor.getString(6);
 
-                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
-                questionListDataAdapter.add(c);
+                        nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
-            } while (cursor.moveToPrevious());
-        }
+                        Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                        questionListDataAdapter.add(c);
+
+                    } while (cursor.moveToPrevious());
+                }
+
+            } else if (myValueTopicSelected.equalsIgnoreCase("Toutes les questions")) {
+                // if the app is in french
+                cursor = dbHelper.getAllQuestionsFR();
+                if (cursor.moveToLast()) {
+                    do {
+                        int id;
+                        String topic, title, content, username, nbLike, date;
+                        byte[] image;
+                        id = cursor.getInt(0);
+                        topic = cursor.getString(1);
+                        title = cursor.getString(2);
+                        content = cursor.getString(3);
+                        username = cursor.getString(4);
+                        image = cursor.getBlob(5);
+                        date = cursor.getString(6);
+
+                        nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                        Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                        questionListDataAdapter.add(c);
+
+                    } while (cursor.moveToPrevious());
+                }
+            } else {
+                //if the user has selected a topic
+                displayQuestionsFromTopicSortNew();
+            }
 
 
-        listViewOnClickListener();
+            listViewOnClickListenerAllQuestions();
+            listViewOnLongClickListener();
 
-        listViewOnLongClickListener();
     }
 
 
-    private void setQuestionListFromDate() {
+    private void displayQuestionsFromTopicSortNew() {
         /* all the question from the last ID to first ID (order by date) */
-        cursor = dbHelper.getQuestionInfoFromTopic(myValueTopicSelected);
+        cursor = dbHelper.getAllQuestionsFromTopic(myValueTopicSelected);
         if (cursor.moveToLast()) {
             do {
                 int id;
@@ -154,7 +181,7 @@ public class QuestionList extends AppCompatActivity {
 
     }
 
-
+    // when user click long on a questions, several information are show in a dialog
     public void listViewOnLongClickListener(){
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -219,6 +246,39 @@ public class QuestionList extends AppCompatActivity {
 }
 
 
+        /*
+         listViewOnClickListenerAllQuestions() change topic selected by all topics
+         because when a User click the back arrow from QuestionDisplay activity, he wants to be redirected correctly
+         in all topics and not in question topic
+          */
+
+    public void listViewOnClickListenerAllQuestions(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                Question item = (Question) questionListDataAdapter.getItem(position);
+
+                Intent i = new Intent(QuestionList.this, QuestionDisplay.class);
+
+                i.putExtra("myValueKeyTitle", item.getTitle());
+                i.putExtra("myValueKeyContent", item.getContent());
+                i.putExtra("myValueKeyIdQuestion", item.getId());
+                i.putExtra("myValueKeyAuthor", item.getUsername());
+                //change item.getTopic() in myValueTopicSelected
+                i.putExtra("topicSelected", myValueTopicSelected);
+                i.putExtra("image", item.getImage());
+                i.putExtra("date", item.getDate());
+                i.putExtra("activitySelected", "questionList");
+                QuestionList.this.startActivity(i);
+
+            }
+        });
+    }
+
+
   /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -237,84 +297,260 @@ public class QuestionList extends AppCompatActivity {
                     startActivity(goHome);
                     return true;
 
-                case R.id.menu_sortTime:
+                case R.id.menu_sortTimeNew:
                     questionListDataAdapter.clear();
-                    setQuestionListFromDate();
+                    setAllQuestions();
                     return true;
 
                 case R.id.menu_sortTimeOld:
                     questionListDataAdapter.clear();
-                    cursor = dbHelper.getQuestionInfoFromTopic(myValueTopicSelected);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            int id;
-                            String topic, title, content, username, nbLike, date;
-                            byte [] image;
-                            id = cursor.getInt(0);
-                            topic = cursor.getString(1);
-                            title = cursor.getString(2);
-                            content = cursor.getString(3);
-                            username = cursor.getString(4);
-                            image = cursor.getBlob(5);
-                            date = cursor.getString(6);
-                            nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
-                            Question c = new Question(id, topic, title, content, username, image, nbLike, date);
-                            questionListDataAdapter.add(c);
+                    // if the user is in all questions
+                    if (myValueTopicSelected.equalsIgnoreCase("All questions")) {
+                        // if the app is in English, we want only the english questions
+                        cursor = dbHelper.getAllQuestionsEN();
+                        if (cursor.moveToFirst()) {
+                            do {
+                                int id;
+                                String topic, title, content, username, nbLike, date;
+                                byte[] image;
+                                id = cursor.getInt(0);
+                                topic = cursor.getString(1);
+                                title = cursor.getString(2);
+                                content = cursor.getString(3);
+                                username = cursor.getString(4);
+                                image = cursor.getBlob(5);
+                                date = cursor.getString(6);
 
-                        } while (cursor.moveToNext());
+                                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                                questionListDataAdapter.add(c);
+
+                            } while (cursor.moveToNext());
+                        }
+                        listViewOnClickListenerAllQuestions();
+
+                    } else if (myValueTopicSelected.equalsIgnoreCase("Toutes les questions")) {
+                        // if the app is in french
+                        cursor = dbHelper.getAllQuestionsFR();
+                        if (cursor.moveToFirst()) {
+                            do {
+                                int id;
+                                String topic, title, content, username, nbLike, date;
+                                byte[] image;
+                                id = cursor.getInt(0);
+                                topic = cursor.getString(1);
+                                title = cursor.getString(2);
+                                content = cursor.getString(3);
+                                username = cursor.getString(4);
+                                image = cursor.getBlob(5);
+                                date = cursor.getString(6);
+
+                                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                                questionListDataAdapter.add(c);
+
+                            } while (cursor.moveToNext());
+                        }
+                        listViewOnClickListenerAllQuestions();
+
+                    }else{
+                        //if the user has selected a topic
+                        cursor = dbHelper.getAllQuestionsFromTopic(myValueTopicSelected);
+                        //order by last with inverse cursor
+                        if (cursor.moveToFirst()) {
+                            do {
+                                int id;
+                                String topic, title, content, username, nbLike, date;
+                                byte [] image;
+                                id = cursor.getInt(0);
+                                topic = cursor.getString(1);
+                                title = cursor.getString(2);
+                                content = cursor.getString(3);
+                                username = cursor.getString(4);
+                                image = cursor.getBlob(5);
+                                date = cursor.getString(6);
+                                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                                questionListDataAdapter.add(c);
+
+                            } while (cursor.moveToNext());
+                        }
+                        listViewOnClickListener();
                     }
-                    listViewOnClickListener();
+
+                    listViewOnLongClickListener();
+
                     return true;
+
 
                 case R.id.menu_sortASC:
                     questionListDataAdapter.clear();
-                    cursor = dbHelper.getQuestionInfoFromTopicASC(myValueTopicSelected);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            int id;
-                            String topic, title, content, username, nbLike, date;
-                            byte [] image;
-                            id = cursor.getInt(0);
-                            topic = cursor.getString(1);
-                            title = cursor.getString(2);
-                            content = cursor.getString(3);
-                            username = cursor.getString(4);
-                            image = cursor.getBlob(5);
-                            date = cursor.getString(6);
-                            nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
-                            Question c = new Question(id, topic, title, content, username, image, nbLike, date);
-                            questionListDataAdapter.add(c);
+                    // if the user is in all questions
+                    if (myValueTopicSelected.equalsIgnoreCase("All questions")) {
+                        // if the app is in English, we want only the english questions
+                        cursor = dbHelper.getAllQuestionsFromTopicSortASCEN();
+                        if (cursor.moveToFirst()) {
+                            do {
+                                int id;
+                                String topic, title, content, username, nbLike, date;
+                                byte[] image;
+                                id = cursor.getInt(0);
+                                topic = cursor.getString(1);
+                                title = cursor.getString(2);
+                                content = cursor.getString(3);
+                                username = cursor.getString(4);
+                                image = cursor.getBlob(5);
+                                date = cursor.getString(6);
 
-                        } while (cursor.moveToNext());
+                                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                                questionListDataAdapter.add(c);
+
+                            } while (cursor.moveToNext());
+                        }
+                        listViewOnClickListenerAllQuestions();
+
+                    } else if (myValueTopicSelected.equalsIgnoreCase("Toutes les questions")) {
+                        // if the app is in french
+                        cursor = dbHelper.getAllQuestionsFromTopicSortASCFR();
+                        if (cursor.moveToFirst()) {
+                            do {
+                                int id;
+                                String topic, title, content, username, nbLike, date;
+                                byte[] image;
+                                id = cursor.getInt(0);
+                                topic = cursor.getString(1);
+                                title = cursor.getString(2);
+                                content = cursor.getString(3);
+                                username = cursor.getString(4);
+                                image = cursor.getBlob(5);
+                                date = cursor.getString(6);
+
+                                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                                questionListDataAdapter.add(c);
+
+                            } while (cursor.moveToNext());
+                        }
+                        listViewOnClickListenerAllQuestions();
+
+                    }else {
+
+                        // if the User has selected a topis
+                        cursor = dbHelper.getAllQuestionsFromTopicSortASC(myValueTopicSelected);
+                        if (cursor.moveToFirst()) {
+                            do {
+                                int id;
+                                String topic, title, content, username, nbLike, date;
+                                byte[] image;
+                                id = cursor.getInt(0);
+                                topic = cursor.getString(1);
+                                title = cursor.getString(2);
+                                content = cursor.getString(3);
+                                username = cursor.getString(4);
+                                image = cursor.getBlob(5);
+                                date = cursor.getString(6);
+                                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                                questionListDataAdapter.add(c);
+
+                            } while (cursor.moveToNext());
+                        }
+                        listViewOnClickListener();
                     }
-                    listViewOnClickListener();
+
+                    listViewOnLongClickListener();
                     return true;
 
                 case R.id.menu_sortDESC:
                     questionListDataAdapter.clear();
-                    cursor = dbHelper.getQuestionInfoFromTopicDESC(myValueTopicSelected);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            int id;
-                            String topic, title, content, username, nbLike, date;
-                            byte [] image;
-                            id = cursor.getInt(0);
-                            topic = cursor.getString(1);
-                            title = cursor.getString(2);
-                            content = cursor.getString(3);
-                            username = cursor.getString(4);
-                            image = cursor.getBlob(5);
-                            date = cursor.getString(6);
-                            nbLike = String.valueOf(dbHelper.countPositiveVote(id));
 
-                            Question c = new Question(id, topic, title, content, username, image, nbLike, date);
-                            questionListDataAdapter.add(c);
+                    // if the user is in all questions
+                    if (myValueTopicSelected.equalsIgnoreCase("All questions")) {
+                        // if the app is in English, we want only the english questions
+                        cursor = dbHelper.getAllQuestionsFromTopicSortDESCEN();
+                        if (cursor.moveToFirst()) {
+                            do {
+                                int id;
+                                String topic, title, content, username, nbLike, date;
+                                byte[] image;
+                                id = cursor.getInt(0);
+                                topic = cursor.getString(1);
+                                title = cursor.getString(2);
+                                content = cursor.getString(3);
+                                username = cursor.getString(4);
+                                image = cursor.getBlob(5);
+                                date = cursor.getString(6);
 
-                        } while (cursor.moveToNext());
+                                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                                questionListDataAdapter.add(c);
+
+                            } while (cursor.moveToNext());
+                        }
+                        listViewOnClickListenerAllQuestions();
+
+                    } else if (myValueTopicSelected.equalsIgnoreCase("Toutes les questions")) {
+                        // if the app is in french
+                        cursor = dbHelper.getAllQuestionsFromTopicSortDESCFR();
+                        if (cursor.moveToFirst()) {
+                            do {
+                                int id;
+                                String topic, title, content, username, nbLike, date;
+                                byte[] image;
+                                id = cursor.getInt(0);
+                                topic = cursor.getString(1);
+                                title = cursor.getString(2);
+                                content = cursor.getString(3);
+                                username = cursor.getString(4);
+                                image = cursor.getBlob(5);
+                                date = cursor.getString(6);
+
+                                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                                questionListDataAdapter.add(c);
+
+                            } while (cursor.moveToNext());
+                        }
+                        listViewOnClickListenerAllQuestions();
+
+                    }else {
+
+                        // if the User has selected a topis
+                        cursor = dbHelper.getAllQuestionsFromTopicSortDESC(myValueTopicSelected);
+                        if (cursor.moveToFirst()) {
+                            do {
+                                int id;
+                                String topic, title, content, username, nbLike, date;
+                                byte[] image;
+                                id = cursor.getInt(0);
+                                topic = cursor.getString(1);
+                                title = cursor.getString(2);
+                                content = cursor.getString(3);
+                                username = cursor.getString(4);
+                                image = cursor.getBlob(5);
+                                date = cursor.getString(6);
+                                nbLike = String.valueOf(dbHelper.countPositiveVote(id));
+
+                                Question c = new Question(id, topic, title, content, username, image, nbLike, date);
+                                questionListDataAdapter.add(c);
+
+                            } while (cursor.moveToNext());
+                        }
+                        listViewOnClickListener();
                     }
-                    listViewOnClickListener();
+
+                    listViewOnLongClickListener();
                     return true;
 
                 default:

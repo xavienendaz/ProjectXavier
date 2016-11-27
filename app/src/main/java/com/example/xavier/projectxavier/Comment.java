@@ -15,13 +15,7 @@ public class Comment {
     private byte [] image;
 
     public Comment(){}
-    public Comment(int id, String content, String date, String username,  int id_question){
-        this.id=id;
-        this.content=content;
-        this.date=date;
-        this.username=username;
-        this.id_question=id_question;
-    }
+
 
     public Comment(int id, String content, String date, String username, int id_question, byte[] image) {
         this.id=id;

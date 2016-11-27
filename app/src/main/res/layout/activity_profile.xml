@@ -11,9 +11,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
 
@@ -29,7 +28,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5pt"
+        android:layout_marginTop="15pt"
         android:layout_marginBottom="5pt">
 
         <ImageView
@@ -57,25 +56,30 @@
     <LinearLayout
         android:layout_marginTop="10px"
         android:orientation="vertical"
+        android:layout_marginLeft="7pt"
+        android:layout_marginRight="7pt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/linear_border">
+        android:background="@drawable/linear_border_square">
+
         <TextView
+            android:id="@+id/tvUsername"
             android:text="Username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:id="@+id/tvUsername"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="8pt"
             android:textStyle="bold"
             android:textSize="10pt"
-            android:textColor="@color/fontColor"/>
+            android:textColor="@color/darkGray"/>
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp">
 
             <TextView
                 android:id="@+id/tvNbQuestionsInfo"
@@ -89,8 +93,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/blueFont"
-                android:layout_marginLeft="5pt"
+                android:layout_marginLeft="3pt"
                 android:id="@+id/tvNbQuestions" />
+
+            <TextView
+                android:id="@+id/tvNbCommentsInfo"
+                android:text="@string/nbCommentsInfo"
+                android:layout_marginLeft="8pt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/tvNbComments"
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blueFont"
+                android:layout_marginLeft="3pt" />
+
+            <TextView
+                android:id="@+id/tvNbFavoritesInfo"
+                android:text="@string/nbFavorites"
+                android:layout_marginLeft="8pt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/tvNbFavorites"
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blueFont"
+                android:layout_marginLeft="3pt" />
+
 
         </LinearLayout>
 
@@ -105,9 +142,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="25dp"
-        android:layout_marginRight="0pt"
         android:id="@+id/profile_list_layout"
-        android:background="@drawable/linear_border">
+        android:background="@drawable/linear_border_square">
 
 
         <TextView
@@ -118,7 +154,7 @@
             android:text="@string/yourPosts"
             android:textStyle="bold"
             android:textSize="10pt"
-            android:textColor="@color/fontColor" />
+            android:textColor="@color/darkGray" />
 
         <ListView
             android:id="@+id/listview_questionList_profile"

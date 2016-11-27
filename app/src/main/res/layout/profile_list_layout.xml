@@ -12,6 +12,6 @@
         android:id="@+id/profile_question_title"
         android:gravity="center_vertical"
         android:textSize="18sp"
-        android:textColor="@color/darkGray"/>
+        android:textColor="@color/lightGray"/>
 
 </LinearLayout>

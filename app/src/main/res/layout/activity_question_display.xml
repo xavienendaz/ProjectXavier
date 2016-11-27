@@ -110,23 +110,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvTitle"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="24dp"
+                        android:layout_marginTop="10pt"
+                        android:layout_marginBottom="20pt"
                         android:lineSpacingMultiplier="0.85"
-                        android:paddingBottom="10dp"
                         android:ellipsize="end"
                         android:textColor="#343434"
                         android:textSize="9pt"/>
 
-                    <TextView
-                        android:id="@+id/questionDate"
-                        android:text="@string/addedDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5pt"
 
-                        android:textSize="12sp"
-                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -138,16 +129,26 @@
                         <TableLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <TableRow
+                                android:layout_marginLeft="5pt"
                                 android:layout_marginTop="2dp">
 
-
+                                <TextView
+                                    android:id="@+id/questionDate"
+                                    android:text="@string/addedDate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:textSize="12sp"
+                                    />
 
 
                                 <ImageView
                                     android:id="@+id/imvVotePositive"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginLeft="12pt"
                                     app:srcCompat="@drawable/ic_action_like_gray"
 
                                     />
@@ -179,14 +180,7 @@
                                     />
 
 
-                                <ImageView
-                                    android:id="@+id/imvShare"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    app:srcCompat="@drawable/ic_action_share_gray"
-                                    android:layout_marginRight="25pt"
-                                    android:layout_marginLeft="18pt"
-                                     />
+
 
                             </TableRow>
                         </TableLayout>

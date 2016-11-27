@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,6 +40,9 @@ public class Registration extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         setTitle(R.string.registration);
 
+        // with this line the keyboard doesn't open automatically
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         etPassword = (EditText) findViewById(R.id.etPassword);
         etUsername = (EditText) findViewById(R.id.etUsername);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
@@ -46,16 +50,13 @@ public class Registration extends AppCompatActivity {
         tvLogin = (TextView) findViewById(R.id.tvAlreadyMember);
         btRegister = (Button) findViewById(R.id.bRegister);
 
-        //go back to login
+        //go back to Login
         final TextView tv = (TextView) findViewById(R.id.tvAlreadyMember);
         tv.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 //open the registerActivity when user click on registerLink
-                Intent i = new Intent(Registration.this, login.class);
+                Intent i = new Intent(Registration.this, Login.class);
                 Registration.this.startActivity(i);
-
-
-
             }
         });
 
@@ -70,8 +71,6 @@ public class Registration extends AppCompatActivity {
            tvLogin.setText(R.string.login);
            setTitle(R.string.registration);
     }
-
-
 
 
     public void registerUser(View view) {
@@ -100,8 +99,6 @@ public class Registration extends AppCompatActivity {
                 return;
             }
 
-
-
              /*Verify if password and confirm password are equals*/
             if (!verifyPassword.equals(confirmPassword)) {
                 Toast.makeText(getApplicationContext(),
@@ -118,14 +115,12 @@ public class Registration extends AppCompatActivity {
                     dbHelper = new DbHelper(context);
                     sqLiteDatabase = dbHelper.getWritableDatabase();
 
-
                      /* convert bitmap to byte */
                     defaultUserImg.setDrawingCacheEnabled(true);
                     Bitmap image = Bitmap.createBitmap(defaultUserImg.getDrawingCache());
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     imageInByte = stream.toByteArray();
-
 
                     dbHelper.addUser(username, password, imageInByte);
                     Toast.makeText(getBaseContext(), R.string.thanksRegistration, Toast.LENGTH_SHORT).show();
@@ -148,48 +143,36 @@ public class Registration extends AppCompatActivity {
                     //if the username is already in database
                     Toast.makeText(getBaseContext(), R.string.usernameExist, Toast.LENGTH_SHORT).show();
                 }
-
             }
-
-
         }
-
-
     }
 
-
-
-  /*Addid the actionbar*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.login_choose_language, menu);
         return true;
     }
 
-    /*Actionbar's actions*/
+
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.language_english:
                 languageLocalHelper.setLocale(Registration.this, "en");
                 updateTexts();
-                Toast.makeText(getBaseContext(), R.string.languageEnSelected, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), R.string.english, Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.language_french:
                 languageLocalHelper.setLocale(Registration.this, "fr");
                 updateTexts();
-                Toast.makeText(getBaseContext(), R.string.languageFRSelected, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), R.string.french, Toast.LENGTH_SHORT).show();
                 return true;
-
 
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
-
-
 }
 
 

@@ -17,14 +17,14 @@ public class TopicsCustomList extends ArrayAdapter<String> {
         private final Activity context;
         private final String[] web;
         private final Integer[] imageId;
-        public TopicsCustomList(Activity context,
-                String[] web, Integer[] imageId) {
+
+        public TopicsCustomList(Activity context, String[] web, Integer[] imageId) {
             super(context, R.layout.activity_topics_list, web);
             this.context = context;
             this.web = web;
             this.imageId = imageId;
-
         }
+
         @Override
         public View getView(int position, View view, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();

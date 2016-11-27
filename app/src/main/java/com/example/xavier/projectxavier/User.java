@@ -11,7 +11,6 @@ public class User {
     private String password;
     private byte [] image;
 
-
     public User(){}
 
     public User(String username, String password){
@@ -43,7 +42,6 @@ public class User {
         this.username=username;
     }
 
-
     public String getUsername() {
         return username;
     }
@@ -59,7 +57,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public String toString() {
         return "User [id=" + id + ", username=" + username + " image: "+image+ "]";

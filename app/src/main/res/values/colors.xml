@@ -8,9 +8,12 @@
 
     <color name="background">#FFFFFF</color>
     <color name="darkGray">#4e4e4e</color>
+    <color name="lightGray">#878686</color>
 
+    <color name="greenLogin">#9c6ab33d</color>
     <color name="greenLight">#6ab33d</color>
     <color name="greenDark">#52932a</color>
+    <color name="greenDarkTransparent">#9352932a</color>
     <color name="white">#FFFFFF</color>
 
     <color name="blueFont">#79cbfd</color>

@@ -37,7 +37,6 @@ public class QuestionListDataAdapter extends ArrayAdapter {
         TextView QUESTION_LIKE;
     }
 
-
     @Override
     public void add(Object object) {
         super.add(object);
@@ -58,7 +57,6 @@ public class QuestionListDataAdapter extends ArrayAdapter {
     public void clear() {
         list.clear();
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -81,14 +79,10 @@ public class QuestionListDataAdapter extends ArrayAdapter {
 
         }
 
+        Question CQuestion = (Question)this.getItem(position);
 
-
-        Question question = (Question)this.getItem(position);
-
-
-        /* set image in list */
-
-        byte[] img = question.getImage();
+        // display image in list
+        byte[] img = CQuestion.getImage();
         ImageView imageView = (ImageView) row.findViewById(R.id.imvQuestionList );
         imageStream = new ByteArrayInputStream(img);
         Bitmap theImage = BitmapFactory.decodeStream(imageStream);
@@ -96,12 +90,11 @@ public class QuestionListDataAdapter extends ArrayAdapter {
 
 
         layoutHandler.QUESTION_IMAGE.setImageBitmap(theImage);
-        layoutHandler.QUESTION_TITLE.setText(question.getTitle());
-        layoutHandler.QUESTION_LIKE.setText(question.getNkLike());
-        layoutHandler.QUESTION_DATE.setText(question.getDate());
+        layoutHandler.QUESTION_TITLE.setText(CQuestion.getTitle());
+        layoutHandler.QUESTION_LIKE.setText(CQuestion.getNkLike());
+        layoutHandler.QUESTION_DATE.setText(CQuestion.getDate());
 
 
         return row;
     }
-
 }

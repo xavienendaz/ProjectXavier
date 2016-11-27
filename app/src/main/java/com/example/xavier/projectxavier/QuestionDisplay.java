@@ -7,9 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,7 +15,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -32,9 +29,6 @@ import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -60,7 +54,7 @@ public class QuestionDisplay extends AppCompatActivity {
     CommentAdapter commentAdapter;
     Toolbar toolbar;
     Button clearComment;
-    ImageView share, like, likeNot;
+    ImageView like, likeNot;
     Button saveComment;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -83,7 +77,7 @@ public class QuestionDisplay extends AppCompatActivity {
         cptNegativeVote = (TextView) findViewById(R.id.nbVoteNegative);
         questionDate = (TextView) findViewById(R.id.questionDate);
 
-        /* Recover values from object Question in activity_question_list */
+        // Recover values from object Question in activity_question_list
 
         myValueTitle = getIntent().getExtras().getString("myValueKeyTitle");
         textViewQuestionTitle.setText(myValueTitle);
@@ -109,11 +103,7 @@ public class QuestionDisplay extends AppCompatActivity {
 
 
 
-
-
-        /* On click listener */
-
-        /* Favorite float action button */
+        // favorite float action button
 
         fab = (FloatingActionButton) findViewById(R.id.fabFavorite);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -135,33 +125,7 @@ public class QuestionDisplay extends AppCompatActivity {
         });
 
 
-        /* Share action */
-
-        share = (ImageView) findViewById(R.id.imvShare);
-        share.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-
-
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-
-                /* send the question */
-                String title = textViewQuestionTitle.getText().toString();
-                String content = textViewQuestionContent.getText().toString();
-
-                /********** PPROBLEM HERE NOTHING SHARE***********/
-
-                sendIntent.putExtra(Intent.EXTRA_TEXT, title);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, content);
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
-
-            }
-        });
-
-
-        /* Clear the EditText when user click on clear */
+        // clear the EditText when user click on clear
 
         clearComment = (Button) findViewById(R.id.btCancelComment);
         clearComment.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +136,7 @@ public class QuestionDisplay extends AppCompatActivity {
         });
 
 
-        /* Save a comment when user click on save */
+        //save a comment when user click on save
 
         saveComment = (Button) findViewById(R.id.btSaveComment);
         saveComment.setOnClickListener(new View.OnClickListener() {
@@ -181,29 +145,26 @@ public class QuestionDisplay extends AppCompatActivity {
                 if (TextUtils.isEmpty(comment)) {
                     Toast.makeText(getBaseContext(), R.string.enterComment, Toast.LENGTH_SHORT).show();
 
-                    /* add on click keybord diesappear*/
                 }else{
                     SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm");
                     String currentTime = time.format(new Date());
-
                     String content = etAddComment.getText().toString();
                     String author = usernameSharedPref.toString();
-                    /* Add the comment in database */
+
+                    // add comment in database
                     dbHelper.addComment(content, currentTime, author, myValueKeyIdQuestion);
                     Toast.makeText(getBaseContext(), R.string.commentAdded, Toast.LENGTH_SHORT).show();
 
-                    /* Clear and set hint in EditText addComment */
+                    // Clear and set hint in EditText addComment
                     etAddComment.getText().clear();
                     etAddComment.setHint(R.string.addComment);
 
-                    /* Load the updated list */
+                    ///Load the updated list
                     setCommentList();
                 }
             }
         });
 
-
-        /* */
 
         like = (ImageView) findViewById(R.id.imvVotePositive);
         like.setOnClickListener(new View.OnClickListener() {
@@ -216,12 +177,10 @@ public class QuestionDisplay extends AppCompatActivity {
                     if(dbHelper.verifyLike(usernameSharedPref, myValueKeyIdQuestion)==true){
 
                      /* positive vote */
-
                         dbHelper.deleteVote(usernameSharedPref, myValueKeyIdQuestion);
                     }
                     else {
                       /* negative vote */
-
                         String id_question = String.valueOf(myValueKeyIdQuestion);
                         dbHelper.updateVote(usernameSharedPref, "like", id_question);
                     }
@@ -235,9 +194,6 @@ public class QuestionDisplay extends AppCompatActivity {
                 setVote_Icons_Numbers();
             }
         });
-
-
-
 
 
         likeNot = (ImageView) findViewById(R.id.imvVoteNegative);
@@ -266,7 +222,6 @@ public class QuestionDisplay extends AppCompatActivity {
                 else{
 
                  /* If the User has not vote this question, we add a new positive vote */
-
                     dbHelper.addVote(usernameSharedPref, "likeNot", myValueKeyIdQuestion);
                     dbHelper.close();
                 }
@@ -275,10 +230,6 @@ public class QuestionDisplay extends AppCompatActivity {
             }
         });
 
-
-
-
-        /* Set activity */
 
         setFabImage();
         setToolBar();
@@ -315,12 +266,8 @@ public class QuestionDisplay extends AppCompatActivity {
                     Intent goBack = new Intent(QuestionDisplay.this, FavoriteList.class);
                     QuestionDisplay.this.startActivity(goBack);
                 }
-
-
-
             }
         });
-
     }
 
 
@@ -330,7 +277,6 @@ public class QuestionDisplay extends AppCompatActivity {
         commentAdapter = new CommentAdapter(getApplicationContext(), R.id.comment_list_layout);
         listViewComments.setAdapter(commentAdapter);
         dbHelper = new DbHelper(getApplicationContext());
-
 
         String id_question = String.valueOf(myValueKeyIdQuestion);
         cursor = dbHelper.getAllCommentsFromCurrentQuestion(id_question);
@@ -345,8 +291,7 @@ public class QuestionDisplay extends AppCompatActivity {
                 username = cursor.getString(3);
                 myValueKeyIdQuestion = cursor.getInt(4);
 
-
-              /* read the author user from database */
+              // read the question's author from database
                 cursorUser = dbHelper.getOneUser(username);
 
                 if(cursorUser.moveToFirst())
@@ -356,23 +301,20 @@ public class QuestionDisplay extends AppCompatActivity {
                         uname = cursorUser.getString(0);
                         image = cursorUser.getBlob(1);
                         User u = new User(uname, image);
-
                         imgCommentAuthor = u.getImage();
                 }
 
-
                 Comment c = new Comment(id, content, date, username, myValueKeyIdQuestion,  imgCommentAuthor);
-
                 commentAdapter.add(c);
 
             } while (cursor.moveToNext());
         }
 
-        /* Count nb comments */
+        // Count nb comments
         TextView t  = (TextView) findViewById(R.id.tvCommentsCpt);
         t.setText(""+commentAdapter.getCount());
 
-        /* Set list Height */
+        // Set list Height
         setListViewHeight(listViewComments);
     }
 
@@ -384,7 +326,6 @@ public class QuestionDisplay extends AppCompatActivity {
 
             int numberOfItems = listAdapter.getCount();
 
-            /* height of items */
             int totalItemsHeight = 0;
             for ( position = 0; position < numberOfItems;position++) {
                 View item = listAdapter.getView(position, null, listView);
@@ -392,29 +333,25 @@ public class QuestionDisplay extends AppCompatActivity {
                 totalItemsHeight += item.getMeasuredHeight();
             }
 
-            // Get total height of all item dividers.
             int totalDividersHeight = listView.getDividerHeight() *
                     (numberOfItems - 1);
 
-            // Set list height.
             ViewGroup.LayoutParams params = listView.getLayoutParams();
             params.height = totalItemsHeight + totalDividersHeight ;
             listView.setLayoutParams(params);
             listView.requestLayout();
 
             return true;
-
         } else {
             return false;
         }
-
     }
 
 
     private void readUserFromDatabase() {
         dbHelper = new DbHelper(context);
 
-        /* read the author user from database */
+        //read the author user from database
         cursor = dbHelper.getOneUser(myValueKeyAuthor);
 
         if(cursor.moveToFirst())
@@ -458,7 +395,6 @@ public class QuestionDisplay extends AppCompatActivity {
         sqLiteDatabase = dbHelper.getReadableDatabase();
 
               /* verify database if the current user has this question on his favorites */
-
         if(dbHelper.verifyFavorite(usernameSharedPref, myValueKeyIdQuestion) == true){
 
             /* question in user favorites */
@@ -501,15 +437,10 @@ public class QuestionDisplay extends AppCompatActivity {
             likeNot.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_action_dontlike_gray));
         }
 
-
         /* Count positives and negatives votes for current question */
         cptPositiveVote.setText(""+dbHelper.countPositiveVote(myValueKeyIdQuestion));
         cptNegativeVote.setText(""+dbHelper.countNegativeVote(myValueKeyIdQuestion));
 
     }
-
-
-
-
 }
 

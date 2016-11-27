@@ -1,58 +1,27 @@
 package com.example.xavier.projectxavier;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.renderscript.Sampler;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
-
-import java.util.Locale;
 
 public class Settings extends AppCompatActivity {
 
     LanguageLocalHelper languageLocalHelper;
     DbHelper dbHelper;
-    SQLiteDatabase sqLiteDatabase;
     SharedPreferences sharedPref;
     String usernameSharedPref;
     TextView deleteAccount, logOff, tvAccount, tvLanguages;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-
-
-
-
-    private GoogleApiClient client;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,28 +34,24 @@ public class Settings extends AppCompatActivity {
         tvAccount = (TextView) findViewById(R.id.tvAccount);
         tvLanguages = (TextView) findViewById(R.id.tvLanguages);
 
-
-
-        final ImageButton flagEnglish = (ImageButton) findViewById(R.id.imbFlagEnglish);
+        final LinearLayout flagEnglish = (LinearLayout) findViewById(R.id.layoutEnglish);
         flagEnglish.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 // change app language in LanguageLocalHelper and save data in SharePreferences
                 languageLocalHelper.setLocale(Settings.this, "en");
                 updateTexts();
-                Toast.makeText(getBaseContext(), R.string.languageEnSelected, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), R.string.english, Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        final ImageButton flagFrance = (ImageButton) findViewById(R.id.imbFlagFrance);
+        final LinearLayout flagFrance = (LinearLayout) findViewById(R.id.layoutFrench);
         flagFrance.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 // change app language in LanguageLocalHelper and save data in SharePreferences
                 languageLocalHelper.setLocale(Settings.this, "fr");
                 updateTexts();
-                Toast.makeText(getBaseContext(), R.string.languageFRSelected, Toast.LENGTH_SHORT).show();
-
-
+                Toast.makeText(getBaseContext(), R.string.french, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -106,7 +71,7 @@ public class Settings extends AppCompatActivity {
          /* remove sharedpreference values */
         sharedPref.edit().remove("username").commit();
         sharedPref.edit().remove("password").commit();
-        Intent i = new Intent(Settings.this, login.class);
+        Intent i = new Intent(Settings.this, Login.class);
         Settings.this.startActivity(i);
         Toast.makeText(getBaseContext(), R.string.Loggof, Toast.LENGTH_SHORT).show();
     }
@@ -134,7 +99,7 @@ public class Settings extends AppCompatActivity {
                         sharedPref.edit().remove("username").commit();
                         sharedPref.edit().remove("password").commit();
 
-                        Intent i = new Intent(Settings.this, login.class);
+                        Intent i = new Intent(Settings.this, Login.class);
                         Settings.this.startActivity(i);
 
                         Toast.makeText(getBaseContext(), R.string.accountDelete, Toast.LENGTH_SHORT).show();
@@ -145,8 +110,6 @@ public class Settings extends AppCompatActivity {
                 .setNegativeButton(R.string.no, null)
                 .show();
     }
-
-
 }
 
 
