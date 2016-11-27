@@ -66,7 +66,6 @@ public class Login extends AppCompatActivity {
         cbRememberLogin.setText(R.string.rememberLogin);
         bLogin.setText(R.string.login);
         tvNewAccount.setText(R.string.createAccount);
-        setTitle(R.string.registration);
     }
 
 

@@ -155,6 +155,7 @@ public class Profile extends AppCompatActivity{
     }
 
 
+
     private void readUserFromDatabase() {
         dbHelper = new DbHelper(context);
         cursor = dbHelper.getOneUser(usernameSharedPref);
