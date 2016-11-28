@@ -203,7 +203,7 @@ public class QuestionAdd extends AppCompatActivity {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
             // I compress the image for gain memory. The length of an ImageInByte 100 % =  127069 and at 30% = 12701
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 35, stream);
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
             imageInByte = stream.toByteArray();
 
             // get the current date

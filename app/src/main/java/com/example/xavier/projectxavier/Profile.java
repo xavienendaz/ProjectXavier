@@ -98,7 +98,7 @@ public class Profile extends AppCompatActivity{
                     chooseImage.setDrawingCacheEnabled(true);
                     Bitmap image = Bitmap.createBitmap(chooseImage.getDrawingCache());
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    image.compress(Bitmap.CompressFormat.JPEG, 40, stream);
                     imageInByte = stream.toByteArray();
 
                     dbHelper.updateUser(usernameSharedPref, imageInByte);
