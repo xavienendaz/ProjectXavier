@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +38,7 @@ public class QuestionAdd extends AppCompatActivity {
     int SELECTED_IMAGE;
     ImageView chooseImage;
     byte imageInByte[];
+    Bitmap imageBitmap;
     TextView tvImgError;
     int cpt;
     LanguageLocalHelper languageLocalHelper;
@@ -53,6 +57,8 @@ public class QuestionAdd extends AppCompatActivity {
         chooseImage = (ImageView) findViewById(R.id.imChoose);
         tvImgError  = (TextView) findViewById(R.id.tvImgError);
 
+        dbHelper = new DbHelper(context);
+
         // when the user click for add a photo
         final ImageView im = (ImageView) findViewById(R.id.imChoose);
         im.setOnClickListener(new View.OnClickListener(){
@@ -66,9 +72,8 @@ public class QuestionAdd extends AppCompatActivity {
 
 
         spinnerTopics();
-
-
     }
+
 
     private void spinnerTopics() {
         // topic spinner part
@@ -80,25 +85,11 @@ public class QuestionAdd extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(setSelectedTopic(),true);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapter, View v,
-                                       int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-            }
-        });
     }
 
 
     private int setSelectedTopic() {
         int val = -1;
-        int tab = R.array.topics_array;
         return val;
     }
 
@@ -110,14 +101,18 @@ public class QuestionAdd extends AppCompatActivity {
                 // Get the url from data
                 Uri selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
+
                     // Get the path from the Uri
                     String path = getPathFromURI(selectedImageUri);
-                    //Log.i(TAG, "Image Path : " + path);
-                    // Set the image in ImageView
+
                     chooseImage.setImageURI(selectedImageUri);
-                    tvImgError.setTextColor(getResources().getColor(R.color.greenLight));
+                    // scale the image center and fit to ImageView
+                    chooseImage.setScaleType(ImageView.ScaleType.FIT_XY);
+
                     tvImgError.setText(R.string.imgSelected);
-                    /* in method below saveQuestion that the user has select the image*/
+                    tvImgError.setTextColor(getResources().getColor(R.color.greenLight));
+
+                    // in method below saveQuestion that the user has select the image
                     cpt = 1;
                     }
             }
@@ -158,7 +153,7 @@ public class QuestionAdd extends AppCompatActivity {
         String verifyContent = etContent.getText().toString();
 
           /* Say to user that he needs to select an image
-          *  If cpt = 1, he has already selected an image*/
+            If cpt = 1, he has already selected an image*/
         if(cpt<1){
             verifySelectedImage();
             return;
@@ -201,24 +196,30 @@ public class QuestionAdd extends AppCompatActivity {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
             String usernameSharedPref = sharedPref.getString("username", "");
 
-            dbHelper = new DbHelper(context);
-
             // convert bitmap to byte
             chooseImage.setDrawingCacheEnabled(true);
-            Bitmap image = Bitmap.createBitmap(chooseImage.getDrawingCache());
+            imageBitmap = Bitmap.createBitmap(chooseImage.getDrawingCache());
+
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+            // I compress the image for gain memory. The length of an ImageInByte 100 % =  127069 and at 30% = 12701
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 35, stream);
             imageInByte = stream.toByteArray();
 
+            // get the current date
             SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm");
             String currentTime = time.format(new Date());
 
+            // get the current language
             currentLanguage = languageLocalHelper.getLanguage(QuestionAdd.this).toString();
+
+            // add a Question in database
             dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, currentTime, currentLanguage);
 
             Toast.makeText(getBaseContext(), R.string.questionCreated, Toast.LENGTH_SHORT).show();
 
             dbHelper.close();
+
             // redirect to questionlist with selected topic
             Intent i = new Intent(QuestionAdd.this, QuestionList.class);
             i.putExtra("topicSelected", topic);

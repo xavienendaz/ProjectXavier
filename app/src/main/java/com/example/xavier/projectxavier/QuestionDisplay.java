@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -164,8 +165,19 @@ public class QuestionDisplay extends AppCompatActivity {
                     etAddComment.getText().clear();
                     etAddComment.setHint(R.string.addComment);
 
+
+                    // Close the keyboard on save comment
+                    InputMethodManager inputManager = (InputMethodManager)
+                            getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
+
                     ///Load the updated list
                     setCommentList();
+
+
+
                 }
             }
         });

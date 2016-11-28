@@ -17,8 +17,9 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="135dp"
-        android:layout_height="135dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="10pt"
         android:layout_gravity="center_horizontal"
         app:srcCompat="@drawable/profile_image"
         android:id="@+id/imvProfile" />

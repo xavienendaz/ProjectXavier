@@ -10,8 +10,8 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="3pt"
         android:layout_marginBottom="3pt"
-        android:layout_width="30pt"
-        android:layout_height="30pt"/>
+        android:layout_width="25pt"
+        android:layout_height="25pt"/>
 
     <TextView
         android:id="@+id/question_title"
