@@ -123,7 +123,7 @@
     <string name="saveComent">add</string>
     <string name="commentInfo">Comments: </string>
     <string name="enterContent">Enter content</string>
-    <string name="characMinMax">characters: min 5, max 80</string>
+    <string name="characMinMax">characters: min 5, max 70</string>
     <string name="characMin">characters: min 50</string>
 </resources>
 

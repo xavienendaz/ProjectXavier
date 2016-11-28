@@ -122,6 +122,6 @@
     <string name="saveComent">ajouter</string>
     <string name="commentInfo">Commentaires: </string>
     <string name="enterContent">Ecrire un contenu</string>
-    <string name="characMinMax">lettres: min 5, max 80</string>
+    <string name="characMinMax">lettres: min 5, max 70</string>
     <string name="characMin">lettres: min 50</string>
 </resources>

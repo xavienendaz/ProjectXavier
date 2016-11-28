@@ -77,42 +77,42 @@
 
 
         <TextView
+            android:id="@+id/tvEditTitle"
             android:text="@string/editTitle"
             android:textStyle="bold"
             android:textSize="9pt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvEditTitle"
             android:layout_marginTop="15dp"
             android:textColor="@color/darkGray"/>
 
         <EditText
+            android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapSentences"
+            android:inputType="textCapSentences|textMultiLine"
             android:ems="10"
-            android:id="@+id/etTitle"
             android:hint="@string/title"
             android:layout_marginTop="10dp"
             android:background="@drawable/linear_line"/>
 
         <TextView
+            android:id="@+id/tvEditContent"
             android:text="@string/editContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvEditContent"
             android:layout_marginTop="15dp"
             android:textStyle="bold"
             android:textSize="9pt"
             android:textColor="@color/darkGray"/>
 
         <EditText
+            android:id="@+id/etContent"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
             android:inputType="textCapSentences|textMultiLine"
             android:ems="10"
-            android:id="@+id/etContent"
             android:hint="@string/content"
             android:background="@drawable/linear_line"/>
 

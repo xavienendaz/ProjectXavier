@@ -179,7 +179,7 @@ public class QuestionAdd extends AppCompatActivity {
             }
         } else {
 
-            if(etTitle.length()<5 || etTitle.length()>80){
+            if(etTitle.length()<5 || etTitle.length()>70){
 
                 etTitle.setError(context.getResources().getString(R.string.characMinMax));
                 return;
@@ -192,7 +192,6 @@ public class QuestionAdd extends AppCompatActivity {
             String topic = spinner.getSelectedItem().toString();
             String title = etTitle.getText().toString();
             String content = etContent.getText().toString();
-
 
             // read username from sharedPreferences
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);

@@ -70,6 +70,9 @@ public class QuestionDisplay extends AppCompatActivity {
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
         myValueTopicSelected = getIntent().getExtras().getString("topicSelected");
+
+
+
         collapsingToolbarLayout.setTitle(myValueTopicSelected);
 
         imageAuthor = (ImageView) findViewById(R.id.imgAuthor);
@@ -326,22 +329,23 @@ public class QuestionDisplay extends AppCompatActivity {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter != null) {
 
-            int numberOfItems = listAdapter.getCount();
+            int nbItems = listAdapter.getCount();
 
             int totalItemsHeight = 0;
-            for ( position = 0; position < numberOfItems;position++) {
+            for ( position = 0; position < nbItems;position++) {
                 View item = listAdapter.getView(position, null, listView);
                 item.measure(0, 0);
                 totalItemsHeight += item.getMeasuredHeight();
             }
 
             int totalDividersHeight = listView.getDividerHeight() *
-                    (numberOfItems - 1);
+                    (nbItems - 1);
 
             ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = totalItemsHeight + totalDividersHeight ;
+            params.height = totalItemsHeight + totalDividersHeight + totalItemsHeight ;
             listView.setLayoutParams(params);
             listView.requestLayout();
+
 
             return true;
         } else {

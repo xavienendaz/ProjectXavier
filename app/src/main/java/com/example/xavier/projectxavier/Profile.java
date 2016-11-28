@@ -45,6 +45,7 @@ public class Profile extends AppCompatActivity{
     ImageView chooseImage;
     ByteArrayInputStream imageStream;
     Question q;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,6 +236,7 @@ public class Profile extends AppCompatActivity{
     }
 
 
+    // when user click long on a questions, several information are show in a dialog
     public void listViewOnLongClickListener(){
         listViewProfileQuestions.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -249,18 +251,20 @@ public class Profile extends AppCompatActivity{
                 int nbUserQuestion = dbHelper.countUserQuestions(q.getUsername());
 
                 // instantiate an AlertDialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+                builder = new AlertDialog.Builder(Profile.this);
 
                 // set dialog message
                 builder.setTitle(q.getTopic());
                 builder.setMessage(
-                        R.string.comment+" "+nbComment+
+                                context.getResources().getString(R.string.commentInfo)+" "+nbComment+
                                 "\n"+
                                 "\n"+
-                                R.string.author +"  "+q.getUsername()+
-                                "\n"+ R.string.nb_posts +"  "+nbUserQuestion)
+                                context.getResources().getString(R.string.author) +"  "+q.getUsername()+
+                                "     "+
+                                context.getResources().getString(R.string.nb_posts) +"  "+nbUserQuestion)
                         .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+
                             }
                         });
 
@@ -269,6 +273,7 @@ public class Profile extends AppCompatActivity{
                 return true; // true because I dont want to be redirected on the activity Quetiondisplay
             }
         });
+
     }
 
 

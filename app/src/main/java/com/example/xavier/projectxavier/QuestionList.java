@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 public class QuestionList extends AppCompatActivity {
@@ -59,22 +58,8 @@ public class QuestionList extends AppCompatActivity {
             displayQuestionsFromTopicSortNew();
         }
 
-
-
-
-
         /* Set title and count nb questions */
         setTitle(myValueTopicSelected + " ("+ questionListDataAdapter.getCount()+")");
-
-
-
-
-
-
-
-
-
-
 
     }
 
@@ -173,6 +158,7 @@ public class QuestionList extends AppCompatActivity {
 
     }
 
+
     // when user click long on a questions, several information are show in a dialog
     public void listViewOnLongClickListener(){
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -193,7 +179,7 @@ public class QuestionList extends AppCompatActivity {
                 // set dialog message
                 builder.setTitle(q.getTopic());
                 builder.setMessage(
-                        context.getResources().getString(R.string.commentInfo)+" "+nbComment+
+                                context.getResources().getString(R.string.commentInfo)+" "+nbComment+
                                 "\n"+
                                 "\n"+
                                 context.getResources().getString(R.string.author) +"  "+q.getUsername()+
@@ -212,6 +198,7 @@ public class QuestionList extends AppCompatActivity {
         });
 
     }
+
 
     public void listViewOnClickListener(){
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -238,7 +225,6 @@ public class QuestionList extends AppCompatActivity {
     });
 }
 
-
         /*
          listViewOnClickListenerAllQuestions() change topic selected by all topics
          because when a User click the back arrow from QuestionDisplay activity, he wants to be redirected correctly
@@ -260,7 +246,7 @@ public class QuestionList extends AppCompatActivity {
                 i.putExtra("myValueKeyContent", item.getContent());
                 i.putExtra("myValueKeyIdQuestion", item.getId());
                 i.putExtra("myValueKeyAuthor", item.getUsername());
-                //change item.getTopic() in myValueTopicSelected
+                // put All
                 i.putExtra("topicSelected", myValueTopicSelected);
                 i.putExtra("image", item.getImage());
                 i.putExtra("date", item.getDate());
@@ -272,7 +258,7 @@ public class QuestionList extends AppCompatActivity {
     }
 
 
-  /*Addid the actionbar*/
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_question_list, menu);
@@ -280,7 +266,6 @@ public class QuestionList extends AppCompatActivity {
     }
 
 
-    /*Actionbar's actions*/
         public boolean onOptionsItemSelected(MenuItem item) {
 
             switch (item.getItemId()) {
