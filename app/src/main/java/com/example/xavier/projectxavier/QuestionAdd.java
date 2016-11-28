@@ -179,12 +179,16 @@ public class QuestionAdd extends AppCompatActivity {
             }
         } else {
 
-            if(etTitle.length()<5 || etTitle.length()>70){
+            // the title must contain between 3 and 70 characters
+
+            if(etTitle.length()<3 || etTitle.length()>70){
 
                 etTitle.setError(context.getResources().getString(R.string.characMinMax));
                 return;
             }
-            if(etContent.length()<50){
+
+            // the content must contain more thant 30 characters
+            if(etContent.length()<30){
                 etContent.setError(context.getResources().getString(R.string.characMin));
                 return;
             }
