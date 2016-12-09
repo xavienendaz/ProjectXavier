@@ -354,7 +354,7 @@ public class QuestionDisplay extends AppCompatActivity {
                     (nbItems - 1);
 
             ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = totalItemsHeight + totalDividersHeight + totalItemsHeight ;
+            params.height = totalItemsHeight + totalDividersHeight + totalItemsHeight/4 ;
             listView.setLayoutParams(params);
             listView.requestLayout();
 

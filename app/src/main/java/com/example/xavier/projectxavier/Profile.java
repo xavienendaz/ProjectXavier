@@ -94,11 +94,12 @@ public class Profile extends AppCompatActivity{
                     String path = getPathFromURI(selectedImageUri);
                     // Set the image in ImageView
                     chooseImage.setImageURI(selectedImageUri);
+                    chooseImage.setScaleType(ImageView.ScaleType.FIT_XY);
                     // convert bitmap to byte
                     chooseImage.setDrawingCacheEnabled(true);
                     Bitmap image = Bitmap.createBitmap(chooseImage.getDrawingCache());
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    image.compress(Bitmap.CompressFormat.JPEG, 40, stream);
+                    image.compress(Bitmap.CompressFormat.JPEG, 30, stream);
                     imageInByte = stream.toByteArray();
 
                     dbHelper.updateUser(usernameSharedPref, imageInByte);
