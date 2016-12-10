@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,43 +20,37 @@
         <activity
             android:name=".Login"
             android:label="@string/app_name">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Registration" />
-
-        <activity android:name=".QuestionAdd"
+        <activity
+            android:name=".QuestionAdd"
             android:parentActivityName=".TopicsList" />
-
         <activity
             android:name=".QuestionDisplay"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".QuestionList"
-            android:parentActivityName=".TopicsList"/>
-
+            android:parentActivityName=".TopicsList" />
         <activity
             android:name=".Settings"
             android:parentActivityName=".TopicsList" />
-
-        <activity android:name=".TopicsList"/>
-
-        <activity android:name=".Profile"
-            android:parentActivityName=".TopicsList"/>
+        <activity android:name=".TopicsList" />
+        <activity
+            android:name=".Profile"
+            android:parentActivityName=".TopicsList" />
 
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".FavoriteList"
-            android:parentActivityName=".TopicsList"/>
+        <activity
+            android:name=".FavoriteList"
+            android:parentActivityName=".TopicsList" />
     </application>
 
 </manifest>
