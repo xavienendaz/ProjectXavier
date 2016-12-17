@@ -1,11 +1,20 @@
 package com.example.Xavier.myapplication.backend;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 /**
  * Created by Xavier on 05.11.2016.
  */
 
+@Entity
 public class Question {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nkLike;
     private String topic;

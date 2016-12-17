@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
+    <filter>
+        <filter-name>ObjectifyFilter</filter-name>
+        <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ObjectifyFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>SystemServiceServlet</servlet-name>
         <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
         <init-param>
             <param-name>services</param-name>
             <param-value>com.example.Xavier.myapplication.backend.MyEndpoint,
-                com.example.Xavier.myapplication.backend.CommentEndpoint</param-value>
+                com.example.Xavier.myapplication.backend.CommentEndpoint,
+                com.example.Xavier.myapplication.backend.FavoriteEndpoint,
+                com.example.Xavier.myapplication.backend.QuestionEndpoint,
+                com.example.Xavier.myapplication.backend.UserEndpoint,
+                com.example.Xavier.myapplication.backend.VoteEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

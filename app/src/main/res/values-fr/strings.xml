@@ -124,4 +124,5 @@
     <string name="enterContent">Ecrire un contenu</string>
     <string name="characMinMax">lettres: min 3, max 70</string>
     <string name="characMin">lettres: min 30</string>
+    <string name="notOnline">Vous n\'êtes pas en ligne</string>
 </resources>

@@ -10,6 +10,12 @@
         ProjectXavier:showAsAction="always"
         />
 
+    <item
+        android:id="@+id/menu_sync"
+        android:title=""
+        android:icon="@drawable/ic_sync"
+        ProjectXavier:showAsAction="always"
+        />
 
         <item
             android:id="@+id/menu_sort"

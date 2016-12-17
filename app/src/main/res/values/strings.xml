@@ -125,5 +125,6 @@
     <string name="enterContent">Enter content</string>
     <string name="characMinMax">characters: min 3, max 70</string>
     <string name="characMin">characters: min 30</string>
+    <string name="notOnline">You are not online</string>
 </resources>
 

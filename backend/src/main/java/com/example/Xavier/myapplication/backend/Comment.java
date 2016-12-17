@@ -1,9 +1,12 @@
 package com.example.Xavier.myapplication.backend;
 
+import com.googlecode.objectify.annotation.Entity;
+
 /**
  * Created by Xavier on 18.11.2016.
  */
 
+@Entity
 public class Comment {
 
 

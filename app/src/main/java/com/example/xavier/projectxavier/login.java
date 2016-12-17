@@ -59,10 +59,6 @@ public class Login extends AppCompatActivity {
         });
 
 
-
-
-        //cloud
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
     }
 
 

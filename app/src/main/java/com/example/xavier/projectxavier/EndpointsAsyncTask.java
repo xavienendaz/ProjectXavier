@@ -52,9 +52,12 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
         String name = params[0].second;
 
         try {
-            return myApiService.sayHi(name).execute().getData();
+           //method in my app
+           return myApiService.sayHi(name).execute().getData();
+
+
         } catch (IOException e) {
-            return e.getMessage();
+            return ""+context.getResources().getString(R.string.notOnline);
         }
     }
 

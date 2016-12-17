@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,6 +61,10 @@ public class QuestionList extends AppCompatActivity {
 
         /* Set title and count nb questions */
         setTitle(myValueTopicSelected + " ("+ questionListDataAdapter.getCount()+")");
+
+
+
+
 
     }
 
@@ -274,6 +279,17 @@ public class QuestionList extends AppCompatActivity {
                     Intent goHome = new Intent(this, QuestionAdd.class);
                     startActivity(goHome);
                     return true;
+
+
+
+                case R.id.   menu_sync:
+
+                    //cloud
+                    new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+                    return true;
+
+
+
 
                 case R.id.menu_sortTimeNew:
                     questionListDataAdapter.clear();
