@@ -29,6 +29,8 @@ public class Question {
 
     }
 
+
+
     public Question(String topic, String title, String content, String username){
         this.topic=topic;
         this.title=title;

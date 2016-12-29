@@ -69,8 +69,11 @@ public class QuestionList extends AppCompatActivity {
     }
 
 
+
     //by default all the questions are sorted by New in date
     private void setAllQuestions() {
+
+
 
             //if the user has selected all questions
             if (myValueTopicSelected.equalsIgnoreCase("All")) {
@@ -264,12 +267,14 @@ public class QuestionList extends AppCompatActivity {
 
 
 
-
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_question_list, menu);
         return true;
     }
 
+    private void getQuestionsBackend(){
+        new EndpointsAsyncTaskQuestion().execute();
+    }
 
         public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -284,8 +289,12 @@ public class QuestionList extends AppCompatActivity {
 
                 case R.id.   menu_sync:
 
+                  //  @ApiMethod(name = “insertQuote”)
+
+                   // new EndpointsAsyncTaskQuestion().execute();
+                    getQuestionsBackend();
                     //cloud
-                    new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+                  //  new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
                     return true;
 
 

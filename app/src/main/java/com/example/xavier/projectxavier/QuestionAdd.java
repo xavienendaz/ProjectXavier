@@ -25,6 +25,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.xavier.myapplication.backend.questionApi.model.*;
+import com.example.xavier.myapplication.backend.questionApi.model.Question;
+
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -215,6 +218,20 @@ public class QuestionAdd extends AppCompatActivity {
 
             // add a Question in database
             dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, currentTime, currentLanguage);
+
+            com.example.xavier.myapplication.backend.questionApi.model.Question q = new Question();
+            q.setTopic("testtopic");
+            q.setTitle("testtitle");
+            q.setContent("fuasdhviuasdgfsadufvoaufzvsdoufzvasdofuvsadofuashdfousdvfoasduhfvs");
+            q.setUsername(usernameSharedPref);
+           // q.setImage(imageInByte);
+            q.setDate(currentTime);
+            q.setLanguage(currentLanguage);
+            q.toString();
+            new EndpointsAsyncTaskQuestion(q).execute();
+
+          //  Question q2 = new Question( topic, title, content, );
+
 
             Toast.makeText(getBaseContext(), R.string.questionCreated, Toast.LENGTH_SHORT).show();
 

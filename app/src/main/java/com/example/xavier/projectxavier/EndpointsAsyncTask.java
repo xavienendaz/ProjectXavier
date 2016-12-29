@@ -23,7 +23,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
     public  EndpointsAsyncTask(){
         MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                .setRootUrl("https://nutrituo.appspot.com/_ah/api/");
+                .setRootUrl("https://nutrituo:8080/_ah/api/");
         myApiService = builder.build();
     }
 
@@ -53,7 +53,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
         try {
            //method in my app
-            
+
            return myApiService.sayHi(name).execute().getData();
 
 
