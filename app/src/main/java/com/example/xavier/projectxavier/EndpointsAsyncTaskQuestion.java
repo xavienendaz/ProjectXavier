@@ -21,7 +21,7 @@ import java.util.List;
  * Created by Xavier on 29.12.2016.
  */
 
-public class EndpointsAsyncTaskQuestion extends AsyncTask<Void, Void, List<com.example.xavier.myapplication.backend.questionApi.model.Question>> {
+public class EndpointsAsyncTaskQuestion extends AsyncTask<Void, Void, List<Question>> {
     private static QuestionApi questionApi = null;
     private static final String TAG = EndpointsAsyncTask.class.getName();
     private com.example.xavier.myapplication.backend.questionApi.model.Question question;
@@ -44,8 +44,8 @@ public class EndpointsAsyncTaskQuestion extends AsyncTask<Void, Void, List<com.e
                     // - turn off compression when running against local devappserver
                     // if you deploy on the cloud backend, use your app name
                     // such as https://<your-app-id>.appspot.com
-                    //.setRootUrl("http://10.0.2.2:8080/_ah/api/")
-                    .setRootUrl("https://nutrituo:8080/_ah/api/")
+                    .setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                    //.setRootUrl("https://nutrituo:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
@@ -60,7 +60,7 @@ public class EndpointsAsyncTaskQuestion extends AsyncTask<Void, Void, List<com.e
             // For instance insert
             if(question != null){
                 questionApi.insert(question).execute();
-                Log.i(TAG, "insert employee");
+                Log.i(TAG, "insert question");
             }
             else{
                 Log.i(TAG, "empty list");

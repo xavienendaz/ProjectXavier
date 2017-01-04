@@ -219,7 +219,9 @@ public class QuestionAdd extends AppCompatActivity {
             // add a Question in database
             dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, currentTime, currentLanguage);
 
-            com.example.xavier.myapplication.backend.questionApi.model.Question q = new Question();
+            /***** CLOUD *****/
+
+            com.example.xavier.myapplication.backend.questionApi.model.Question q = new com.example.xavier.myapplication.backend.questionApi.model.Question();
             q.setTopic("testtopic");
             q.setTitle("testtitle");
             q.setContent("fuasdhviuasdgfsadufvoaufzvsdoufzvasdofuvsadofuashdfousdvfoasduhfvs");
@@ -227,11 +229,10 @@ public class QuestionAdd extends AppCompatActivity {
            // q.setImage(imageInByte);
             q.setDate(currentTime);
             q.setLanguage(currentLanguage);
-            q.toString();
+
             new EndpointsAsyncTaskQuestion(q).execute();
 
-          //  Question q2 = new Question( topic, title, content, );
-
+            /***** CLOUD *****/
 
             Toast.makeText(getBaseContext(), R.string.questionCreated, Toast.LENGTH_SHORT).show();
 

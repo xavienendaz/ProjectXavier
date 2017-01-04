@@ -286,6 +286,7 @@ public class QuestionList extends AppCompatActivity {
                     return true;
 
 
+                /***** CLOUD *****/
 
                 case R.id.   menu_sync:
 
@@ -297,7 +298,7 @@ public class QuestionList extends AppCompatActivity {
                   //  new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
                     return true;
 
-
+                /***** CLOUD *****/
 
 
                 case R.id.menu_sortTimeNew:

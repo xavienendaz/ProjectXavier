@@ -161,6 +161,18 @@ public class QuestionDisplay extends AppCompatActivity {
                     dbHelper.addComment(content, currentTime, author, myValueKeyIdQuestion);
                     Toast.makeText(getBaseContext(), R.string.commentAdded, Toast.LENGTH_SHORT).show();
 
+                    /***** CLOUD *****/
+
+                    com.example.xavier.myapplication.backend.commentApi.model.Comment c = new com.example.xavier.myapplication.backend.commentApi.model.Comment();
+                    c.setUsername(author);
+                    c.setContent(content);
+                    c.setDate(currentTime);
+                    c.setIdQuestion(myValueKeyIdQuestion);
+
+                    new EndpointsAsyncTaskComment(c).execute();
+
+                    /***** CLOUD *****/
+
                     // Clear and set hint in EditText addComment
                     etAddComment.getText().clear();
                     etAddComment.setHint(R.string.addComment);
