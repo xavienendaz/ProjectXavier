@@ -58,7 +58,7 @@ public class CommentEndpoint {
             name = "get",
             path = "comment/{id}",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public Comment get(@Named("id") int id) throws NotFoundException {
+    public Comment get(@Named("id") Long id) throws NotFoundException {
         logger.info("Getting Comment with ID: " + id);
         Comment comment = ofy().load().type(Comment.class).id(id).now();
         if (comment == null) {
@@ -99,7 +99,7 @@ public class CommentEndpoint {
             name = "update",
             path = "comment/{id}",
             httpMethod = ApiMethod.HttpMethod.PUT)
-    public Comment update(@Named("id") int id, Comment comment) throws NotFoundException {
+    public Comment update(@Named("id") Long id, Comment comment) throws NotFoundException {
         // TODO: You should validate your ID parameter against your resource's ID here.
         checkExists(id);
         ofy().save().entity(comment).now();
@@ -118,7 +118,7 @@ public class CommentEndpoint {
             name = "remove",
             path = "comment/{id}",
             httpMethod = ApiMethod.HttpMethod.DELETE)
-    public void remove(@Named("id") int id) throws NotFoundException {
+    public void remove(@Named("id") Long id) throws NotFoundException {
         checkExists(id);
         ofy().delete().type(Comment.class).id(id).now();
         logger.info("Deleted Comment with ID: " + id);
@@ -149,7 +149,7 @@ public class CommentEndpoint {
         return CollectionResponse.<Comment>builder().setItems(commentList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
     }
 
-    private void checkExists(int id) throws NotFoundException {
+    private void checkExists(Long id) throws NotFoundException {
         try {
             ofy().load().type(Comment.class).id(id).safe();
         } catch (com.googlecode.objectify.NotFoundException e) {

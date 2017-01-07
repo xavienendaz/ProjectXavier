@@ -15,24 +15,24 @@ public class Favorite {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Long id;
     String username;
     String id_question;
 
     public Favorite() {
     }
 
-    public Favorite(int id, String username, String id_question) {
+    public Favorite(Long id, String username, String id_question) {
         this.id = id;
         this.username = username;
         this.id_question = id_question;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

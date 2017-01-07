@@ -15,7 +15,7 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String nkLike;
     private String topic;
     private String title;
@@ -38,7 +38,7 @@ public class Question {
         this.username=username;
      }
 
-    public Question(int id, String topic, String title, String content, String username){
+    public Question(Long id, String topic, String title, String content, String username){
         this.id=id;
         this.topic=topic;
         this.title=title;
@@ -46,7 +46,7 @@ public class Question {
         this.username=username;
     }
 
-    public Question(int id, String topic, String title, String content, String username, byte [] image){
+    public Question(Long id, String topic, String title, String content, String username, byte [] image){
         this.id=id;
         this.topic=topic;
         this.title=title;
@@ -55,7 +55,7 @@ public class Question {
         this.image=image;
     }
 
-    public Question(int id, String topic, String title, String content, String username, byte [] image, String nbLike, String date){
+    public Question(Long id, String topic, String title, String content, String username, byte [] image, String nbLike, String date){
         this.id=id;
         this.topic=topic;
         this.title=title;
@@ -102,11 +102,11 @@ public class Question {
         this.title=title;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

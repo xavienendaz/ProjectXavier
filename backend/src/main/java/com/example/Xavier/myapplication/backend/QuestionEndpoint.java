@@ -58,7 +58,7 @@ public class QuestionEndpoint {
             name = "get",
             path = "question/{id}",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public Question get(@Named("id") int id) throws NotFoundException {
+    public Question get(@Named("id") Long id) throws NotFoundException {
         logger.info("Getting Question with ID: " + id);
         Question question = ofy().load().type(Question.class).id(id).now();
         if (question == null) {
@@ -80,6 +80,11 @@ public class QuestionEndpoint {
         // Objectify ID generator, e.g. long or String, then you should generate the unique ID yourself prior to saving.
         //
         // If your client provides the ID then you should probably use PUT instead.
+        //save question entities in the database
+
+        //ofy().save().entities(question.getp).now();
+
+       //save question in database
         ofy().save().entity(question).now();
         logger.info("Created Question with ID: " + question.getId());
 
@@ -99,7 +104,7 @@ public class QuestionEndpoint {
             name = "update",
             path = "question/{id}",
             httpMethod = ApiMethod.HttpMethod.PUT)
-    public Question update(@Named("id") int id, Question question) throws NotFoundException {
+    public Question update(@Named("id") Long id, Question question) throws NotFoundException {
         // TODO: You should validate your ID parameter against your resource's ID here.
         checkExists(id);
         ofy().save().entity(question).now();
@@ -118,7 +123,7 @@ public class QuestionEndpoint {
             name = "remove",
             path = "question/{id}",
             httpMethod = ApiMethod.HttpMethod.DELETE)
-    public void remove(@Named("id") int id) throws NotFoundException {
+    public void remove(@Named("id") Long id) throws NotFoundException {
         checkExists(id);
         ofy().delete().type(Question.class).id(id).now();
         logger.info("Deleted Question with ID: " + id);
@@ -149,7 +154,7 @@ public class QuestionEndpoint {
         return CollectionResponse.<Question>builder().setItems(questionList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
     }
 
-    private void checkExists(int id) throws NotFoundException {
+    private void checkExists(Long id) throws NotFoundException {
         try {
             ofy().load().type(Question.class).id(id).safe();
         } catch (com.googlecode.objectify.NotFoundException e) {

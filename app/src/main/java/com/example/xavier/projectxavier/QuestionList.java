@@ -295,7 +295,6 @@ public class QuestionList extends AppCompatActivity {
                    // new EndpointsAsyncTaskQuestion().execute();
                     getQuestionsBackend();
                     //cloud
-                  //  new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
                     return true;
 
                 /***** CLOUD *****/

@@ -1,17 +1,24 @@
 package com.example.Xavier.myapplication.backend;
 
 /**
- * The object model for the data we are sending through endpoints
+ * Created by Xavier on 05.01.2017.
  */
-public class MyBean {
 
-    private String myData;
+ /**
+   * The object model for the data we are sending through endpoints
+  */
+         public class MyBean {
 
-    public String getData() {
-        return myData;
-    }
 
-    public void setData(String data) {
-        myData = data;
-    }
-}
+                private String myData;
+
+
+                 public String getData() {
+                     return myData;
+             }
+
+
+                public void setData(String data) {
+                 myData = data;
+             }
+     }

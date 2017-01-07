@@ -21,7 +21,7 @@ import java.util.List;
 
     public class EndpointsAsyncTaskComment extends AsyncTask<Void, Void, List<com.example.xavier.myapplication.backend.commentApi.model.Comment>> {
         private static CommentApi commentApi = null;
-        private static final String TAG = EndpointsAsyncTask.class.getName();
+        private static final String TAG = EndpointsAsyncTaskComment.class.getName();
         private Comment comment;
 
     EndpointsAsyncTaskComment(){}
@@ -42,14 +42,14 @@ import java.util.List;
                         // - turn off compression when running against local devappserver
                         // if you deploy on the cloud backend, use your app name
                         // such as https://<your-app-id>.appspot.com
-                        .setRootUrl("http://10.0.2.2:8080/_ah/api/")
-                        //.setRootUrl("https://nutrituo:8080/_ah/api/")
-                        .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+                        //.setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                        .setRootUrl("https://nutrituo:8080/_ah/api/");
+                     /*   .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                             @Override
                             public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
                                 abstractGoogleClientRequest.setDisableGZipContent(true);
                             }
-                        });
+                        });*/
                 commentApi = builder.build();
             }
 

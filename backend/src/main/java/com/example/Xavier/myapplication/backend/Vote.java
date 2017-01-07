@@ -15,7 +15,7 @@ public class Vote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Long id;
     String username;
     String vote;
     String id_question;
@@ -23,18 +23,18 @@ public class Vote {
     public Vote() {
     }
 
-    public Vote(int id, String vote, String username, String id_question) {
+    public Vote(Long id, String vote, String username, String id_question) {
         this.id = id;
         this.username = username;
         this.vote = vote;
         this.id_question = id_question;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

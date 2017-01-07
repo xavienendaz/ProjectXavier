@@ -29,6 +29,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.xavier.myapplication.backend.myApi.model.MyBean;
+
 import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -168,6 +170,10 @@ public class QuestionDisplay extends AppCompatActivity {
                     c.setContent(content);
                     c.setDate(currentTime);
                     c.setIdQuestion(myValueKeyIdQuestion);
+
+                    MyBean m = new MyBean();
+                    m.setData("sd");
+
 
                     new EndpointsAsyncTaskComment(c).execute();
 

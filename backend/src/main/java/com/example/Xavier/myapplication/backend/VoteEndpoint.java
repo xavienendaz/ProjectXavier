@@ -58,7 +58,7 @@ public class VoteEndpoint {
             name = "get",
             path = "vote/{id}",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public Vote get(@Named("id") int id) throws NotFoundException {
+    public Vote get(@Named("id") Long id) throws NotFoundException {
         logger.info("Getting Vote with ID: " + id);
         Vote vote = ofy().load().type(Vote.class).id(id).now();
         if (vote == null) {
@@ -99,7 +99,7 @@ public class VoteEndpoint {
             name = "update",
             path = "vote/{id}",
             httpMethod = ApiMethod.HttpMethod.PUT)
-    public Vote update(@Named("id") int id, Vote vote) throws NotFoundException {
+    public Vote update(@Named("id") Long id, Vote vote) throws NotFoundException {
         // TODO: You should validate your ID parameter against your resource's ID here.
         checkExists(id);
         ofy().save().entity(vote).now();
@@ -118,7 +118,7 @@ public class VoteEndpoint {
             name = "remove",
             path = "vote/{id}",
             httpMethod = ApiMethod.HttpMethod.DELETE)
-    public void remove(@Named("id") int id) throws NotFoundException {
+    public void remove(@Named("id") Long id) throws NotFoundException {
         checkExists(id);
         ofy().delete().type(Vote.class).id(id).now();
         logger.info("Deleted Vote with ID: " + id);
@@ -149,7 +149,7 @@ public class VoteEndpoint {
         return CollectionResponse.<Vote>builder().setItems(voteList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
     }
 
-    private void checkExists(int id) throws NotFoundException {
+    private void checkExists(Long id) throws NotFoundException {
         try {
             ofy().load().type(Vote.class).id(id).safe();
         } catch (com.googlecode.objectify.NotFoundException e) {

@@ -58,7 +58,7 @@ public class FavoriteEndpoint {
             name = "get",
             path = "favorite/{id}",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public Favorite get(@Named("id") int id) throws NotFoundException {
+    public Favorite get(@Named("id") Long id) throws NotFoundException {
         logger.info("Getting Favorite with ID: " + id);
         Favorite favorite = ofy().load().type(Favorite.class).id(id).now();
         if (favorite == null) {
@@ -99,7 +99,7 @@ public class FavoriteEndpoint {
             name = "update",
             path = "favorite/{id}",
             httpMethod = ApiMethod.HttpMethod.PUT)
-    public Favorite update(@Named("id") int id, Favorite favorite) throws NotFoundException {
+    public Favorite update(@Named("id") Long id, Favorite favorite) throws NotFoundException {
         // TODO: You should validate your ID parameter against your resource's ID here.
         checkExists(id);
         ofy().save().entity(favorite).now();
@@ -118,7 +118,7 @@ public class FavoriteEndpoint {
             name = "remove",
             path = "favorite/{id}",
             httpMethod = ApiMethod.HttpMethod.DELETE)
-    public void remove(@Named("id") int id) throws NotFoundException {
+    public void remove(@Named("id") Long id) throws NotFoundException {
         checkExists(id);
         ofy().delete().type(Favorite.class).id(id).now();
         logger.info("Deleted Favorite with ID: " + id);
@@ -149,7 +149,7 @@ public class FavoriteEndpoint {
         return CollectionResponse.<Favorite>builder().setItems(favoriteList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
     }
 
-    private void checkExists(int id) throws NotFoundException {
+    private void checkExists(Long id) throws NotFoundException {
         try {
             ofy().load().type(Favorite.class).id(id).safe();
         } catch (com.googlecode.objectify.NotFoundException e) {

@@ -15,7 +15,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String content;
     private String date;
     private String username;
@@ -25,7 +25,7 @@ public class Comment {
     public Comment(){}
 
 
-    public Comment(int id, String content, String date, String username, int id_question, byte[] image) {
+    public Comment(Long id, String content, String date, String username, int id_question, byte[] image) {
         this.id=id;
         this.content=content;
         this.date=date;
@@ -42,11 +42,11 @@ public class Comment {
         this.image = image;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
