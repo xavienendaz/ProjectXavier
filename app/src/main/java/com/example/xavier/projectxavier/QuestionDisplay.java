@@ -30,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.xavier.myapplication.backend.myApi.model.MyBean;
+import com.example.xavier.myapplication.backend.voteApi.model.*;
+import com.example.xavier.myapplication.backend.voteApi.model.Vote;
 
 import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
@@ -171,9 +173,6 @@ public class QuestionDisplay extends AppCompatActivity {
                     c.setDate(currentTime);
                     c.setIdQuestion(myValueKeyIdQuestion);
 
-                    MyBean m = new MyBean();
-                    m.setData("sd");
-
 
                     new EndpointsAsyncTaskComment(c).execute();
 
@@ -224,6 +223,20 @@ public class QuestionDisplay extends AppCompatActivity {
                  /* If the User has not vote this question, we add a new positive vote */
                     dbHelper.addVote(usernameSharedPref, "like", myValueKeyIdQuestion);
                     dbHelper.close();
+
+                    /***** CLOUD *****/
+                    com.example.xavier.myapplication.backend.voteApi.model.Vote voteBackend = new Vote();
+                    voteBackend.setUsername(usernameSharedPref);
+                    voteBackend.setVote("like");
+                    String id_question = String.valueOf(myValueKeyIdQuestion);
+                    voteBackend.setIdQuestion(id_question);
+
+                    new EndpointsAsyncTaskLike(voteBackend).execute();
+
+                    /***** CLOUD *****/
+
+
+
                      }
 
                 setVote_Icons_Numbers();

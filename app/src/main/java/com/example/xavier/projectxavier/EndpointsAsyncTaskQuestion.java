@@ -45,7 +45,7 @@ public class EndpointsAsyncTaskQuestion extends AsyncTask<Void, Void, List<Quest
                     // if you deploy on the cloud backend, use your app name
                     // such as https://<your-app-id>.appspot.com
                     //.setRootUrl("http://10.0.2.2:8080/_ah/api/")
-                    .setRootUrl("https://nutrituo:8080/_ah/api/");
+                    .setRootUrl("https://nutrituo-152708.appspot.com/_ah/api/");
               /*     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {

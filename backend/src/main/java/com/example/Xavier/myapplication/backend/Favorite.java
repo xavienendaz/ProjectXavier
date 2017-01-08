@@ -1,38 +1,29 @@
 package com.example.Xavier.myapplication.backend;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 /**
  * Created by Xavier on 14.11.2016.
  */
 
-@Entity
 public class Favorite {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    int id;
     String username;
     String id_question;
 
     public Favorite() {
     }
 
-    public Favorite(Long id, String username, String id_question) {
+    public Favorite(int id, String username, String id_question) {
         this.id = id;
         this.username = username;
         this.id_question = id_question;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
