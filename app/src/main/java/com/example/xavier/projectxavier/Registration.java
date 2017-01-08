@@ -19,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.xavier.myapplication.backend.userApi.model.*;
+import com.example.xavier.myapplication.backend.userApi.model.User;
+
 import java.io.ByteArrayOutputStream;
 
 public class Registration extends AppCompatActivity {
@@ -124,6 +127,21 @@ public class Registration extends AppCompatActivity {
 
                     dbHelper.addUser(username, password, imageInByte);
                     Toast.makeText(getBaseContext(), R.string.thanksRegistration, Toast.LENGTH_SHORT).show();
+
+                    /***** CLOUD *****/
+
+                    com.example.xavier.myapplication.backend.userApi.model.User uBackend = new User();
+                    uBackend.setUsername(username);
+                    uBackend.setPassword(password);
+
+                    new EndpoitsAsyncTaskUser(uBackend).execute();
+
+
+                    /***** CLOUD *****/
+
+
+
+
                     dbHelper.close();
 
                     /* remove password and add username in sharedpreference */

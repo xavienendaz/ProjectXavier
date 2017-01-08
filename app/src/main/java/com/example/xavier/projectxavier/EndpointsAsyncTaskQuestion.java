@@ -39,19 +39,7 @@ public class EndpointsAsyncTaskQuestion extends AsyncTask<Void, Void, List<Quest
             // Only do this once
             QuestionApi.Builder builder = new QuestionApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
-                    // options for running against local devappserver
-                    // - 10.0.2.2 is localhost's IP address in Android emulator
-                    // - turn off compression when running against local devappserver
-                    // if you deploy on the cloud backend, use your app name
-                    // such as https://<your-app-id>.appspot.com
-                    //.setRootUrl("http://10.0.2.2:8080/_ah/api/")
                     .setRootUrl("https://nutrituo-152708.appspot.com/_ah/api/");
-              /*     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                        @Override
-                        public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
-                            abstractGoogleClientRequest.setDisableGZipContent(true);
-                        }
-                    });*/
             questionApi = builder.build();
         }
 
@@ -75,16 +63,18 @@ public class EndpointsAsyncTaskQuestion extends AsyncTask<Void, Void, List<Quest
     //of this method
     @Override
     protected void onPostExecute(List<Question> result){
+        Long val = 5715999101812736L;
 
         if(result != null) {
             for (Question question : result) {
                 Log.i(TAG, "Title: " + question.getTitle() + " Topic: "
                         + question.getTopic());
-
-          /*      for (Phone phone : question.getPhones()) {
-                    Log.i(TAG, "Phone number: " + phone.getNumber() + " Type: " + phone.getType());
+                try {
+                    questionApi.get(val).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-             */
+
             }
         }
     }

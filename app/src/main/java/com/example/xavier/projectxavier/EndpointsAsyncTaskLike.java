@@ -41,19 +41,7 @@ import java.util.List;
                 // Only do this once
                 VoteApi.Builder builder = new VoteApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
-                        // options for running against local devappserver
-                        // - 10.0.2.2 is localhost's IP address in Android emulator
-                        // - turn off compression when running against local devappserver
-                        // if you deploy on the cloud backend, use your app name
-                        // such as https://<your-app-id>.appspot.com
-                        //.setRootUrl("http://10.0.2.2:8080/_ah/api/")
                         .setRootUrl("https://nutrituo-152708.appspot.com/_ah/api/");
-                     /*   .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                            @Override
-                            public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
-                                abstractGoogleClientRequest.setDisableGZipContent(true);
-                            }
-                        });*/
                 voteApi = builder.build();
             }
 
@@ -62,10 +50,7 @@ import java.util.List;
                 // For instance insert
                 if(vote != null){
                     voteApi.insert(vote).execute();
-                    Log.i(TAG, "insert comment");
-                }
-                else{
-                    Log.i(TAG, "empty list");
+                    Log.i(TAG, "insert vote");
                 }
                 // and for instance return the list of all employees
                 return voteApi.list().execute().getItems();

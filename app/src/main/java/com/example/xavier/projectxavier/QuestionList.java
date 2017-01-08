@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class QuestionList extends AppCompatActivity {
 
@@ -276,6 +279,15 @@ public class QuestionList extends AppCompatActivity {
         new EndpointsAsyncTaskQuestion().execute();
     }
 
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+
         public boolean onOptionsItemSelected(MenuItem item) {
 
             switch (item.getItemId()) {
@@ -290,11 +302,12 @@ public class QuestionList extends AppCompatActivity {
 
                 case R.id.   menu_sync:
 
-                  //  @ApiMethod(name = “insertQuote”)
+                    if(isNetworkAvailable() == true){
+                        getQuestionsBackend();
+                    }else{
+                        Toast.makeText(getBaseContext(), R.string.notConnected, Toast.LENGTH_SHORT).show();
+                    }
 
-                   // new EndpointsAsyncTaskQuestion().execute();
-                    getQuestionsBackend();
-                    //cloud
                     return true;
 
                 /***** CLOUD *****/

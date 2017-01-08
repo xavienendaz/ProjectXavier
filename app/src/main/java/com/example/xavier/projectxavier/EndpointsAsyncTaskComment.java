@@ -37,19 +37,7 @@ import java.util.List;
                 // Only do this once
                 CommentApi.Builder builder = new CommentApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
-                        // options for running against local devappserver
-                        // - 10.0.2.2 is localhost's IP address in Android emulator
-                        // - turn off compression when running against local devappserver
-                        // if you deploy on the cloud backend, use your app name
-                        // such as https://<your-app-id>.appspot.com
-                        //.setRootUrl("http://10.0.2.2:8080/_ah/api/")
                         .setRootUrl("https://nutrituo-152708.appspot.com/_ah/api/");
-                     /*   .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                            @Override
-                            public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
-                                abstractGoogleClientRequest.setDisableGZipContent(true);
-                            }
-                        });*/
                 commentApi = builder.build();
             }
 
@@ -59,9 +47,6 @@ import java.util.List;
                 if(comment != null){
                     commentApi.insert(comment).execute();
                     Log.i(TAG, "insert comment");
-                }
-                else{
-                    Log.i(TAG, "empty list");
                 }
                 // and for instance return the list of all employees
                 return commentApi.list().execute().getItems();
@@ -82,10 +67,6 @@ import java.util.List;
                     Log.i(TAG, "Username: " + comment.getUsername() + " Content: "
                             + comment.getContent());
 
-          /*      for (Phone phone : comment.getPhones()) {
-                    Log.i(TAG, "Phone number: " + phone.getNumber() + " Type: " + phone.getType());
-                }
-             */
                 }
             }
         }

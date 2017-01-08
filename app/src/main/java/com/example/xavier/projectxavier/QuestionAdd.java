@@ -222,11 +222,10 @@ public class QuestionAdd extends AppCompatActivity {
             /***** CLOUD *****/
 
             com.example.xavier.myapplication.backend.questionApi.model.Question q = new com.example.xavier.myapplication.backend.questionApi.model.Question();
-            q.setTopic("testtopic");
-            q.setTitle("testtitle");
-            q.setContent("fuasdhviuasdgfsadufvoaufzvsdoufzvasdofuvsadofuashdfousdvfoasduhfvs");
+            q.setTopic(topic);
+            q.setTitle(title);
+            q.setContent(content);
             q.setUsername(usernameSharedPref);
-           // q.setImage(imageInByte);
             q.setDate(currentTime);
             q.setLanguage(currentLanguage);
 
