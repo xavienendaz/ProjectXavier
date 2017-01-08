@@ -35,7 +35,7 @@ import java.util.List;
 
             if(userApi == null){
                 // Only do this once
-                UseràApi.Builder builder = new UserApi.Builder(AndroidHttp.newCompatibleTransport(),
+                UserApi.Builder builder = new UserApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
                         .setRootUrl("https://nutrituo-152708.appspot.com/_ah/api/");
                 userApi = builder.build();
