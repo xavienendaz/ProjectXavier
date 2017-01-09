@@ -127,5 +127,6 @@
     <string name="characMin">characters: min 30</string>
     <string name="notOnline">You are not online</string>
     <string name="notConnected">No internet</string>
+    <string name="loading">synchronize ...</string>
 </resources>
 

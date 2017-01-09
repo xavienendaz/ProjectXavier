@@ -304,6 +304,7 @@ public class QuestionList extends AppCompatActivity {
 
                     if(isNetworkAvailable() == true){
                         getQuestionsBackend();
+                        Toast.makeText(getBaseContext(), R.string.loading, Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(getBaseContext(), R.string.notConnected, Toast.LENGTH_SHORT).show();
                     }

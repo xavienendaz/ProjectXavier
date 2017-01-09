@@ -69,11 +69,6 @@ public class EndpointsAsyncTaskQuestion extends AsyncTask<Void, Void, List<Quest
             for (Question question : result) {
                 Log.i(TAG, "Title: " + question.getTitle() + " Topic: "
                         + question.getTopic());
-                try {
-                    questionApi.get(val).execute();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
             }
         }

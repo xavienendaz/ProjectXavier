@@ -126,4 +126,5 @@
     <string name="characMin">lettres: min 30</string>
     <string name="notOnline">Vous n\'êtes pas en ligne</string>
     <string name="notConnected">Pas de connection internet</string>
+    <string name="loading">chargement ...</string>
 </resources>

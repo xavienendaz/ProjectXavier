@@ -25,7 +25,6 @@ import java.util.List;
         private User user;
 
     EndpoitsAsyncTaskUser(){}
-
     EndpoitsAsyncTaskUser(User user){
             this.user = user;
         }
@@ -34,21 +33,16 @@ import java.util.List;
         protected List<User> doInBackground(Void... params) {
 
             if(userApi == null){
-                // Only do this once
                 UserApi.Builder builder = new UserApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
                         .setRootUrl("https://nutrituo-152708.appspot.com/_ah/api/");
                 userApi = builder.build();
             }
-
             try{
-                // Call here the wished methods on the Endpoints
-                // For instance insert
                 if(user != null){
                     userApi.insert(user).execute();
                     Log.i(TAG, "insert user");
                 }
-                // and for instance return the list of all employees
                 return userApi.list().execute().getItems();
 
             } catch (IOException e){
@@ -57,8 +51,6 @@ import java.util.List;
             }
         }
 
-        //This method gets executed on the UI thread - The UI can be manipulated directly inside
-        //of this method
         @Override
         protected void onPostExecute(List<User> result){
 

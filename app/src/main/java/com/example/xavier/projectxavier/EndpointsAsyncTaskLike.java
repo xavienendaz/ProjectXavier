@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
+import android.view.ViewOutlineProvider;
 import android.widget.Toast;
 
 import com.example.xavier.myapplication.backend.commentApi.CommentApi;
@@ -50,6 +51,7 @@ import java.util.List;
                 // For instance insert
                 if(vote != null){
                     voteApi.insert(vote).execute();
+
                     Log.i(TAG, "insert vote");
                 }
                 // and for instance return the list of all employees
