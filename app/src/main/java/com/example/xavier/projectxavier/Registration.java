@@ -3,6 +3,7 @@ package com.example.xavier.projectxavier;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
@@ -130,7 +131,31 @@ public class Registration extends AppCompatActivity {
 
                     /***** CLOUD *****/
 
+                    com.example.xavier.projectxavier.User ubackend = null;
+                    Cursor cursor;
+                    cursor = dbHelper.getOneUserCloud(username);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            int id;
+                            String uname, pswd;
+                            id = cursor.getInt(0);
+                            uname = cursor.getString(1);
+
+                            ubackend = new com.example.xavier.projectxavier.User(id, uname);
+                        } while (cursor.moveToNext());
+                    }
+
+
+                    // Get my user created in my local database for get the id
+                    // like this, local and cloud object have the same id
+
+
                     com.example.xavier.myapplication.backend.userApi.model.User uBackend = new User();
+                    if(ubackend != null){
+                        Long idBackend = Long.valueOf(ubackend.getId());
+                        uBackend.setId(idBackend);
+                    }
+
                     uBackend.setUsername(username);
                     uBackend.setPassword(password);
 

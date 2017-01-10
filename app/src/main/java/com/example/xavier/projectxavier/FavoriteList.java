@@ -101,6 +101,29 @@ public class FavoriteList extends AppCompatActivity {
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
+                        /***** CLOUD *****/
+                        String idquestion = String.valueOf(q.getId());
+                        com.example.xavier.projectxavier.Favorite f = null;
+                        cursor = dbHelper.getOneFav(usernameSharedPref, idquestion);
+                        if (cursor.moveToFirst()) {
+                            do {
+                                int idf;
+                                String username, idq;
+
+                                idf = cursor.getInt(0);
+                                username = cursor.getString(1);
+                                idq = cursor.getString(2);
+
+                                f = new com.example.xavier.projectxavier.Favorite(idf, username, idq);
+
+                            } while (cursor.moveToNext());
+                        }
+                        com.example.xavier.myapplication.backend.favoriteApi.model.Favorite favBackend = new com.example.xavier.myapplication.backend.favoriteApi.model.Favorite();
+                        Long idBackend = Long.valueOf(f.getId());
+                        favBackend.setId(idBackend);
+                        new EndpointsAsyncTaskFavoriteDelete(favBackend).execute();
+                        /***** CLOUD *****/
+
                         // delete favorite from current Username and question_id
                         dbHelper.deleteFavorite(usernameSharedPref, q.getId());
                         Toast.makeText(getBaseContext(), R.string.favoriteDeleted, Toast.LENGTH_SHORT).show();

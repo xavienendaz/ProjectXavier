@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
@@ -31,7 +32,7 @@ public class QuestionList extends AppCompatActivity {
     Context context = this;
     Question q;
     AlertDialog.Builder builder;
-
+    byte [] imgtest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +118,7 @@ public class QuestionList extends AppCompatActivity {
                         content = cursor.getString(3);
                         username = cursor.getString(4);
                         image = cursor.getBlob(5);
+                        imgtest = cursor.getBlob(5);
                         date = cursor.getString(6);
 
                         nbLike = String.valueOf(dbHelper.countPositiveVote(id));
@@ -131,7 +133,27 @@ public class QuestionList extends AppCompatActivity {
                 displayQuestionsFromTopicSortNew();
             }
 
+        /*CLOUD
+       com.example.xavier.myapplication.backend.questionApi.model.Question qBackend = new com.example.xavier.myapplication.backend.questionApi.model.Question();
+        qBackend.setId(3L);
+      new EndpointsAsyncTaskQuestionGet(qBackend).execute();
 
+
+        int id;
+        String topic, title, content, username, nbLike, date;
+        byte[] image;
+        id = ((Long) qBackend.getId()).intValue();
+       // id = (int) qBackend.getId();
+        topic = q.getTopic();
+        title = q.getTitle();
+        content = q.getContent();
+        username = q.getUsername();
+        image = imgtest;
+        nbLike = qBackend.getNkLike();
+        date = qBackend.getDate();
+        Question qFromCloud = new Question(id, topic, title, content, username, image, nbLike, date);
+        questionListDataAdapter.add(qFromCloud);
+*/
             listViewOnClickListenerAllQuestions();
             listViewOnLongClickListener();
 

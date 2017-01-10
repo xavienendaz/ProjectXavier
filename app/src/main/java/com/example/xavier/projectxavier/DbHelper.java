@@ -140,12 +140,41 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
+    public Cursor getOneUserSettings(String username){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor  cursor;
+        String[] projections = {
+                DB_Contract.User.KEY_ID,
+                DB_Contract.User.USER_NAME
+        };
+
+        String selection =  DB_Contract.User.USER_NAME+" LIKE ? ";
+        String [] uname = {username};
+
+        cursor = db.query(DB_Contract.User.TABLE_NAME,projections,selection,uname,null,null,null,null);
+        return cursor;
+    }
+
     public Cursor getOneUser(String username){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor  cursor;
         String[] projections = {
                 DB_Contract.User.USER_NAME,
                 DB_Contract.User.USER_IMAGE};
+
+        String selection =  DB_Contract.User.USER_NAME+" LIKE ? ";
+        String [] uname = {username};
+
+        cursor = db.query(DB_Contract.User.TABLE_NAME,projections,selection,uname,null,null,null,null);
+        return cursor;
+    }
+
+    public Cursor getOneUserCloud(String username){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor  cursor;
+        String[] projections = {
+                DB_Contract.User.KEY_ID,
+                DB_Contract.User.USER_NAME};
 
         String selection =  DB_Contract.User.USER_NAME+" LIKE ? ";
         String [] uname = {username};
@@ -280,6 +309,28 @@ public class DbHelper extends SQLiteOpenHelper {
         cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,null,null,null,null,null,null);
         return cursor;
     }
+
+
+    /* get all questions from selected title used for the cloud */
+    public Cursor getOneQuestionFromTitle(String title) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor  cursor;
+        String[] projectionsQuestion = {
+                DB_Contract.Questions.KEY_ID,
+                DB_Contract.Questions.TOPIC,
+                DB_Contract.Questions.TITLE,
+                DB_Contract.Questions.CONTENT,
+                DB_Contract.Questions.USERNAME,
+                DB_Contract.Questions.QUESTION_IMAGE,
+                DB_Contract.Questions.QUESTION_DATE
+        };
+        String selection =  DB_Contract.Questions.TITLE+" LIKE ? ";
+        String [] t = {title};
+
+        cursor = db.query(DB_Contract.Questions.TABLE_NAME,projectionsQuestion,selection,t,null,null,null,null);
+        return cursor;
+    }
+
 
 
     /* get all questions from selected topic by date */
@@ -509,6 +560,21 @@ public class DbHelper extends SQLiteOpenHelper {
         Log.e("DATABASE OPERATIONS", "One Favorite created");
     }
 
+    //cloud
+    public Cursor getOneFav(String username, String question_id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(DB_Contract.Favorite.TABLE_NAME,
+                new String [] {
+                DB_Contract.Favorite.KEY_ID,
+                DB_Contract.Favorite.USER_NAME,
+                DB_Contract.Favorite.KEY_QUESTION_ID},
+                DB_Contract.Favorite.KEY_QUESTION_ID +"=?" +" AND " +  DB_Contract.Favorite.USER_NAME +"=?",
+                new String[] { question_id, username },
+                null,
+                null,
+                DB_Contract.Favorite.KEY_ID);
+        return cursor;
+    }
 
     /*  This method verify if the user has one question on the favorite table */
     public boolean verifyFavorite(String username, int id_question) {
@@ -777,5 +843,20 @@ public class DbHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    //cloud
+    public Cursor getOneVote(String username, String question_id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(DB_Contract.Vote.TABLE_NAME,
+                new String [] {
+                        DB_Contract.Vote.KEY_ID,
+                        DB_Contract.Vote.USER_NAME,
+                        DB_Contract.Vote.KEY_QUESTION_ID},
+                DB_Contract.Vote.KEY_QUESTION_ID +"=?" +" AND " +  DB_Contract.Vote.USER_NAME +"=?",
+                new String[] { question_id, username },
+                null,
+                null,
+                DB_Contract.Vote.KEY_ID);
+        return cursor;
+    }
 
 }

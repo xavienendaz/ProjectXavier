@@ -219,9 +219,35 @@ public class QuestionAdd extends AppCompatActivity {
             // add a Question in database
             dbHelper.addQuestion(topic, title, content, usernameSharedPref, imageInByte, currentTime, currentLanguage);
 
+
             /***** CLOUD *****/
 
+
+com.example.xavier.projectxavier.Question c = null;
+            Cursor cursor;
+            cursor = dbHelper.getOneQuestionFromTitle(title);
+            if (cursor.moveToFirst()) {
+                do {
+                    int id;
+                    String top, tit, cont, username;
+                    byte [] image;
+                    id = cursor.getInt(0);
+                    top = cursor.getString(1);
+                    tit = cursor.getString(2);
+                    cont = cursor.getString(3);
+                    username = cursor.getString(4);
+
+                    c = new com.example.xavier.projectxavier.Question(id, top, tit, cont, username);
+                } while (cursor.moveToNext());
+            }
+
+          // Get my question created in my local database for get the id
+            // like this, local and cloud object have the same id
+
+            Long idBackend = Long.valueOf(c.getId());
+
             com.example.xavier.myapplication.backend.questionApi.model.Question q = new com.example.xavier.myapplication.backend.questionApi.model.Question();
+            q.setId(idBackend);
             q.setTopic(topic);
             q.setTitle(title);
             q.setContent(content);

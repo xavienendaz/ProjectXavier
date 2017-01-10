@@ -30,6 +30,12 @@ public class User {
         this.image=image;
     }
 
+    public User(int id, String username) {
+        this.id=id;
+        this.username=username;
+    }
+
+
     public int getId() { return id; }
 
     public void setId(int id) { this.id = id; }

@@ -23,6 +23,12 @@ public class Vote {
         this.id_question = id_question;
     }
 
+    public Vote(int id, String username, String id_question) {
+        this.id = id;
+        this.username = username;
+        this.id_question = id_question;
+    }
+
     public int getId() {
         return id;
     }

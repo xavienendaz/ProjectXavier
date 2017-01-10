@@ -29,6 +29,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.xavier.myapplication.backend.favoriteApi.model.*;
+import com.example.xavier.myapplication.backend.favoriteApi.model.Favorite;
 import com.example.xavier.myapplication.backend.myApi.model.MyBean;
 import com.example.xavier.myapplication.backend.voteApi.model.*;
 import com.example.xavier.myapplication.backend.voteApi.model.Vote;
@@ -43,7 +45,7 @@ public class QuestionDisplay extends AppCompatActivity {
     String myValueTopicSelected, myValueKeyAuthor;
     User u;
     byte[] imgCommentAuthor;
-    Cursor cursor, cursorUser;
+    Cursor cursor, cursorUser, c1 , cursorFav;
     Context context = this;
     DbHelper dbHelper;
     SQLiteDatabase sqLiteDatabase;
@@ -123,6 +125,34 @@ public class QuestionDisplay extends AppCompatActivity {
 
                 if (dbHelper.verifyFavorite(usernameSharedPref, myValueKeyIdQuestion) == true) {
                     /* If the question is in favorites, we delete the row from table */
+
+                    /***** CLOUD *****/
+                    String idquestion = String.valueOf(myValueKeyIdQuestion);
+                    com.example.xavier.projectxavier.Favorite f = null;
+                    cursor = dbHelper.getOneFav(usernameSharedPref, idquestion);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            int id;
+                            String username, idq;
+
+                            id = cursor.getInt(0);
+                            username = cursor.getString(1);
+                            idq = cursor.getString(2);
+
+                           f = new com.example.xavier.projectxavier.Favorite(id, username, idq);
+
+                        } while (cursor.moveToNext());
+                    }
+
+
+                    com.example.xavier.myapplication.backend.favoriteApi.model.Favorite favBackend = new Favorite();
+
+                        Long idBackend = Long.valueOf(f.getId());
+                        favBackend.setId(idBackend);
+
+
+                    new EndpointsAsyncTaskFavoriteDelete(favBackend).execute();
+                    /***** CLOUD *****/
                     dbHelper.deleteFavorite(usernameSharedPref, myValueKeyIdQuestion);
                     Toast.makeText(getBaseContext(), R.string.favoriteDeleted, Toast.LENGTH_SHORT).show();
 
@@ -130,6 +160,40 @@ public class QuestionDisplay extends AppCompatActivity {
                     /* If the question is not in favorites */
                     dbHelper.addFavorite(usernameSharedPref, myValueKeyIdQuestion);
                     Toast.makeText(getBaseContext(), R.string.favoriteAdded, Toast.LENGTH_SHORT).show();
+                    dbHelper.close();
+                    /***** CLOUD *****/
+                    dbHelper = new DbHelper(context);
+                    String idquestion = String.valueOf(myValueKeyIdQuestion);
+                    com.example.xavier.projectxavier.Favorite fbackend = null;
+                    cursorFav = dbHelper.getOneFav(usernameSharedPref, idquestion);
+                    if (cursorFav.moveToFirst()) {
+                        do {
+                            int id;
+                            String username, idq;
+
+                            id = cursorFav.getInt(0);
+                            username = cursorFav.getString(1);
+                            idq = cursorFav.getString(2);
+
+                            fbackend = new com.example.xavier.projectxavier.Favorite(id, username, idq);
+
+                        } while (cursorFav.moveToNext());
+                    }
+
+
+                    com.example.xavier.myapplication.backend.favoriteApi.model.Favorite favBackend = new Favorite();
+
+                   if(fbackend != null){
+                       Long idBackend = Long.valueOf(fbackend.getId());
+                       favBackend.setId(idBackend);
+                   }
+
+                    favBackend.setUsername(usernameSharedPref);
+                    String id_question = String.valueOf(myValueKeyIdQuestion);
+                    favBackend.setIdQuestion(id_question);
+                    new EndpointsAsyncTaskFavorite(favBackend).execute();
+                    /***** CLOUD *****/
+
                     dbHelper.close();
                 }
                 setFabImage();
@@ -211,21 +275,111 @@ public class QuestionDisplay extends AppCompatActivity {
                     if(dbHelper.verifyLike(usernameSharedPref, myValueKeyIdQuestion)==true){
 
                      /* positive vote */
+
+                        /***** CLOUD *****/
+                        String idquestion = String.valueOf(myValueKeyIdQuestion);
+                        com.example.xavier.projectxavier.Vote vbackend = null;
+                        c1 = dbHelper.getOneVote(usernameSharedPref, idquestion);
+                        if (c1.moveToFirst()) {
+                            do {
+                                int id;
+                                String username, idq;
+
+                                id = c1.getInt(0);
+                                username = c1.getString(1);
+                                idq = c1.getString(2);
+
+                                vbackend = new com.example.xavier.projectxavier.Vote(id, username, idq);
+
+                            } while (c1.moveToNext());
+                        }
+
+                        com.example.xavier.myapplication.backend.voteApi.model.Vote voteBackend = new Vote();
+
+                            Long idBackend = Long.valueOf(vbackend.getId());
+                            voteBackend.setId(idBackend);
+
+                        new EndpointsAsyncTaskLikeDelete(voteBackend).execute();
+
+                        /***** CLOUD *****/
+
+
+
                         dbHelper.deleteVote(usernameSharedPref, myValueKeyIdQuestion);
                     }
                     else {
                       /* negative vote */
+
+                        /***** CLOUD *****/
+                        String idquestion = String.valueOf(myValueKeyIdQuestion);
+                        com.example.xavier.projectxavier.Vote vbackend = null;
+                        c1 = dbHelper.getOneVote(usernameSharedPref, idquestion);
+                        if (c1.moveToFirst()) {
+                            do {
+                                int id;
+                                String username, idq;
+
+                                id = c1.getInt(0);
+                                username = c1.getString(1);
+                                idq = c1.getString(2);
+
+                                vbackend = new com.example.xavier.projectxavier.Vote(id, username, idq);
+
+                            } while (c1.moveToNext());
+                        }
+
+                        com.example.xavier.myapplication.backend.voteApi.model.Vote voteBackend = new Vote();
+
+                        Long idBackend = Long.valueOf(vbackend.getId());
+                        voteBackend.setId(idBackend);
+                        voteBackend.setUsername(usernameSharedPref);
+                        voteBackend.setVote("like");
                         String id_question = String.valueOf(myValueKeyIdQuestion);
+                        voteBackend.setIdQuestion(id_question);
+
+                        new EndpointsAsyncTaskLikeUpdate(voteBackend).execute();
+
+                        /***** CLOUD *****/
+
+
+
+
+
+
                         dbHelper.updateVote(usernameSharedPref, "like", id_question);
                     }
                 }
                 else{
                  /* If the User has not vote this question, we add a new positive vote */
                     dbHelper.addVote(usernameSharedPref, "like", myValueKeyIdQuestion);
-                    dbHelper.close();
 
                     /***** CLOUD *****/
+                    String idquestion = String.valueOf(myValueKeyIdQuestion);
+                    com.example.xavier.projectxavier.Vote vbackend = null;
+                    c1 = dbHelper.getOneVote(usernameSharedPref, idquestion);
+                    if (c1.moveToFirst()) {
+                        do {
+                            int id;
+                            String username, idq;
+
+                            id = c1.getInt(0);
+                            username = c1.getString(1);
+                            idq = c1.getString(2);
+
+                            vbackend = new com.example.xavier.projectxavier.Vote(id, username, idq);
+
+                        } while (c1.moveToNext());
+                    }
+
+
+
+
                     com.example.xavier.myapplication.backend.voteApi.model.Vote voteBackend = new Vote();
+                    if(vbackend != null){
+                        Long idBackend = Long.valueOf(vbackend.getId());
+                        voteBackend.setId(idBackend);
+                    }
+
                     voteBackend.setUsername(usernameSharedPref);
                     voteBackend.setVote("like");
                     String id_question = String.valueOf(myValueKeyIdQuestion);
@@ -255,23 +409,110 @@ public class QuestionDisplay extends AppCompatActivity {
                     if(dbHelper.verifyLike(usernameSharedPref, myValueKeyIdQuestion)==true){
 
                      /* positive vote */
+                        /***** CLOUD *****/
+                        String idquestion = String.valueOf(myValueKeyIdQuestion);
+                        com.example.xavier.projectxavier.Vote vbackend = null;
+                        c1 = dbHelper.getOneVote(usernameSharedPref, idquestion);
+                        if (c1.moveToFirst()) {
+                            do {
+                                int id;
+                                String username, idq;
+
+                                id = c1.getInt(0);
+                                username = c1.getString(1);
+                                idq = c1.getString(2);
+
+                                vbackend = new com.example.xavier.projectxavier.Vote(id, username, idq);
+
+                            } while (c1.moveToNext());
+                        }
+
+                        com.example.xavier.myapplication.backend.voteApi.model.Vote voteBackend = new Vote();
+
+                        Long idBackend = Long.valueOf(vbackend.getId());
+                        voteBackend.setId(idBackend);
+                        voteBackend.setUsername(usernameSharedPref);
+                        voteBackend.setVote("likeNot");
                         String id_question = String.valueOf(myValueKeyIdQuestion);
+                        voteBackend.setIdQuestion(id_question);
+
+                        new EndpointsAsyncTaskLikeUpdate(voteBackend).execute();
+
+                        /***** CLOUD *****/
                         dbHelper.updateVote(usernameSharedPref, "likeNot", id_question);
                     }
                     else {
                       /* negative vote */
+                        /***** CLOUD *****/
+                        String idquestion = String.valueOf(myValueKeyIdQuestion);
+                        com.example.xavier.projectxavier.Vote vbackend = null;
+                        c1 = dbHelper.getOneVote(usernameSharedPref, idquestion);
+                        if (c1.moveToFirst()) {
+                            do {
+                                int id;
+                                String username, idq;
+
+                                id = c1.getInt(0);
+                                username = c1.getString(1);
+                                idq = c1.getString(2);
+
+                                vbackend = new com.example.xavier.projectxavier.Vote(id, username, idq);
+
+                            } while (c1.moveToNext());
+                        }
+
+                        com.example.xavier.myapplication.backend.voteApi.model.Vote voteBackend = new Vote();
+
+                        Long idBackend = Long.valueOf(vbackend.getId());
+                        voteBackend.setId(idBackend);
+
+                        new EndpointsAsyncTaskLikeDelete(voteBackend).execute();
+
+                        /***** CLOUD *****/
                         dbHelper.deleteVote(usernameSharedPref, myValueKeyIdQuestion);
                     }
 
-                    /* the user has voted */
-                    String id_question = String.valueOf(myValueKeyIdQuestion);
-                    dbHelper.updateVote(usernameSharedPref, "likeNot", id_question);
+
                 }
                 else{
 
-                 /* If the User has not vote this question, we add a new positive vote */
+                 /* If the User has not vote this question, we add a new negative vote */
                     dbHelper.addVote(usernameSharedPref, "likeNot", myValueKeyIdQuestion);
-                    dbHelper.close();
+                    /***** CLOUD *****/
+                    String idquestion = String.valueOf(myValueKeyIdQuestion);
+                    com.example.xavier.projectxavier.Vote vbackend = null;
+                    c1 = dbHelper.getOneVote(usernameSharedPref, idquestion);
+                    if (c1.moveToFirst()) {
+                        do {
+                            int id;
+                            String username, idq;
+
+                            id = c1.getInt(0);
+                            username = c1.getString(1);
+                            idq = c1.getString(2);
+
+                            vbackend = new com.example.xavier.projectxavier.Vote(id, username, idq);
+
+                        } while (c1.moveToNext());
+                    }
+
+
+
+
+                    com.example.xavier.myapplication.backend.voteApi.model.Vote voteBackend = new Vote();
+                    if(vbackend != null){
+                        Long idBackend = Long.valueOf(vbackend.getId());
+                        voteBackend.setId(idBackend);
+                    }
+
+                    voteBackend.setUsername(usernameSharedPref);
+                    voteBackend.setVote("likeNot");
+                    String id_question = String.valueOf(myValueKeyIdQuestion);
+                    voteBackend.setIdQuestion(id_question);
+
+                    new EndpointsAsyncTaskLike(voteBackend).execute();
+
+                    /***** CLOUD *****/
                 }
 
                 setVote_Icons_Numbers();
@@ -355,8 +596,25 @@ public class QuestionDisplay extends AppCompatActivity {
                 Comment c = new Comment(id, content, date, username, myValueKeyIdQuestion,  imgCommentAuthor);
                 commentAdapter.add(c);
 
+
             } while (cursor.moveToNext());
         }
+
+
+/*
+        com.example.xavier.myapplication.backend.commentApi.model.Comment coBackend = new com.example.xavier.myapplication.backend.commentApi.model.Comment();
+
+            Long idBackend = Long.valueOf(coBackend.getIdQuestion());
+            coBackend.setId(idBackend);
+
+
+        coBackend.setContent(coBackend.getContent());
+        coBackend.setUsername(coBackend.getUsername());
+
+        new EndpointsAsyncTaskCommentGet(coBackend).execute();
+*/
+
+
 
         // Count nb comments
         TextView t  = (TextView) findViewById(R.id.tvCommentsCpt);

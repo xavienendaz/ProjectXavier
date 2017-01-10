@@ -3,6 +3,7 @@ package com.example.xavier.projectxavier;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
@@ -15,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.xavier.myapplication.backend.userApi.model.*;
+import com.example.xavier.myapplication.backend.userApi.model.User;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 public class Settings extends AppCompatActivity {
@@ -98,6 +101,34 @@ public class Settings extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dbHelper = new DbHelper(getApplicationContext());
+
+
+                        /***** CLOUD *****/
+                        com.example.xavier.projectxavier.User usr = null;
+                       Cursor c1 = dbHelper.getOneUserSettings(usernameSharedPref);
+                        if (c1.moveToFirst()) {
+                            do {
+                                int id;
+                                String uname;
+
+                                id = c1.getInt(0);
+                                uname = c1.getString(0);
+                                usr = new com.example.xavier.projectxavier.User(id, uname);
+                            } while (c1.moveToNext());
+                        }
+
+                        User userCloud = new User();
+
+                        Long idBackend = Long.valueOf(usr.getId());
+                        userCloud.setId(idBackend);
+                        userCloud.setUsername(usernameSharedPref);
+                        // update password. I dont want to delete account
+                        userCloud.setPassword("AccountDeleted");
+
+                        new EndpointsAsyncTaskUserUpdate(userCloud).execute();
+
+                        /***** CLOUD *****/
+
 
                         dbHelper.deleteUser(usernameSharedPref);
 
